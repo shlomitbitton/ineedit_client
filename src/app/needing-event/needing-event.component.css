@@ -1,0 +1,12 @@
+.lighter-color {
+  color: #888; /* Light gray; adjust the color code as needed */
+}
+.list-item {
+  margin-bottom: 20px; /* Space between list items */
+  background-color: #f9f9f9; /* Light background for each item */
+  padding: 10px; /* Padding inside each list item */
+  border-radius: 5px; /* Optional: rounded corners */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: slight shadow for depth */
+  font-size: 20px;
+  font-family: 'Caveat', cursive;
+}
