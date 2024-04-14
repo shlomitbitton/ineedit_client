@@ -6,7 +6,10 @@
         <li *ngFor="let userNeed of needingEventOfUser" class="list-item">
           <div>Buy  {{ userNeed.itemNeededName }}  <span class="lighter-color">[ {{ userNeed.shoppingCategory }} ]</span></div>
           <div><span class="lighter-color">Need it {{ userNeed.daysListed }} days...</span></div>
-<!--          <div><strong>Still </strong> {{ userNeed.needingEventStatus }}</div>-->
+          <label class="switch">
+          <input type="checkbox" [checked]="userNeed.needingEventStatus === 'Need'" (change)="toggleStatus(userNeed.needingEventStatus)">
+          <span class="slider round"></span>
+        </label>
         </li>
       </ul>
     </div>

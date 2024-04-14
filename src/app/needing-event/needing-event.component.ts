@@ -50,6 +50,10 @@ export class NeedingEventComponent implements OnInit{
       });
   }
 
+  toggleStatus(userNeed: any): void {
+    userNeed.needingEventStatus = userNeed.needingEventStatus === 'Need' ? 'active' : 'inactive';
+  }
+
 
   getNeedingEventById(): void {
     this.needingEventService.getNeedingEventByUserId(this.userId)
