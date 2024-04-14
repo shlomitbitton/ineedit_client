@@ -21,7 +21,7 @@ body {
   height: calc(100% - 50px); /* Remaining height after the header */
 }
 .left-column {
-  flex: 2; /* 2/3 of the space */
+  flex: 3; /* 2/3 of the space */
   background-color: #f4f4f4;
   padding: 20px;
   border-radius: 10px;
@@ -33,4 +33,22 @@ body {
   border-radius: 10px;
   font-size: 20px;
   font-family: 'Caveat', cursive;
+}
+.social-media-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.social-media-links li {
+  display: inline-block;
+  margin-right: 10px; /* Space between icons */
+}
+
+.social-media-links a {
+  text-decoration: none;
+  color: #333; /* Dark grey text and icons */
+}
+
+.social-media-links a:hover {
+  color: #0056b3; /* Highlight color on hover */
 }
