@@ -5,7 +5,7 @@
       <ul>
         <li *ngFor="let userNeed of needingEventOfUser" class="list-item">
           <div>Buy  {{ userNeed.itemNeededName }}  <span class="lighter-color">[ {{ userNeed.shoppingCategory }} ]</span></div>
-          <div><span class="lighter-color">Need it already {{ userNeed.daysListed }} days...</span></div>
+          <div><span class="lighter-color">Need it {{ userNeed.daysListed }} days...</span></div>
 <!--          <div><strong>Still </strong> {{ userNeed.needingEventStatus }}</div>-->
         </li>
       </ul>
