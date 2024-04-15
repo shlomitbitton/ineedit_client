@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NeedingEventService} from "../needing-event.service";
 import {ActivatedRoute} from "@angular/router";
 import {NeedingEvent} from "./needing-event";
@@ -14,6 +14,7 @@ export class NeedingEventComponent implements OnInit{
   needingEventId!: string;
   userId!: string;
   needingEventOfUser: NeedingEvent[] = [] ;
+  // @ViewChild('needDiv') needDiv!: ElementRef;
 
   constructor(private needingEventService: NeedingEventService,
               private route: ActivatedRoute) { }
@@ -30,6 +31,7 @@ export class NeedingEventComponent implements OnInit{
   //     }
   //   });
   // }
+
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe(params => {
@@ -50,9 +52,20 @@ export class NeedingEventComponent implements OnInit{
       });
   }
 
-  toggleStatus(userNeed: any): void {
-    userNeed.needingEventStatus = userNeed.needingEventStatus === 'Need' ? 'active' : 'inactive';
+
+  toggleStatus(needingEventId: number): void {
+    // const needingEventStatus = userNeed.needingEventStatus === 'Need' ? 'Fulfilled' : 'Need';
+    this.needingEventService.updateStatus(needingEventId).subscribe({
+      next: (response) => {
+        console.log('Status updated successfully');
+      },
+      error: (error) => {
+        console.error('Failed to update status', error);
+      }
+    });
   }
+
+
 
 
   getNeedingEventById(): void {

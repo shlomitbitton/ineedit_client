@@ -9,6 +9,10 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: slight shadow for depth */
   font-size: 20px;
   font-family: 'Caveat', cursive;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Center items vertically */
+  border-bottom: 1px solid #ccc; /* Optional: adds a line between items */
 }
 /* The switch - the box around the slider */
 .switch {
@@ -60,4 +64,16 @@ input:checked + .slider:before {
 /* Optional: adds more styles for the slider focus (See CSS outline) */
 input:focus + .slider {
   box-shadow: 0 0 1px #2196F3;
+}
+
+.content {
+  flex-grow: 1; /* Allows the content to take up the rest of the space */
+}
+
+.toggle {
+  /* Adjust padding or margins as necessary */
+}
+
+.lighter-color {
+  color: #666;
 }

@@ -38,4 +38,10 @@ export class NeedingEventService {
       return of(result as T);
     };
   }
+
+  updateStatus(needingEventId: number) {
+    const url = `${this.apiUrl}updateNeedingEventStatus?needingEventId=${needingEventId}`;
+    return this.http.post(url, {});
+  }
+
 }
