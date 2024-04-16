@@ -53,7 +53,7 @@ export class NeedingEventComponent implements OnInit{
       }
     });
   }
-  
+
 
   getNeedingEventById(): void {
     this.needingEventService.getNeedingEventByUserId(this.userId)

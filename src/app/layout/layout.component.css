@@ -26,13 +26,18 @@ body {
   padding: 20px;
   border-radius: 10px;
 }
-.right-column {
+.footer {
+  display: flex;              /* Enables flexbox layout */
+  justify-content: center;    /* Centers content horizontally */
+  align-items: center;        /* Centers content vertically */
   flex: 1;
   background-color: #ddd;
   padding: 20px;
   border-radius: 10px;
   font-size: 20px;
   font-family: 'Caveat', cursive;
+  text-align: center;         /* Ensures text is centered if it wraps across multiple lines */
+  height: 100px;
 }
 
 .social-media-links ul {
