@@ -8,7 +8,7 @@ import {NeedingEvent} from "./needing-event/needing-event";
 })
 export class NeedingEventService {
   shoppingCategory: string = "GENERAL";
-  userId:number =2;
+  userId: string ='';
   vendorName: string ="To be determine";
 
   private apiUrl = 'http://localhost:8080/'; // URL to web api
@@ -27,6 +27,7 @@ export class NeedingEventService {
   getNeedingEventByUserId(userId: string): Observable<NeedingEvent[]> {
     let params = new HttpParams()
       .set('userId', userId);
+    this.userId = userId;
     return this.http.get<NeedingEvent[]>(this.apiUrl+"allNeedsByUser", {params: params})
       .pipe(
         catchError(this.handleError<any>('getNeedingEventByUserId'))
