@@ -16,6 +16,17 @@ body {
   font-family: 'Caveat', cursive;
   font-size: 28px;
 }
+.add-item {
+  width: 74%;
+  height: 40px;
+  background-color: #ECFFDC;
+  color: black;
+  text-align: center;
+  border-radius: 10px;
+  font-family: 'Caveat', cursive;
+  font-size: 28px;
+  margin-bottom: 20px; /* Adds space below this element */
+}
 .container {
   display: flex;
   height: calc(100% - 50px); /* Remaining height after the header */

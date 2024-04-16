@@ -2,7 +2,7 @@
   color: #888; /* Light gray; adjust the color code as needed */
 }
 .list-item {
-  margin-bottom: 20px; /* Space between list items */
+  margin-bottom: 10px; /* Space between list items */
   background-color: #f9f9f9; /* Light background for each item */
   padding: 10px; /* Padding inside each list item */
   border-radius: 5px; /* Optional: rounded corners */
@@ -54,7 +54,7 @@
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #088F8F;
 }
 
 input:checked + .slider:before {
@@ -63,7 +63,7 @@ input:checked + .slider:before {
 
 /* Optional: adds more styles for the slider focus (See CSS outline) */
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #088F8F;
 }
 
 .content {
