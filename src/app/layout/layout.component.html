@@ -3,20 +3,21 @@
   My Shopping list:
 </div>
 <div class="add-item">
-  Add item
+  <input type="text" [(ngModel)]="newItemName" placeholder="New item to my list" name="newItemName">
+  <button (click)="addItem()">I need one more thing...</button>
 </div>
 <div class="container">
   <div class="left-column">
     <router-outlet></router-outlet>
   </div>
-  <div class="right-column">
-    <div class="social-media-links">
-      <h4>Stay Connected on Social Media</h4>
-      <ul>
-        <li><a href="https://www.facebook.com/yourpage" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i> Facebook</a></li>
-        <li><a href="https://www.instagram.com/yourhandle" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a></li>
-      </ul>
-    </div>
+</div>
+<div class="right-column">
+  <div class="social-media-links">
+    <h4>Stay Connected on our Social Media</h4>
+    <ul>
+      <li><a href="https://www.facebook.com/yourpage" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i> Facebook</a></li>
+      <li><a href="https://www.instagram.com/yourhandle" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a></li>
+    </ul>
   </div>
 </div>
 

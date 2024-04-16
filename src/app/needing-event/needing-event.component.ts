@@ -14,23 +14,11 @@ export class NeedingEventComponent implements OnInit{
   needingEventId!: string;
   userId!: string;
   needingEventOfUser: NeedingEvent[] = [] ;
-  // @ViewChild('needDiv') needDiv!: ElementRef;
+
 
   constructor(private needingEventService: NeedingEventService,
               private route: ActivatedRoute) { }
 
-
-  // ngOnInit(): void {
-  //   this.route.queryParamMap.subscribe(params => {
-  //     const id = params.get('needingEventId');
-  //     if (id) {
-  //       this.needingEventId = id;
-  //       this.getNeedingEvent();
-  //     } else {
-  //       console.error('Needing Event ID is missing or undefined');
-  //     }
-  //   });
-  // }
 
 
   ngOnInit(): void {
@@ -53,6 +41,7 @@ export class NeedingEventComponent implements OnInit{
   }
 
 
+
   toggleStatus(needingEventId: number): void {
     // const needingEventStatus = userNeed.needingEventStatus === 'Need' ? 'Fulfilled' : 'Need';
     this.needingEventService.updateStatus(needingEventId).subscribe({
@@ -64,9 +53,7 @@ export class NeedingEventComponent implements OnInit{
       }
     });
   }
-
-
-
+  
 
   getNeedingEventById(): void {
     this.needingEventService.getNeedingEventByUserId(this.userId)
