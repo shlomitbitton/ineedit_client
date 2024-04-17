@@ -28,6 +28,10 @@
   width: 0;
   height: 0;
 }
+.label-left, .label-right {
+  margin: 0 10px;
+  font-size: 20px;
+}
 
 /* The slider */
 .slider {
@@ -39,15 +43,15 @@
   bottom: 0;
   background-color: #ccc;
   transition: .4s;
-  border-radius: 20px; /* Adjusted to half the height for full rounding */
+  border-radius: 20px;
 }
 .slider:before {
   position: absolute;
   content: "";
-  height: 16px; /* Reduced from 26px */
-  width: 16px; /* Reduced from 26px */
-  left: 2px; /* Reduced for proportion */
-  bottom: 2px; /* Reduced for proportion */
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
   background-color: white;
   transition: .4s;
   border-radius: 50%;

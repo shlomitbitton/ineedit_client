@@ -13,11 +13,13 @@
             </div>
           </div>
           <div class="toggle">
+            <span class="label-left">Don't need </span>
             <label class="switch">
               <input type="checkbox" [checked]="userNeed.needingEventStatus === 'Need'"
                      (change)="toggleStatus(userNeed.needingEventId)">
               <span class="slider round"></span>
             </label>
+            <span class="label-right">Need</span>
           </div>
         </li>
       </ul>

@@ -3,6 +3,7 @@ import {NeedingEventService} from "../needing-event.service";
 import {FormControl} from "@angular/forms";
 import {debounceTime, distinctUntilChanged} from "rxjs";
 import {NeedingEvent} from "../needing-event/needing-event";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-layout',
@@ -12,9 +13,19 @@ import {NeedingEvent} from "../needing-event/needing-event";
 export class LayoutComponent {
 
   newItemName: string ='';
+  userFirstName: string ='';
 
-  constructor(private needingEventService: NeedingEventService) { }
+  constructor(private needingEventService: NeedingEventService,
+              private route: ActivatedRoute) { }
 
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      const userId = params['userId'];
+      if (userId) {
+        this.fetchUserDetails(userId);
+      }
+    });
+  }
 
   addItem() {
     console.log(`Adding item: ${this.newItemName}`);
@@ -23,6 +34,18 @@ export class LayoutComponent {
       return;
     }
     this.needingEventService.createOrUpdateItem(this.newItemName);
+  }
+
+  fetchUserDetails(userId: string) {
+    console.info("fetching user details");
+    this.needingEventService.getUserDetailsById(userId).subscribe({
+      next: (data) => {
+        this.userFirstName = data.userFirstName;
+      },
+      error: (err) => {
+        console.error('Failed to fetch user details:', err);
+      }
+    });
   }
 
 }

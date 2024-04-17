@@ -62,5 +62,11 @@ export class NeedingEventService {
     });
   }
 
+//TODO: maybe later on to move to a User service
+  getUserDetailsById(userId: string): Observable<any> {
+    const url = `${this.apiUrl}getUserDetailsById?userId=${userId}`;
+    return this.http.get(url);
+  }
+
 
 }
