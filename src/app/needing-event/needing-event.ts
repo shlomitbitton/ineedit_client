@@ -3,6 +3,8 @@ export interface NeedingEvent{
     shoppingCategory: string,
     daysListed: string,
     needingEventStatus: string,
-    needingEventId: number
+    needingEventId: number,
+    potentialVendor: string
+
 
 }

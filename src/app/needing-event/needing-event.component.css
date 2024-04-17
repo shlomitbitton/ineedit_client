@@ -81,3 +81,13 @@ input:focus + .slider {
 .lighter-color {
   color: #666;
 }
+
+.item-wrapper {
+  display: flex;
+  align-items: center; /* Aligns items vertically in the center */
+  justify-content: space-between; /* Distributes space between the items */
+}
+
+.content, .vendor, .toggle {
+  flex: 1; /* Each section takes equal width */
+}

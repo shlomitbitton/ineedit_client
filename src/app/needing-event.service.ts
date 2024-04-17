@@ -9,7 +9,7 @@ import {NeedingEvent} from "./needing-event/needing-event";
 export class NeedingEventService {
   shoppingCategory: string = "GENERAL";
   userId: string ='';
-  vendorName: string ="To be determine";
+  vendorName: string ="Amazon";
 
   private apiUrl = 'http://localhost:8080/'; // URL to web api
   constructor(private http: HttpClient) { }
