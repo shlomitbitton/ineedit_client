@@ -13,7 +13,8 @@ import {ActivatedRoute} from "@angular/router";
 export class LayoutComponent {
 
   newItemName: string ='';
-  userFirstName: string ='';
+  needingEvent!: NeedingEvent;
+  userFirstName!: string;
 
   constructor(private needingEventService: NeedingEventService,
               private route: ActivatedRoute) { }
@@ -22,10 +23,11 @@ export class LayoutComponent {
     this.route.queryParams.subscribe(params => {
       const userId = params['userId'];
       if (userId) {
-        this.fetchUserDetails(userId);
+        this.userFirstName = this.needingEventService.fetchUserDetails(userId);
       }
     });
   }
+
 
   addItem() {
     console.log(`Adding item: ${this.newItemName}`);
@@ -33,19 +35,9 @@ export class LayoutComponent {
       console.error('No item name provided');
       return;
     }
-    this.needingEventService.createOrUpdateItem(this.newItemName);
+    this.needingEventService.createOrUpdateItem(this.newItemName, this.needingEvent );
   }
 
-  fetchUserDetails(userId: string) {
-    console.info("fetching user details");
-    this.needingEventService.getUserDetailsById(userId).subscribe({
-      next: (data) => {
-        this.userFirstName = data.userFirstName;
-      },
-      error: (err) => {
-        console.error('Failed to fetch user details:', err);
-      }
-    });
-  }
+
 
 }

@@ -2,18 +2,29 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams, withFetch} from "@angular/common/http";
 import {BehaviorSubject, catchError, Observable, of} from "rxjs";
 import {NeedingEvent} from "./needing-event/needing-event";
+import {ActivatedRoute} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class NeedingEventService {
-  shoppingCategory: string = "GENERAL";
-  userId: string ='';
-  vendorName: string ="Amazon";
+  shoppingCategory!: string;
+  userId!: string;
+  // vendorName!: string;
+
+  userFirstName: string ='';
 
   private apiUrl = 'http://localhost:8080/'; // URL to web api
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      const userId = params['userId'];
+      if (userId) {
+        this.fetchUserDetails(userId);
+      }
+    });
+  }
 
   getNeedingEventId(needingEventId: string): Observable<any> {
     let params = new HttpParams()
@@ -47,13 +58,13 @@ export class NeedingEventService {
     return this.http.post(url, {});
   }
 
-  createOrUpdateItem(item: string) {
+  createOrUpdateItem(newItemNae: string, item: NeedingEvent) {
     console.log(`Creating or updating item: ${item}`);
     const body = {
-      itemNeeded: item,
-      shoppingCategory: this.shoppingCategory,
-      userId: this.userId,
-      vendorName: this.vendorName
+      itemNeeded: newItemNae,
+      shoppingCategory: item.shoppingCategory ,
+      userId: this.fetchUserDetails(this.userId),
+      vendorName: item.potentialVendor
     };
     const url = `${this.apiUrl}addUpdateNeedingEvent`;
     return this.http.post(url, body).subscribe({
@@ -62,10 +73,37 @@ export class NeedingEventService {
     });
   }
 
-//TODO: maybe later on to move to a User service
+  createOrUpdateVendor(item: NeedingEvent, newVendorName: string | null) {
+    console.log(`Creating or updating vendor: ${newVendorName}`);
+    const body = {
+      itemNeeded: item.itemNeededName,
+      shoppingCategory: item.shoppingCategory,
+      userId: this.userId,
+      vendorName: newVendorName
+    };
+    const url = `${this.apiUrl}addUpdateNeedingEvent`;
+    return this.http.post(url, body).subscribe({
+      next: (response) => console.log('Response:', response),
+      error: (error) => console.error('Error updating new need:', error)
+    });
+  }
+
   getUserDetailsById(userId: string): Observable<any> {
     const url = `${this.apiUrl}getUserDetailsById?userId=${userId}`;
     return this.http.get(url);
+  }
+
+  fetchUserDetails(userId: string): string {
+    console.info("fetching user details");
+    this.getUserDetailsById(userId).subscribe({
+      next: (data) => {
+        this.userFirstName =  data.userFirstName;
+      },
+      error: (err) => {
+        console.error('Failed to fetch user details:', err);
+      }
+    });
+    return this.userFirstName;
   }
 
 

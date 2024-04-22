@@ -13,7 +13,9 @@
             </div>
           </div>
           <div class="vendor">
-            {{ userNeed.potentialVendor }}
+          <p>From: {{ userNeed.potentialVendor }}</p>
+          <input id="vendor" type="text" [formControl]="vendor" placeholder="Different shopping resource">
+            <button type="button" (click)="updateVendor(userNeed, vendor.value)">Update Vendor</button>
           </div>
           <div class="toggle">
             <span class="label-left">Don't need </span>

@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NeedingEventService} from "../needing-event.service";
 import {ActivatedRoute} from "@angular/router";
 import {NeedingEvent} from "./needing-event";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-needing-event',
@@ -10,17 +11,22 @@ import {NeedingEvent} from "./needing-event";
 })
 export class NeedingEventComponent implements OnInit{
 
-  needingEvent: any;
+  needingEvent!: NeedingEvent;
   needingEventId!: string;
   userId!: string;
   needingEventOfUser: NeedingEvent[] = [] ;
+  vendor = new FormControl('');
+
 
 
   constructor(private needingEventService: NeedingEventService,
               private route: ActivatedRoute) { }
 
 
-
+  updateVendor(userNeed: NeedingEvent, updatedVendor: string | null) {
+    // this.vendor = updatedVendor;
+    this.needingEventService.createOrUpdateVendor(userNeed, updatedVendor);
+  }
   ngOnInit(): void {
     this.route.queryParamMap.subscribe(params => {
       const id = params.get('userId');
