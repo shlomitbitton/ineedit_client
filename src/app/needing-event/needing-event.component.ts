@@ -16,12 +16,17 @@ export class NeedingEventComponent implements OnInit{
   userId!: string;
   needingEventOfUser: NeedingEvent[] = [] ;
   vendor = new FormControl('');
+  shoppingCategory = new FormControl('');
 
 
 
   constructor(private needingEventService: NeedingEventService,
               private route: ActivatedRoute) { }
 
+
+  getImagePathForVendor(vendor: string):string {
+    return `/assets/vendorLogo/${vendor}.png`;
+  }
 
   updateVendor(userNeed: NeedingEvent, updatedVendor: string | null) {
     // this.vendor = updatedVendor;

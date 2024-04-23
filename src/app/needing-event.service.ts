@@ -10,8 +10,6 @@ import {ActivatedRoute} from "@angular/router";
 export class NeedingEventService {
   shoppingCategory!: string;
   userId!: string;
-  // vendorName!: string;
-
   userFirstName: string ='';
 
   private apiUrl = 'http://localhost:8080/'; // URL to web api
@@ -58,13 +56,13 @@ export class NeedingEventService {
     return this.http.post(url, {});
   }
 
-  createOrUpdateItem(newItemNae: string, item: NeedingEvent) {
-    console.log(`Creating or updating item: ${item}`);
+  createOrUpdateItem(newItemNae: string) {
+    console.log(`Creating or updating item: ${newItemNae}`);
     const body = {
       itemNeeded: newItemNae,
-      shoppingCategory: item.shoppingCategory ,
+      shoppingCategory: 'GENERAL' ,
       userId: this.fetchUserDetails(this.userId),
-      vendorName: item.potentialVendor
+      vendorName: 'Amazon'
     };
     const url = `${this.apiUrl}addUpdateNeedingEvent`;
     return this.http.post(url, body).subscribe({
@@ -93,6 +91,19 @@ export class NeedingEventService {
     return this.http.get(url);
   }
 
+  getUserFirstName(userId: string): string {
+    console.info("getUserFirstName");
+    this.getUserDetailsById(userId).subscribe({
+      next: (data) => {
+        this.userFirstName =  data.userFirstName;
+      },
+      error: (err) => {
+        console.error('Failed to fetch user details:', err);
+      }
+    });
+    return this.userFirstName;
+  }
+
   fetchUserDetails(userId: string): string {
     console.info("fetching user details");
     this.getUserDetailsById(userId).subscribe({
@@ -103,7 +114,7 @@ export class NeedingEventService {
         console.error('Failed to fetch user details:', err);
       }
     });
-    return this.userFirstName;
+    return userId;
   }
 
 

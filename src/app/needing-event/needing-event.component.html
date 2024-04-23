@@ -13,8 +13,14 @@
             </div>
           </div>
           <div class="vendor">
-          <p>From: {{ userNeed.potentialVendor }}</p>
-          <input id="vendor" type="text" [formControl]="vendor" placeholder="Different shopping resource">
+            <!-- Conditional rendering of image if image path is available #textFallback-->
+            <!-- Fallback text content -->
+          <p>
+<!--            From:-->
+<!--            {{ userNeed.potentialVendor }}-->
+            <img [src]="getImagePathForVendor(userNeed.potentialVendor )" alt="Vendor Image" width="100" height="50">
+          </p>
+          <input id="vendor" type="text" [formControl]="vendor" placeholder="Change shopping resource">
             <button type="button" (click)="updateVendor(userNeed, vendor.value)">Update Vendor</button>
           </div>
           <div class="toggle">

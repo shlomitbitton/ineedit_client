@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import {NeedingEventService} from "../needing-event.service";
-import {FormControl} from "@angular/forms";
-import {debounceTime, distinctUntilChanged} from "rxjs";
 import {NeedingEvent} from "../needing-event/needing-event";
 import {ActivatedRoute} from "@angular/router";
 
@@ -23,7 +21,7 @@ export class LayoutComponent {
     this.route.queryParams.subscribe(params => {
       const userId = params['userId'];
       if (userId) {
-        this.userFirstName = this.needingEventService.fetchUserDetails(userId);
+        this.userFirstName = this.needingEventService.getUserFirstName(userId);
       }
     });
   }
@@ -35,7 +33,7 @@ export class LayoutComponent {
       console.error('No item name provided');
       return;
     }
-    this.needingEventService.createOrUpdateItem(this.newItemName, this.needingEvent );
+    this.needingEventService.createOrUpdateItem(this.newItemName);
   }
 
 
