@@ -1,29 +1,29 @@
 
 
-  <div *ngIf="needingEventOfUser; else loading">
-    <div>
+  <div *ngIf="needingEventOfUser; else loading" class="content">
       <ul>
         <li *ngFor="let userNeed of needingEventOfUser" class="list-item">
-          <div class="content">
-            <div>
-              {{ userNeed.itemNeededName }} <span class="lighter-color">[ {{ userNeed.shoppingCategory }} ]</span>
-            </div>
+          <div>
+            <div>{{ userNeed.itemNeededName }}</div>
             <div *ngIf="userNeed.needingEventStatus === 'Need'" #needDiv>
-              <span class="lighter-color">Need it {{ userNeed.daysListed }} days...</span>
+              <span class="lighter-color">Need it {{ userNeed.daysListed }} days now...</span>
             </div>
           </div>
-          <div class="vendor">
+          <div >
+            <span class="lighter-color" style="display: block;">[ {{ userNeed.shoppingCategory }} ]</span>
+            <select id="shoppingCategory" [formControl]="shoppingCategory">
+              <option *ngFor="let category of shoppingCategories" [value]="category">{{ category }}</option>
+            </select>
+            <button type="button" (click)="updateCategory(userNeed, shoppingCategory.value)">Select</button>
+          </div>
+          <div >
             <!-- Conditional rendering of image if image path is available #textFallback-->
             <!-- Fallback text content -->
-          <p>
-<!--            From:-->
-<!--            {{ userNeed.potentialVendor }}-->
-            <img [src]="getImagePathForVendor(userNeed.potentialVendor )" alt="Vendor Image" width="100" height="50">
-          </p>
-          <input id="vendor" type="text" [formControl]="vendor" placeholder="Change shopping resource">
+            <p><img [src]="getImagePathForVendor(userNeed.potentialVendor )" alt="Vendor Image" width="100" height="50"></p>
+            <input id="vendor" type="text" [formControl]="vendor" placeholder="Change shopping resource">
             <button type="button" (click)="updateVendor(userNeed, vendor.value)">Update Vendor</button>
           </div>
-          <div class="toggle">
+          <div>
             <span class="label-left">Don't need </span>
             <label class="switch">
               <input type="checkbox" [checked]="userNeed.needingEventStatus === 'Need'"
@@ -34,7 +34,6 @@
           </div>
         </li>
       </ul>
-    </div>
   </div>
   <ng-template #loading>
     <p>Loading event details...</p>

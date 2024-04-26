@@ -3,11 +3,12 @@ import {NeedingEventService} from "../needing-event.service";
 import {ActivatedRoute} from "@angular/router";
 import {NeedingEvent} from "./needing-event";
 import {FormControl} from "@angular/forms";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-needing-event',
   templateUrl: './needing-event.component.html',
-  styleUrl: './needing-event.component.css'
+  styleUrls: ['./needing-event.component.css']
 })
 export class NeedingEventComponent implements OnInit{
 
@@ -17,7 +18,8 @@ export class NeedingEventComponent implements OnInit{
   needingEventOfUser: NeedingEvent[] = [] ;
   vendor = new FormControl('');
   shoppingCategory = new FormControl('');
-
+  shoppingCategories!: any;
+  private subscriptions: Subscription = new Subscription();
 
 
   constructor(private needingEventService: NeedingEventService,
@@ -29,19 +31,39 @@ export class NeedingEventComponent implements OnInit{
   }
 
   updateVendor(userNeed: NeedingEvent, updatedVendor: string | null) {
-    // this.vendor = updatedVendor;
     this.needingEventService.createOrUpdateVendor(userNeed, updatedVendor);
   }
+  updateCategory(userNeed: NeedingEvent, updatedCategory: string | null) {
+    this.needingEventService.createOrUpdateShoppingCategory(userNeed, updatedCategory);
+  }
   ngOnInit(): void {
-    this.route.queryParamMap.subscribe(params => {
-      const id = params.get('userId');
-      if (id) {
-        this.userId = id;
-        this.getNeedingEventById();
-      } else {
-        console.error('User id is missing or undefined');
-      }
-    });
+    this.subscriptions.add(
+      this.route.queryParamMap.subscribe(params => {
+        const id = params.get('userId');
+        if (id) {
+          this.userId = id;
+          this.getNeedingEventById();
+        } else {
+          console.error('User id is missing or undefined');
+        }
+      })
+    );
+    this.subscriptions.add(
+      this.needingEventService.getAllShoppingCategories().subscribe({
+        next: (response) => {
+          console.log('Getting shopping categories', response);
+          this.shoppingCategories = response;
+        },
+        error: (error) => {
+          console.error('Failed to get shopping categories', error);
+        }
+      })
+    );
+  }
+
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   getNeedingEvent(): void {
@@ -50,6 +72,7 @@ export class NeedingEventComponent implements OnInit{
         this.needingEvent = needingEvent;
       });
   }
+
 
 
 

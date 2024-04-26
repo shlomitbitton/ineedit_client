@@ -2,17 +2,21 @@
   color: #888; /* Light gray; adjust the color code as needed */
 }
 .list-item {
-  margin-bottom: 10px; /* Space between list items */
+  display: grid;
+  grid-template-columns: 200px 300px auto;
+  margin-bottom: 15px; /* Space between list items */
   background-color: #f9f9f9; /* Light background for each item */
-  padding: 10px; /* Padding inside each list item */
+  padding: 25px; /* Padding inside each list item */
   border-radius: 5px; /* Optional: rounded corners */
   box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: slight shadow for depth */
   font-size: 20px;
   font-family: 'Caveat', cursive;
-  display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center; /* Center items vertically */
   border-bottom: 1px solid #ccc; /* Optional: adds a line between items */
+  gap: 10px;
+  min-height: 100px;
+  /*width: 100%;*/
 }
 /* The switch - the box around the slider */
 .switch {
@@ -30,7 +34,7 @@
 }
 .label-left, .label-right {
   margin: 0 10px;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 /* The slider */

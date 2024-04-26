@@ -12,6 +12,7 @@ export class NeedingEventService {
   userId!: string;
   userFirstName: string ='';
 
+
   private apiUrl = 'http://localhost:8080/'; // URL to web api
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
@@ -62,7 +63,7 @@ export class NeedingEventService {
       itemNeeded: newItemNae,
       shoppingCategory: 'GENERAL' ,
       userId: this.fetchUserDetails(this.userId),
-      vendorName: 'Amazon'
+      vendorName: 'On-line'
     };
     const url = `${this.apiUrl}addUpdateNeedingEvent`;
     return this.http.post(url, body).subscribe({
@@ -82,7 +83,22 @@ export class NeedingEventService {
     const url = `${this.apiUrl}addUpdateNeedingEvent`;
     return this.http.post(url, body).subscribe({
       next: (response) => console.log('Response:', response),
-      error: (error) => console.error('Error updating new need:', error)
+      error: (error) => console.error('Error updating vendor:', error)
+    });
+  }
+
+  createOrUpdateShoppingCategory(item: NeedingEvent, shoppingCategory: string | null) {
+    console.log(`Creating or updating shopping category: ${shoppingCategory}`);
+    const body = {
+      itemNeeded: item.itemNeededName,
+      shoppingCategory: shoppingCategory,
+      userId: this.userId,
+      vendorName: item.potentialVendor
+    };
+    const url = `${this.apiUrl}addUpdateNeedingEvent`;
+    return this.http.post(url, body).subscribe({
+      next: (response) => console.log('Response:', response),
+      error: (error) => console.error('Error updating shopping category:', error)
     });
   }
 
@@ -115,6 +131,12 @@ export class NeedingEventService {
       }
     });
     return userId;
+  }
+
+
+  getAllShoppingCategories() {
+    const url = `${this.apiUrl}getAllShoppingCategory`;
+    return this.http.get(url, {});
   }
 
 
