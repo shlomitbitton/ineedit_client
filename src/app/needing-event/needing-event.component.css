@@ -1,21 +1,23 @@
 .lighter-color {
   color: #888; /* Light gray; adjust the color code as needed */
+  font-size: 15px;
 }
 .list-item {
   display: grid;
-  grid-template-columns: 200px 300px auto;
-  margin-bottom: 15px; /* Space between list items */
+  grid-template-columns: 200px 120px 120px 200px;
+  margin-bottom: 8px; /* Space between list items */
   background-color: #f9f9f9; /* Light background for each item */
-  padding: 25px; /* Padding inside each list item */
+  padding: 10px; /* Padding inside each list item */
   border-radius: 5px; /* Optional: rounded corners */
   box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: slight shadow for depth */
-  font-size: 20px;
+  font-size: 25px;
   font-family: 'Caveat', cursive;
   justify-content: space-around;
   align-items: center; /* Center items vertically */
   border-bottom: 1px solid #ccc; /* Optional: adds a line between items */
-  gap: 10px;
-  min-height: 100px;
+  gap: 5px;
+  /*min-height: 60px;*/
+  /*max-height: 140px;*/
   /*width: 100%;*/
 }
 /* The switch - the box around the slider */
