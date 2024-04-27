@@ -16,7 +16,7 @@
           <div>
             <!-- Conditional rendering of image if image path is available #textFallback-->
             <!-- Fallback text content -->
-            <p><img [src]="getImagePathForVendor(userNeed.potentialVendor )" alt="Vendor Image" width="100" height="50"></p>
+            <p><img [src]="getImagePathForVendor(userNeed.potentialVendor )" alt="Vendor Image" width="80" height="40"></p>
             <input id="vendor" type="text" [formControl]="vendor" placeholder="Change shopping resource">
             <button type="button" (click)="updateVendor(userNeed, vendor.value)">Update Vendor</button>
           </div>
