@@ -3,9 +3,10 @@
   font-size: 18px;
 }
 .list-item {
+  align-items: center;
   display: grid;
   grid-template-columns: 200px 120px 120px 200px;
-  margin-bottom: 8px; /* Space between list items */
+  /*margin-bottom: 8px; !* Space between list items *!*/
   background-color: #f9f9f9; /* Light background for each item */
   padding: 10px; /* Padding inside each list item */
   border-radius: 5px; /* Optional: rounded corners */
@@ -13,9 +14,8 @@
   font-size: 25px;
   font-family: 'Caveat', cursive;
   justify-content: space-around;
-  align-items: center; /* Center items vertically */
   border-bottom: 1px solid #ccc; /* Optional: adds a line between items */
-  gap: 5px;
+  /*gap: 5px;*/
   /*min-height: 60px;*/
   /*max-height: 140px;*/
   /*width: 100%;*/
@@ -96,4 +96,13 @@ input:focus + .slider {
 
 .content, .vendor, .toggle {
   flex: 1; /* Each section takes equal width */
+}
+
+.select {
+  font-family: 'Caveat', cursive;
+  font-size: 14px;
+}
+.vendor-input{
+  border-radius: 2px;
+  border: 1px solid #bbb
 }

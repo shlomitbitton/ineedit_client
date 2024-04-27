@@ -4,20 +4,22 @@
       <ul>
         <li *ngFor="let userNeed of needingEventOfUser" class="list-item">
           <div>
-            <div>{{ userNeed.itemNeededName }}</div>
+            {{ userNeed.itemNeededName }}
+            <br/>
+            <span *ngIf="userNeed.needingEventStatus === 'Need'" #needDiv class="lighter-color">
+            Need it {{ userNeed.daysListed }} days now...</span>
           </div>
           <div>
-            <span class="lighter-color" style="display: block;">[ {{ userNeed.shoppingCategory }} ]</span>
-            <select id="shoppingCategory" [formControl]="shoppingCategory">
+            <span class="lighter-color">[ {{ userNeed.shoppingCategory }} ]</span>
+            <br/>
+            <select id="shoppingCategory" [formControl]="shoppingCategory" class="select">
               <option *ngFor="let category of shoppingCategories" [value]="category">{{ category }}</option>
             </select>
             <button type="button" (click)="updateCategory(userNeed, shoppingCategory.value)">Select</button>
           </div>
           <div>
-            <!-- Conditional rendering of image if image path is available #textFallback-->
-            <!-- Fallback text content -->
             <p><img [src]="getImagePathForVendor(userNeed.potentialVendor )" alt="Vendor Image" width="80" height="40"></p>
-            <input id="vendor" type="text" [formControl]="vendor" placeholder="Change shopping resource">
+            <input id="vendor" type="text" [formControl]="vendor" placeholder="Change shopping resource" class="vendor-input">
             <button type="button" (click)="updateVendor(userNeed, vendor.value)">Update Vendor</button>
           </div>
           <div>
@@ -29,9 +31,7 @@
             </label>
             <span class="label-right">Need</span>
           </div>
-          <div *ngIf="userNeed.needingEventStatus === 'Need'" #needDiv>
-            <span class="lighter-color">Need it {{ userNeed.daysListed }} days now...</span>
-          </div>
+
         </li>
       </ul>
   </div>
