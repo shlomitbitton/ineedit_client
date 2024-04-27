@@ -4,6 +4,15 @@
       <ul>
         <li *ngFor="let userNeed of needingEventOfUser" class="list-item">
           <div>
+            <span class="label-left">Don't need </span>
+            <label class="switch">
+              <input type="checkbox" [checked]="userNeed.needingEventStatus === 'Need'"
+                     (change)="toggleStatus(userNeed.needingEventId)">
+              <span class="slider round"></span>
+            </label>
+            <span class="label-right">Need</span>
+          </div>
+          <div>
             {{ userNeed.itemNeededName }}
             <br/>
             <span *ngIf="userNeed.needingEventStatus === 'Need'" #needDiv class="lighter-color">
@@ -22,16 +31,6 @@
             <input id="vendor" type="text" [formControl]="vendor" placeholder="Change shopping resource" class="vendor-input">
             <button type="button" (click)="updateVendor(userNeed, vendor.value)">Update Vendor</button>
           </div>
-          <div>
-            <span class="label-left">Don't need </span>
-            <label class="switch">
-              <input type="checkbox" [checked]="userNeed.needingEventStatus === 'Need'"
-                     (change)="toggleStatus(userNeed.needingEventId)">
-              <span class="slider round"></span>
-            </label>
-            <span class="label-right">Need</span>
-          </div>
-
         </li>
       </ul>
   </div>

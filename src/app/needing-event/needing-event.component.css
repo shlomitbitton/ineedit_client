@@ -5,15 +5,15 @@
 .list-item {
   align-items: center;
   display: grid;
-  grid-template-columns: 200px 120px 120px 200px;
+  grid-template-columns: 220px 290px 290px 120px;
   /*margin-bottom: 8px; !* Space between list items *!*/
   background-color: #f9f9f9; /* Light background for each item */
-  padding: 10px; /* Padding inside each list item */
+  padding: 2px; /* Padding inside each list item */
   border-radius: 5px; /* Optional: rounded corners */
   box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: slight shadow for depth */
   font-size: 25px;
   font-family: 'Caveat', cursive;
-  justify-content: space-around;
+  justify-content: left;
   border-bottom: 1px solid #ccc; /* Optional: adds a line between items */
   /*gap: 5px;*/
   /*min-height: 60px;*/
