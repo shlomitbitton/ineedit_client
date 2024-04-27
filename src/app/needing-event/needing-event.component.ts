@@ -19,12 +19,16 @@ export class NeedingEventComponent implements OnInit{
   vendor = new FormControl('');
   shoppingCategory = new FormControl('');
   shoppingCategories!: any;
-  private subscriptions: Subscription = new Subscription();
-
+  subscriptions: Subscription = new Subscription();
+  isDropdownVisible: boolean = false;
 
   constructor(private needingEventService: NeedingEventService,
               private route: ActivatedRoute) { }
 
+
+  toggleDropdown() {
+    this.isDropdownVisible = !this.isDropdownVisible;
+  }
 
   getImagePathForVendor(vendor: string):string {
     return `/assets/vendorLogo/${vendor}.png`;
@@ -34,8 +38,20 @@ export class NeedingEventComponent implements OnInit{
     this.needingEventService.createOrUpdateVendor(userNeed, updatedVendor);
   }
   updateCategory(userNeed: NeedingEvent, updatedCategory: string | null) {
-    this.needingEventService.createOrUpdateShoppingCategory(userNeed, updatedCategory);
+    this.needingEventService.createOrUpdateShoppingCategory(userNeed, updatedCategory).subscribe({
+      next: (response) => {
+        console.info(`updating category: `+ response.shoppingCategory);
+        this.shoppingCategory = response.shoppingCategory;
+      },
+      error: (error) => {
+        console.error('Error updating shopping category:', error);
+      },
+      complete: () => {
+        this.isDropdownVisible = false;
+      }
+    });
   }
+
   ngOnInit(): void {
     this.subscriptions.add(
       this.route.queryParamMap.subscribe(params => {

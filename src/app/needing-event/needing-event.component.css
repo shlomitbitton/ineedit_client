@@ -5,7 +5,7 @@
 .list-item {
   align-items: center;
   display: grid;
-  grid-template-columns: 220px 290px 290px 120px;
+  grid-template-columns: 220px 290px 270px 120px;
   /*margin-bottom: 8px; !* Space between list items *!*/
   background-color: #f9f9f9; /* Light background for each item */
   padding: 2px; /* Padding inside each list item */
@@ -106,3 +106,25 @@ input:focus + .slider {
   border-radius: 2px;
   border: 1px solid #bbb
 }
+/*.modal {*/
+/*  display: block; !* Hidden by default, shown when isDropdownVisible is true *!*/
+/*  position: fixed; !* Stay in place *!*/
+/*  z-index: 1; !* Sit on top *!*/
+/*  left: 0;*/
+/*  top: 0;*/
+/*  width: 100%; !* Full width *!*/
+/*  height: 100%; !* Full height *!*/
+/*  !*background-color: rgba(0,0,0,0.4); !* Black w/ opacity *!*!*/
+/*}*/
+
+/*.modal-content {*/
+/*  background-color: #fefefe;*/
+/*  margin: 15% auto; !* 15% from the top and centered *!*/
+/*  padding: 20px;*/
+/*  border: 1px solid #888;*/
+/*  width: 80%; !* Could be more or less, depending on screen size *!*/
+/*  z-index: 2; !* Sit on top of the overlay *!*/
+/*}*/
+
+
+

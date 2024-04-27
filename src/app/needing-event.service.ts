@@ -87,7 +87,7 @@ export class NeedingEventService {
     });
   }
 
-  createOrUpdateShoppingCategory(item: NeedingEvent, shoppingCategory: string | null) {
+  createOrUpdateShoppingCategory(item: NeedingEvent, shoppingCategory: string | null): Observable<any> {
     console.log(`Creating or updating shopping category: ${shoppingCategory}`);
     const body = {
       itemNeeded: item.itemNeededName,
@@ -96,10 +96,7 @@ export class NeedingEventService {
       vendorName: item.potentialVendor
     };
     const url = `${this.apiUrl}addUpdateNeedingEvent`;
-    return this.http.post(url, body).subscribe({
-      next: (response) => console.log('Response:', response),
-      error: (error) => console.error('Error updating shopping category:', error)
-    });
+    return this.http.post(url, body);
   }
 
   getUserDetailsById(userId: string): Observable<any> {
