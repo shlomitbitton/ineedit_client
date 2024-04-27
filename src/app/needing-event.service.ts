@@ -72,7 +72,7 @@ export class NeedingEventService {
     });
   }
 
-  createOrUpdateVendor(item: NeedingEvent, newVendorName: string | null) {
+  createOrUpdateVendor(item: NeedingEvent, newVendorName: string | null):Observable<any> {
     console.log(`Creating or updating vendor: ${newVendorName}`);
     const body = {
       itemNeeded: item.itemNeededName,
@@ -81,10 +81,11 @@ export class NeedingEventService {
       vendorName: newVendorName
     };
     const url = `${this.apiUrl}addUpdateNeedingEvent`;
-    return this.http.post(url, body).subscribe({
-      next: (response) => console.log('Response:', response),
-      error: (error) => console.error('Error updating vendor:', error)
-    });
+    return this.http.post(url, body);
+      // .subscribe({
+    //   next: (response) => console.log('Response:', response),
+    //   error: (error) => console.error('Error updating vendor:', error)
+    // });
   }
 
   createOrUpdateShoppingCategory(item: NeedingEvent, shoppingCategory: string | null): Observable<any> {

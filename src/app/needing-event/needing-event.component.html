@@ -23,17 +23,17 @@
             <br/>
           </div>
           <div *ngIf="isDropdownVisible">
-            <div>
               <select id="shoppingCategory" [formControl]="shoppingCategory" class="select">
                 <option *ngFor="let category of shoppingCategories" [value]="category">{{ category }}</option>
               </select>
               <button type="button" (click)="updateCategory(userNeed, shoppingCategory.value)">Select</button>
-            </div>
           </div>
-          <div>
-            <p><img [src]="getImagePathForVendor(userNeed.potentialVendor )" alt="Vendor Image" width="80" height="40"></p>
+          <div (click)="toggleInput()">
+            <img [src]="getImagePathForVendor(userNeed.potentialVendor )" alt="Vendor Image" width="80" height="40">
+          </div>
+          <div *ngIf="isInputVisible">
             <input id="vendor" type="text" [formControl]="vendor" placeholder="Change shopping resource" class="vendor-input">
-            <button type="button" (click)="updateVendor(userNeed, vendor.value)">Update Vendor</button>
+            <button type="button" (click)="updateVendor(userNeed, vendor.value)" class="select">Update Vendor</button>
           </div>
         </li>
       </ul>

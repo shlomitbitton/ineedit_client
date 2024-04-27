@@ -21,6 +21,7 @@ export class NeedingEventComponent implements OnInit{
   shoppingCategories!: any;
   subscriptions: Subscription = new Subscription();
   isDropdownVisible: boolean = false;
+  isInputVisible: boolean = false;
 
   constructor(private needingEventService: NeedingEventService,
               private route: ActivatedRoute) { }
@@ -30,13 +31,29 @@ export class NeedingEventComponent implements OnInit{
     this.isDropdownVisible = !this.isDropdownVisible;
   }
 
+  toggleInput() {
+    this.isInputVisible = !this.isInputVisible;
+  }
+
   getImagePathForVendor(vendor: string):string {
     return `/assets/vendorLogo/${vendor}.png`;
   }
 
   updateVendor(userNeed: NeedingEvent, updatedVendor: string | null) {
-    this.needingEventService.createOrUpdateVendor(userNeed, updatedVendor);
+    this.needingEventService.createOrUpdateVendor(userNeed, updatedVendor).subscribe({
+      next: (response) => {
+        console.info(`updating vendor: `+ response.shoppingCategory);
+        this.vendor = response.vendor;
+      },
+      error: (error) => {
+        console.error('Error updating vendor:', error);
+      },
+      complete: () => {
+        this.isInputVisible = false;
+      }
+    });
   }
+
   updateCategory(userNeed: NeedingEvent, updatedCategory: string | null) {
     this.needingEventService.createOrUpdateShoppingCategory(userNeed, updatedCategory).subscribe({
       next: (response) => {
