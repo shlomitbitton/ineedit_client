@@ -1,31 +1,5 @@
 
-body {
-  font-family: 'Caveat', cursive;
-  font-size: 24px;
-  line-height: 1.6; /* Increase line spacing */
-  letter-spacing: 1px; /* Optional: Increase space between characters */
-}
-.header {
-  width: 100%;
-  height: 50px; /* Adjust the height of the header bar */
-  background-color: #FFC933;
-  color: black;
-  text-align: center;
-  line-height: 50px; /* Vertical alignment */
-  border-radius: 10px;
-  font-family: 'Caveat', cursive;
-  font-size: 28px;
-}
-.container {
-  display: flex;
-  height: calc(100% - 50px); /* Remaining height after the header */
-}
-.left-column {
-  flex: 3;
-  background-color: #f4f4f4;
-  padding: 20px;
-  border-radius: 10px;
-}
+
 .footer {
   display: flex;              /* Enables flexbox layout */
   justify-content: center;    /* Centers content horizontally */
@@ -59,40 +33,9 @@ body {
   color: #0056b3; /* Highlight color on hover */
 }
 
-.add-item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  font-family: 'Arial', sans-serif;
+.login-link {
+  display: block; /* or inline-block */
+  margin-bottom: 10px; /* Add some space below the link */
+  text-align: right;
+  /* other styles */
 }
-
-.add-item input[type="text"] {
-  width: 60%; /* Adjust width as per your layout */
-  padding: 10px 15px;
-  margin-right: 10px;
-  border: 2px solid #0056b3; /* A nice blue border */
-  border-radius: 5px; /* Rounded borders for the input box */
-  font-size: 16px; /* Adequate font size for better readability */
-  outline: none; /* Removes the outline to make it look better on focus */
-}
-
-.add-item input[type="text"]:focus {
-  border-color: #004080; /* Darker shade of blue when focused */
-}
-
-.add-item button {
-  padding: 10px 20px;
-  background-color: #ECFFDC; /* A pleasant shade of blue */
-  color: black; /* White text for contrast */
-  border: none; /* No border for a modern look */
-  border-radius: 5px; /* Rounded borders for the button */
-  font-size: 16px;
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s; /* Smooth transition for a hover effect */
-}
-
-.add-item button:hover {
-  background-color: #C1E1C1; /* A slightly darker blue on hover */
-}
-

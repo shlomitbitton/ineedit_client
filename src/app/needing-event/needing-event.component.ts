@@ -23,6 +23,10 @@ export class NeedingEventComponent implements OnInit{
   isDropdownVisible: boolean = false;
   isInputVisible: boolean = false;
 
+  newItemName: string ='';
+  // needingEvent!: NeedingEvent;
+  userFirstName!: string;
+
   constructor(private needingEventService: NeedingEventService,
               private route: ActivatedRoute) { }
 
@@ -92,8 +96,22 @@ export class NeedingEventComponent implements OnInit{
         }
       })
     );
+    this.route.queryParams.subscribe(params => {
+      const userId = params['userId'];
+      if (userId) {
+        this.userFirstName = this.needingEventService.getUserFirstName(userId);
+      }
+    });
   }
 
+  addItem() {
+    console.log(`Adding item: ${this.newItemName}`);
+    if (!this.newItemName) {
+      console.error('No item name provided');
+      return;
+    }
+    this.needingEventService.createOrUpdateItem(this.newItemName);
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();

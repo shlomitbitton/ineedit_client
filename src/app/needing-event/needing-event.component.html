@@ -1,6 +1,13 @@
 
 
   <div *ngIf="needingEventOfUser; else loading" class="content">
+      <div *ngIf="userFirstName != null" class="header">
+        {{ userFirstName }}'s Shopping list:
+      </div>
+      <div *ngIf="userFirstName != null" class="add-item">
+        <input type="text" [(ngModel)]="newItemName" placeholder="New item to my list" name="newItemName">
+        <button (click)="addItem()">I need one more thing...</button>
+      </div>
       <ul>
         <li *ngFor="let userNeed of needingEventOfUser" class="list-item">
           <div class="toggle-container">
@@ -39,6 +46,6 @@
       </ul>
   </div>
   <ng-template #loading>
-    <p>Loading event details...</p>
+    <p>Loading my shopping list...</p>
   </ng-template>
 

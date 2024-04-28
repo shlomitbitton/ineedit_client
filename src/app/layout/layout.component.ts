@@ -10,31 +10,8 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class LayoutComponent {
 
-  newItemName: string ='';
-  needingEvent!: NeedingEvent;
-  userFirstName!: string;
-
-  constructor(private needingEventService: NeedingEventService,
-              private route: ActivatedRoute) { }
-
-  ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      const userId = params['userId'];
-      if (userId) {
-        this.userFirstName = this.needingEventService.getUserFirstName(userId);
-      }
-    });
-  }
 
 
-  addItem() {
-    console.log(`Adding item: ${this.newItemName}`);
-    if (!this.newItemName) {
-      console.error('No item name provided');
-      return;
-    }
-    this.needingEventService.createOrUpdateItem(this.newItemName);
-  }
 
 
 
