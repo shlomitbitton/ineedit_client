@@ -5,7 +5,7 @@
 .list-item {
   align-items: center;
   display: grid;
-  grid-template-columns: 220px 290px 100px 140px 100px 150px;
+  grid-template-columns: 220px 270px 150px 170px 180px 150px;
   /*margin-bottom: 8px; !* Space between list items *!*/
   background-color: #f9f9f9; /* Light background for each item */
   padding: 2px; /* Padding inside each list item */
