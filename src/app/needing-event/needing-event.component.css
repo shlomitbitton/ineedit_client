@@ -5,7 +5,7 @@
 .list-item {
   align-items: center;
   display: grid;
-  grid-template-columns: 220px 270px 150px 170px 180px 150px;
+  grid-template-columns: 250px 270px 150px 170px 180px 150px;
   /*margin-bottom: 8px; !* Space between list items *!*/
   background-color: #f9f9f9; /* Light background for each item */
   padding: 2px; /* Padding inside each list item */
@@ -81,8 +81,10 @@ input:focus + .slider {
   flex-grow: 1; /* Allows the content to take up the rest of the space */
 }
 
-.toggle {
-  /* Adjust padding or margins as necessary */
+.toggle-container {
+  display: flex;
+  align-items: normal; /* This will vertically center the toggle and labels */
+  justify-content: normal; /* This will center the entire toggle group horizontally, if needed */
 }
 
 .lighter-color {
