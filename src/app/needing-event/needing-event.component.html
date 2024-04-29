@@ -19,7 +19,7 @@
             </label>
             <span class="label-right">Need</span>
           </div>
-          <div>
+          <div class="item-name">
             {{ userNeed.itemNeededName }}
             <br/>
             <span *ngIf="userNeed.needingEventStatus === 'Need'" #needDiv class="lighter-color">
@@ -41,6 +41,9 @@
           <div *ngIf="isInputVisible">
             <input id="vendor" type="text" [formControl]="vendor" placeholder="Change shopping resource" class="vendor-input">
             <button type="button" (click)="updateVendor(userNeed, vendor.value)" class="select">Update Vendor</button>
+          </div>
+          <div>
+            <img [src]="'/assets/trash_icon.png'" alt="Delete this need" width="20" height="20" (click)="deleteNeed(userNeed.needingEventId)">
           </div>
         </li>
       </ul>

@@ -124,6 +124,13 @@ export class NeedingEventComponent implements OnInit{
       });
   }
 
+  deleteNeed(needingEventId: number) {
+    this.needingEventService.deleteNeed(needingEventId).subscribe({
+      next: (response) => console.log("Need deleted successfully", response),
+      error: (error) => console.error("Error deleting need", error)
+    });
+  }
+
 
 
 

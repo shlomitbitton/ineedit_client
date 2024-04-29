@@ -137,5 +137,10 @@ export class NeedingEventService {
     return this.http.get(url, {});
   }
 
+  deleteNeed(needingEventId: number){
+    const url = `${this.apiUrl}deleteNeed/${needingEventId}`;
+    console.info("deleting needing event {}", needingEventId);
+    return this.http.delete(url, {});
+  }
 
 }
