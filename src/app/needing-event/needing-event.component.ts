@@ -79,7 +79,7 @@ export class NeedingEventComponent implements OnInit{
         const id = params.get('userId');
         if (id) {
           this.userId = id;
-          this.getNeedingEventById();
+          this.getNeedingEventByUserId();
         } else {
           console.error('User id is missing or undefined');
         }
@@ -147,7 +147,7 @@ export class NeedingEventComponent implements OnInit{
   }
 
 
-  getNeedingEventById(): void {
+  getNeedingEventByUserId(): void {
     this.needingEventService.getNeedingEventByUserId(this.userId)
       .subscribe({next: (data) => {
       this.needingEventOfUser = data;

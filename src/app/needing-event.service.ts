@@ -13,7 +13,7 @@ export class NeedingEventService {
   userFirstName: string ='';
 
 
-  private apiUrl = 'http://localhost:8080/'; // URL to web api
+  private apiUrl = 'http://localhost:8080/api/'; // URL to web api
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -142,5 +142,6 @@ export class NeedingEventService {
     console.info("deleting needing event {}", needingEventId);
     return this.http.delete(url, {});
   }
+
 
 }

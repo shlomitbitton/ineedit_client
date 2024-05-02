@@ -4,11 +4,12 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NeedingEventComponent } from './needing-event/needing-event.component';
-import {HttpClientModule,withFetch} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule, withFetch} from "@angular/common/http";
 import {NeedingEventService} from "./needing-event.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
+import {AuthInterceptor} from "./auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { LoginComponent } from './login/login.component';
     ReactiveFormsModule,
   ],
   providers: [NeedingEventService,
-    provideClientHydration()
+    provideClientHydration(), { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
