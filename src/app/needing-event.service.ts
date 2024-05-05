@@ -3,6 +3,8 @@ import {HttpClient, HttpParams, withFetch} from "@angular/common/http";
 import {BehaviorSubject, catchError, Observable, of} from "rxjs";
 import {NeedingEvent} from "./needing-event/needing-event";
 import {ActivatedRoute} from "@angular/router";
+import {UserDetails} from "./needing-event/user-details";
+import {url} from "node:inspector";
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +18,14 @@ export class NeedingEventService {
   private apiUrl = 'http://localhost:8080/api/'; // URL to web api
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
-  ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      const userId = params['userId'];
-      if (userId) {
-        this.fetchUserDetails(userId);
-      }
-    });
-  }
+  // ngOnInit() {
+  //   this.route.queryParams.subscribe(params => {
+  //     const userId = params['userId'];
+  //     if (userId) {
+  //       this.fetchUserDetails(userId);
+  //     }
+  //   });
+  // }
 
   getNeedingEventId(needingEventId: string): Observable<any> {
     let params = new HttpParams()
@@ -105,17 +107,10 @@ export class NeedingEventService {
     return this.http.get(url);
   }
 
-  getUserFirstName(userId: string): string {
+  getUserFirstName(userId: string): Observable<UserDetails> {
+    const url = `${this.apiUrl}getUserDetailsById?userId=${userId}`;
     console.info("getUserFirstName");
-    this.getUserDetailsById(userId).subscribe({
-      next: (data) => {
-        this.userFirstName =  data.userFirstName;
-      },
-      error: (err) => {
-        console.error('Failed to fetch user details:', err);
-      }
-    });
-    return this.userFirstName;
+    return this.http.get<UserDetails>(url);
   }
 
   fetchUserDetails(userId: string): string {

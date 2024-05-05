@@ -4,6 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {NeedingEvent} from "./needing-event";
 import {FormControl} from "@angular/forms";
 import {Subscription} from "rxjs";
+import {UserDetails} from "./user-details";
 
 @Component({
   selector: 'app-needing-event',
@@ -24,7 +25,6 @@ export class NeedingEventComponent implements OnInit{
   isInputVisible: boolean = false;
 
   newItemName: string ='';
-  // needingEvent!: NeedingEvent;
   userFirstName!: string;
 
   constructor(private needingEventService: NeedingEventService,
@@ -96,12 +96,20 @@ export class NeedingEventComponent implements OnInit{
         }
       })
     );
+    this.subscriptions.add(
     this.route.queryParams.subscribe(params => {
       const userId = params['userId'];
       if (userId) {
-        this.userFirstName = this.needingEventService.getUserFirstName(userId);
+        this.needingEventService.getUserFirstName(userId).subscribe({
+          next: (userDetails: UserDetails) => {
+            this.userFirstName = userDetails.userFirstName;
+          },
+          error: (error: any) => {
+            console.error('Failed to get user first name', error);
+          }
+        });
       }
-    });
+    }));
   }
 
   addItem() {
