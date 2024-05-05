@@ -3,6 +3,7 @@ import {catchError, map, Observable, of, switchMap, tap} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {NeedingEventService} from "./needing-event.service";
 import { Router } from '@angular/router';
+import {TokenStorageService} from "./services/token-storage.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   private apiUrl = 'http://localhost:8080/api/'; // URL to web api
-  constructor(private http: HttpClient,private router: Router, private needingEventService: NeedingEventService) { }
+  constructor(private http: HttpClient,private router: Router, private needingEventService: NeedingEventService,
+              private tokenStorage: TokenStorageService) { }
 
 
   authenticateUser(username: string, password: string): Observable<any> {
@@ -22,7 +24,7 @@ export class AuthService {
         switchMap(response => {
           console.log('Login successful', response);
           // Save the token locally for further authenticated requests
-          localStorage.setItem('token', response.token);
+          this.tokenStorage.saveToken(response.token);
           return this.needingEventService.getNeedingEventByUserId(response.userId).pipe(
             tap(events => {
               // Navigate to the user-specific page after fetching events
