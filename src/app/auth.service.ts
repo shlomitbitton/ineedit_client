@@ -34,13 +34,13 @@ export class AuthService {
             }),
             catchError(error => {
               console.error('Error fetching events', error);
-              return of(null); // Handle errors within the stream
+              return of({ error: 'Error fetching events' });
             })
           );
         }),
         catchError(error => {
           console.error('Login failed', error);
-          return of(null); // Handle login failure
+          return of({ error: 'Login failed. Please check your credentials and try again.' });
         })
       );
   }
