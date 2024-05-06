@@ -180,5 +180,17 @@ body {
   background-color: #C1E1C1; /* A slightly darker blue on hover */
 }
 
+.button-like {
+
+  display: inline-block; /* Ensures div takes the size of the image */
+  border: 1px #ccc;
+  border-radius: 0px;
+  padding: 1px;
+  cursor: pointer; /* Change cursor to pointer by default */
+}
+
+.button-like:hover {
+  background-color: #f0f0f0; /* Change background color on hover */
+}
 
 

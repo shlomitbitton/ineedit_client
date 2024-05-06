@@ -23,7 +23,7 @@ export class NeedingEventComponent implements OnInit{
   subscriptions: Subscription = new Subscription();
   isDropdownVisible: boolean = false;
   isInputVisible: boolean = false;
-
+  isButtonLike: boolean = false;
   newItemName: string ='';
   userFirstName!: string;
 
@@ -162,6 +162,10 @@ export class NeedingEventComponent implements OnInit{
     },
       error: (err) => console.error('Failed to fetch strings:', err)
     });
+  }
+
+  toggleButtonLike() {
+    this.isButtonLike = !this.isButtonLike;
   }
 
 
