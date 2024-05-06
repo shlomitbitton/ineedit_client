@@ -50,6 +50,7 @@ export class NeedingEventComponent implements OnInit{
       next: (response) => {
         console.info(`updating vendor: `+ response.shoppingCategory);
         this.vendor = response.vendor;
+        this.getNeedingEventByUserId();
       },
       error: (error) => {
         console.error('Error updating vendor:', error);
@@ -65,6 +66,7 @@ export class NeedingEventComponent implements OnInit{
       next: (response) => {
         console.info(`updating category: `+ response.shoppingCategory);
         this.shoppingCategory = response.shoppingCategory;
+        this.getNeedingEventByUserId();
       },
       error: (error) => {
         console.error('Error updating shopping category:', error);
