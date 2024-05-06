@@ -18,14 +18,6 @@ export class NeedingEventService {
   private apiUrl = 'http://localhost:8080/api/'; // URL to web api
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
-  // ngOnInit() {
-  //   this.route.queryParams.subscribe(params => {
-  //     const userId = params['userId'];
-  //     if (userId) {
-  //       this.fetchUserDetails(userId);
-  //     }
-  //   });
-  // }
 
   getNeedingEventId(needingEventId: string): Observable<any> {
     let params = new HttpParams()
@@ -59,7 +51,7 @@ export class NeedingEventService {
     return this.http.post(url, {});
   }
 
-  createOrUpdateItem(newItemNae: string) {
+  createOrUpdateItem(newItemNae: string): Observable<any>  {
     console.log(`Creating or updating item: ${newItemNae}`);
     const body = {
       itemNeeded: newItemNae,
@@ -68,10 +60,7 @@ export class NeedingEventService {
       vendorName: 'On-line'
     };
     const url = `${this.apiUrl}addUpdateNeedingEvent`;
-    return this.http.post(url, body).subscribe({
-      next: (response) => console.log('Response:', response),
-      error: (error) => console.error('Error updating new need:', error)
-    });
+    return this.http.post(url, body);
   }
 
   createOrUpdateVendor(item: NeedingEvent, newVendorName: string | null):Observable<any> {
@@ -84,10 +73,6 @@ export class NeedingEventService {
     };
     const url = `${this.apiUrl}addUpdateNeedingEvent`;
     return this.http.post(url, body);
-      // .subscribe({
-    //   next: (response) => console.log('Response:', response),
-    //   error: (error) => console.error('Error updating vendor:', error)
-    // });
   }
 
   createOrUpdateShoppingCategory(item: NeedingEvent, shoppingCategory: string | null): Observable<any> {

@@ -5,6 +5,8 @@ import {NeedingEvent} from "./needing-event";
 import {FormControl} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {UserDetails} from "./user-details";
+import {response} from "express";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-needing-event',
@@ -118,7 +120,15 @@ export class NeedingEventComponent implements OnInit{
       console.error('No item name provided');
       return;
     }
-    this.needingEventService.createOrUpdateItem(this.newItemName);
+    this.needingEventService.createOrUpdateItem(this.newItemName).subscribe({
+      next: (response: any) => {
+        console.log('Item successfully created/updated:', response);
+        // Refresh the item list
+        this.getNeedingEventByUserId();
+        this.newItemName = '';
+      },
+      error: (error: any) => console.error('Error updating new need:', error)
+    });
   }
 
   ngOnDestroy(): void {
@@ -134,7 +144,9 @@ export class NeedingEventComponent implements OnInit{
 
   deleteNeed(needingEventId: number) {
     this.needingEventService.deleteNeed(needingEventId).subscribe({
-      next: (response) => console.log("Need deleted successfully", response),
+      next: (response) => {console.log("Need deleted successfully", response);
+      this.getNeedingEventByUserId();
+      },
       error: (error) => console.error("Error deleting need", error)
     });
   }
@@ -162,10 +174,6 @@ export class NeedingEventComponent implements OnInit{
     },
       error: (err) => console.error('Failed to fetch strings:', err)
     });
-  }
-
-  toggleButtonLike() {
-    this.isButtonLike = !this.isButtonLike;
   }
 
 
