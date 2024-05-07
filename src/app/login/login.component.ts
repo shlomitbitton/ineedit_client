@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from "../auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {error} from "@angular/compiler-cli/src/transformers/util";
+import {NewUser} from "./new-user";
+import {UserRegistrationService} from "../services/user-registration.service";
 
 @Component({
   selector: 'app-login',
@@ -10,17 +12,30 @@ import {error} from "@angular/compiler-cli/src/transformers/util";
   styleUrls:  ['./login.component.css']
 })
 export class LoginComponent {
+
   returnUrl: string = '';
   loginErrorMessage: string | null = null;
+  showRegisterForm = false;
   loginForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])
   });
 
-  constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService ) { }
+  registerForm: FormGroup;
+
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private authService: AuthService, private userRegistration: UserRegistrationService) {
+    this.registerForm = this.fb.group({
+      userFirstName: ['', Validators.required],
+      userLastName: ['', Validators.required],
+      userEmail: ['', [Validators.required, Validators.email]],
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
+
 
   onSubmit() {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] ;
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'];
 
     const username = this.loginForm.get('username')?.value || '';
     const password = this.loginForm.get('password')?.value || '';
@@ -31,6 +46,11 @@ export class LoginComponent {
       return;
     }
     this.login(username, password);
+    console.log('Login form submitted');
+  }
+
+  toggleRegisterForm() {
+    this.showRegisterForm = !this.showRegisterForm;
   }
 
   login(username: string, password: string) {
@@ -45,13 +65,21 @@ export class LoginComponent {
           this.loginErrorMessage = response.error || 'An unknown error occurred during login.';
         }
       },
-        error:(error) => {
+      error: (error) => {
         console.error('Login error:', error);
         this.loginErrorMessage = 'Login failed. Please check your credentials.';
       },
-        complete:() => console.log('Login request completed.')
+      complete: () => console.log('Login request completed.')
     });
   }
 
+  register() {
+    if (this.registerForm.valid) {
+      // Extract form values and create an object
+      const newUser = this.registerForm.value;
+      this.userRegistration.register(newUser);
+      console.log('Register form submitted');
+    }
+  }
 
 }

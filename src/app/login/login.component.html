@@ -1,13 +1,50 @@
-
-
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div class="login-form">
-    <input type="text" formControlName="username" placeholder="Username">
-    <input type="password" formControlName="password" placeholder="Password">
-    <div *ngIf="loginErrorMessage" class="alert alert-danger">
-      {{ loginErrorMessage }}
-    </div>
-    <button type="submit">Login</button>
+<div class="center-wrapper">
+  <div *ngIf="!showRegisterForm"  class="login-form">
+    <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <input type="text" formControlName="username" placeholder="Username">
+        <input type="password" formControlName="password" placeholder="Password">
+        <div *ngIf="loginErrorMessage" class="alert alert-danger">
+          {{ loginErrorMessage }}
+        </div>
+        <button type="submit">Login</button>
+      <button type="button" (click)="toggleRegisterForm()">Register</button>
+    </form>
   </div>
-
-</form>
+  <div *ngIf="showRegisterForm" class="register-new-user">
+    <h2>Register New User</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" formControlName="userFirstName" required>
+      <div *ngIf="registerForm.controls['userFirstName'].invalid && registerForm.controls['userFirstName'].touched">
+        First name is required.
+      </div>
+      <br/>
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" formControlName="userLastName" required>
+      <div *ngIf="registerForm.controls['userLastName'].invalid && registerForm.controls['userLastName'].touched">
+        Last name is required.
+      </div>
+      <br/>
+      <label for="email">Email:</label>
+      <input type="email" id="email" formControlName="userEmail" required>
+      <div *ngIf="registerForm.controls['userEmail'].invalid && registerForm.controls['userEmail'].touched">
+        Email is required and should be valid.
+      </div>
+      <br/>
+      <label for="username">Username:</label>
+      <input type="text" id="username" formControlName="username" required>
+      <div *ngIf="registerForm.controls['username'].invalid && registerForm.controls['username'].touched">
+        Username is required.
+      </div>
+      <br/>
+      <label for="password">Password:</label>
+      <input type="password" id="password" formControlName="password" required>
+      <div *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].touched">
+        Password is required.
+      </div>
+      <br/>
+      <button type="submit" [disabled]="registerForm.invalid">Register</button>
+    </form>
+  </div>
+</div>

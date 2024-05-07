@@ -1,6 +1,58 @@
-.login-form{
-  text-align: center;
+/* Parent container to center the forms */
+.center-wrapper {
+  display: flex;            /* Enables flexbox */
+  justify-content: center;  /* Centers content horizontally */
+  align-items: center;      /* Centers content vertically */
+  flex-direction: column;   /* Aligns items vertically */
+  width: 100vw;             /* Full viewport width */
+  height: 100vh;            /* Full viewport height */
+  gap: 20px;                /* Adds space between login and register forms */
+  box-sizing: border-box;   /* Prevents overflow due to padding/margin */
+  /*transform: translateY(-10%); !* Shifts forms upward by 10% of the viewport height *!*/
 }
+
+/* Styling for both login and register forms */
+.login-form, .register-new-user {
+  padding: 50px;                   /* Adds padding inside forms */
+  text-align: left;                /* Aligns text inside forms to the left */
+  width: 320px;                    /* Increased width for forms */
+  border: 1px solid #ccc;          /* Border for forms */
+  border-radius: 10px;             /* Adds rounded corners */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Soft shadow for forms */
+  background-color: #f9f9f9;       /* Light background color */
+  margin-bottom: 15px;             /* Adds space between forms */
+}
+
+/* Form fields: Inputs and labels */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+button {
+  width: 100%;                     /* Full width input fields */
+  padding: 10px;                   /* Increased padding */
+  margin: 5px 0 15px 0;            /* Adds spacing around fields */
+  border-radius: 5px;              /* Adds rounded corners to input fields */
+  border: 1px solid #ccc;          /* Border color for input fields */
+}
+
+button[type="submit"] {
+  background-color: #4CAF50;       /* Green button background */
+  color: white;                    /* White text color */
+  border: none;                    /* No border on the button */
+  cursor: pointer;                 /* Cursor style to indicate a clickable element */
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;       /* Darker green on hover */
+}
+
+/* Labels for form fields */
+label {
+  font-weight: bold;               /* Bold font weight */
+  margin-bottom: 5px;              /* Adds space between labels and fields */
+  display: block;                  /* Ensures labels occupy a new line */
+}
+
 /* General alert styles */
 .alert {
   padding: 15px;
