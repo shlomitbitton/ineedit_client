@@ -55,10 +55,12 @@ label {
 
 /* General alert styles */
 .alert {
-  padding: 15px;
+  padding: 8px;
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px;
+  color: black; /* Text color */
+  background-color: #66BB6A; /* Background color */
 }
 
 /* Alert-danger styles for error messages */

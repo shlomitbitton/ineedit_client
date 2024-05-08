@@ -11,6 +11,7 @@ import {TokenStorageService} from "./services/token-storage.service";
 export class AuthService {
 
   private apiUrl = 'http://localhost:8080/api/'; // URL to web api
+
   constructor(private http: HttpClient,private router: Router, private needingEventService: NeedingEventService,
               private tokenStorage: TokenStorageService) { }
 
@@ -25,10 +26,10 @@ export class AuthService {
           console.log('Login successful', response);
           // Save the token locally for further authenticated requests
           this.tokenStorage.saveToken(response.token);
-          return this.needingEventService.getNeedingEventByUserId(response.userId).pipe(
+          return this.needingEventService.getNeedingEventByUserId(response['user-id']).pipe(
             tap(events => {
               // Navigate to the user-specific page after fetching events
-              this.router.navigate([`allNeedsByUser`], { queryParams: { userId: response.userId } })
+              this.router.navigate([`all-needs-by-user`], { queryParams: { 'user-id': response['user-id']}})
                 .then(() => console.log("Navigation successful!"))
                 .catch(err => console.error("Navigation error: ", err)); // Handling navigation errors
             }),

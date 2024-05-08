@@ -22,7 +22,7 @@ export class NeedingEventService {
   getNeedingEventId(needingEventId: string): Observable<any> {
     let params = new HttpParams()
       .set('needingEventId', needingEventId);
-    return this.http.get(this.apiUrl +"needingEvent", {params: params})
+    return this.http.get(this.apiUrl +"needing-event", {params: params})
       .pipe(
         catchError(this.handleError<any>('getNeedingEventId'))
       );
@@ -30,9 +30,9 @@ export class NeedingEventService {
 
   getNeedingEventByUserId(userId: string): Observable<NeedingEvent[]> {
     let params = new HttpParams()
-      .set('userId', userId);
+      .set('user-id', userId);
     this.userId = userId;
-    return this.http.get<NeedingEvent[]>(this.apiUrl+"allNeedsByUser", {params: params})
+    return this.http.get<NeedingEvent[]>(this.apiUrl+"all-needs-by-user", {params: params})
       .pipe(
         catchError(this.handleError<any>('getNeedingEventByUserId'))
       );
@@ -47,7 +47,7 @@ export class NeedingEventService {
   }
 
   updateStatus(needingEventId: number) {
-    const url = `${this.apiUrl}updateNeedingEventStatus?needingEventId=${needingEventId}`;
+    const url = `${this.apiUrl}update-needing-event-status?needing-event-id=${needingEventId}`;
     return this.http.post(url, {});
   }
 
@@ -59,7 +59,7 @@ export class NeedingEventService {
       userId: this.fetchUserDetails(this.userId),
       vendorName: 'On-line'
     };
-    const url = `${this.apiUrl}addUpdateNeedingEvent`;
+    const url = `${this.apiUrl}add-update-needing-event`;
     return this.http.post(url, body);
   }
 
@@ -71,7 +71,7 @@ export class NeedingEventService {
       userId: this.userId,
       vendorName: newVendorName
     };
-    const url = `${this.apiUrl}addUpdateNeedingEvent`;
+    const url = `${this.apiUrl}add-update-needing-event`;
     return this.http.post(url, body);
   }
 
@@ -83,17 +83,17 @@ export class NeedingEventService {
       userId: this.userId,
       vendorName: item.potentialVendor
     };
-    const url = `${this.apiUrl}addUpdateNeedingEvent`;
+    const url = `${this.apiUrl}add-update-needing-event`;
     return this.http.post(url, body);
   }
 
   getUserDetailsById(userId: string): Observable<any> {
-    const url = `${this.apiUrl}getUserDetailsById?userId=${userId}`;
+    const url = `${this.apiUrl}user-details?user-id=${userId}`;
     return this.http.get(url);
   }
 
   getUserFirstName(userId: string): Observable<UserDetails> {
-    const url = `${this.apiUrl}getUserDetailsById?userId=${userId}`;
+    const url = `${this.apiUrl}user-details?user-id=${userId}`;
     console.info("getUserFirstName");
     return this.http.get<UserDetails>(url);
   }
@@ -113,12 +113,12 @@ export class NeedingEventService {
 
 
   getAllShoppingCategories() {
-    const url = `${this.apiUrl}getAllShoppingCategory`;
+    const url = `${this.apiUrl}shopping-category`;
     return this.http.get(url, {});
   }
 
   deleteNeed(needingEventId: number){
-    const url = `${this.apiUrl}deleteNeed/${needingEventId}`;
+    const url = `${this.apiUrl}delete-need/${needingEventId}`;
     console.info("deleting needing event {}", needingEventId);
     return this.http.delete(url, {});
   }

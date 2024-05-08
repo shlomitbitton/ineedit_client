@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from "../auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {error} from "@angular/compiler-cli/src/transformers/util";
-import {NewUser} from "./new-user";
 import {UserRegistrationService} from "../services/user-registration.service";
 
 @Component({
@@ -16,6 +14,7 @@ export class LoginComponent {
   returnUrl: string = '';
   loginErrorMessage: string | null = null;
   showRegisterForm = false;
+  showRegistrationSuccessfulMessage = false;
   loginForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])
@@ -25,9 +24,9 @@ export class LoginComponent {
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private authService: AuthService, private userRegistration: UserRegistrationService) {
     this.registerForm = this.fb.group({
-      userFirstName: ['', Validators.required],
-      userLastName: ['', Validators.required],
-      userEmail: ['', [Validators.required, Validators.email]],
+      // userFirstName: ['', Validators.required],
+      // userLastName: ['', Validators.required],
+      // userEmail: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
@@ -53,6 +52,10 @@ export class LoginComponent {
     this.showRegisterForm = !this.showRegisterForm;
   }
 
+  toggleRegistrationSuccessfulMessage() {
+    this.showRegistrationSuccessfulMessage = !this.showRegistrationSuccessfulMessage;
+  }
+
   login(username: string, password: string) {
     this.authService.authenticateUser(username, password).subscribe({
       next: (response) => {
@@ -75,10 +78,27 @@ export class LoginComponent {
 
   register() {
     if (this.registerForm.valid) {
-      // Extract form values and create an object
       const newUser = this.registerForm.value;
-      this.userRegistration.register(newUser);
-      console.log('Register form submitted');
+      this.userRegistration.register(newUser).subscribe({
+        next: (response) => {
+          if (response && !response.error) {
+            this.registerForm =  new FormGroup({});
+            this.showRegisterForm = false;
+            this.showRegistrationSuccessfulMessage = true;
+            //TODO: message Registration was successful please login.
+               // .then(() => console.log("Navigation successful!"))
+              // .catch(err => console.error("Navigation error: ", err)) // Handling navigation errors
+          } else {
+            console.error('Registration Error:', response.error || 'Unknown error occurred');
+            this.loginErrorMessage = response.error || 'An unknown error occurred during user registration.';
+          }
+        },
+        error: (error) => {
+          console.error('Registration error:', error);
+          this.loginErrorMessage = 'Registration failed.';
+        },
+        complete: () => console.log('Registration completed.')
+      });
     }
   }
 

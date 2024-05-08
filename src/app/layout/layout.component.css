@@ -40,6 +40,6 @@
   /* other styles */
 }
 .container {
-  display: flex;
-  height: calc(100% - 50px); /* Remaining height after the header */
+  /*display: flex;*/
+  /*height: calc(100% - 50px); !* Remaining height after the header *!*/
 }

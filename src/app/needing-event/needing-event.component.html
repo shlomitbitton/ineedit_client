@@ -1,13 +1,16 @@
 
 
-  <div *ngIf="needingEventOfUser; else loading" class="content">
+  <div class="content">
       <div *ngIf="userFirstName != null" class="header">
-        {{ userFirstName }}'s Shopping list:
+        My Shopping list:
       </div>
       <div *ngIf="userFirstName != null" class="add-item">
         <input type="text" [(ngModel)]="newItemName" placeholder="New item to my list" name="newItemName">
         <button (click)="addItem()">I need one more thing...</button>
       </div>
+    <br/>
+    <br/>
+    <div *ngIf="!showEmptyList; else loading">
       <ul>
         <li *ngFor="let userNeed of needingEventOfUser" class="list-item">
           <div class="toggle-container">
@@ -49,8 +52,9 @@
           </div>
         </li>
       </ul>
+    </div>
   </div>
-  <ng-template #loading>
-    <p>Loading my shopping list...</p>
+  <ng-template #loading class="empty-list">
+      <div class="cartoon-message">Your shopping list is empty!</div>
   </ng-template>
 

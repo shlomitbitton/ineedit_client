@@ -9,7 +9,7 @@ const routes: Routes = [ {
     path: '',
     component: LayoutComponent,
     children: [
-      { path: 'allNeedsByUser', component: NeedingEventComponent, canActivate: [AuthGuard] },
+      { path: 'all-needs-by-user', component: NeedingEventComponent, canActivate: [AuthGuard] },
       { path: 'login', component: LoginComponent },
       { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirect default to login page
       { path: '**', redirectTo: 'login' } // Wildcard route to handle invalid URLs

@@ -193,4 +193,49 @@ body {
   background-color: #f0f0f0; /* Change background color on hover */
 }
 
+.cartoon-container {
+  position: fixed; /* Fixed position to occupy the entire viewport */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0; /* Optional: A neutral background color */
+}
+
+.cartoon-message {
+  /* Simpler Cartoon-like Font */
+  font-family: 'Comic Sans MS', 'Arial', sans-serif;
+  font-size: 1.5em; /* Adjusted to a smaller size */
+  font-weight: bold;
+
+  /* Moderate Text Colors */
+  color: #088F8F; /* Bright orange color */
+  text-shadow: 1px 1px 0 #000; /* Single shadow for depth */
+
+  /* Background and Padding */
+  background-color: #fff3e0; /* Softer background */
+  padding: 10px; /* Smaller padding */
+  border-radius: 8px; /* Slightly rounded corners */
+
+  /* Simplified Border */
+  border: 3px solid #088F8F; /* Thinner black border */
+  box-shadow: 2px 2px 0 #ccc; /* Light shadow for a subtle pop */
+
+  /* Optional Animation */
+  animation: slightBounce 1.5s infinite;
+}
+
+/* Animation Keyframes with a Softer Bounce Effect */
+@keyframes slightBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px); /* Smaller bounce height */
+  }
+}
+
 

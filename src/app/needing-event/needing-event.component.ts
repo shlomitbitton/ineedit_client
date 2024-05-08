@@ -5,8 +5,6 @@ import {NeedingEvent} from "./needing-event";
 import {FormControl} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {UserDetails} from "./user-details";
-import {response} from "express";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-needing-event',
@@ -25,9 +23,10 @@ export class NeedingEventComponent implements OnInit{
   subscriptions: Subscription = new Subscription();
   isDropdownVisible: boolean = false;
   isInputVisible: boolean = false;
-  isButtonLike: boolean = false;
+  // isButtonLike: boolean = false;
   newItemName: string ='';
   userFirstName!: string;
+  showEmptyList = false;
 
   constructor(private needingEventService: NeedingEventService,
               private route: ActivatedRoute) { }
@@ -80,7 +79,7 @@ export class NeedingEventComponent implements OnInit{
   ngOnInit(): void {
     this.subscriptions.add(
       this.route.queryParamMap.subscribe(params => {
-        const id = params.get('userId');
+        const id = params.get('user-id');
         if (id) {
           this.userId = id;
           this.getNeedingEventByUserId();
@@ -102,7 +101,7 @@ export class NeedingEventComponent implements OnInit{
     );
     this.subscriptions.add(
     this.route.queryParams.subscribe(params => {
-      const userId = params['userId'];
+      const userId = params['user-id'];
       if (userId) {
         this.needingEventService.getUserFirstName(userId).subscribe({
           next: (userDetails: UserDetails) => {
@@ -125,7 +124,6 @@ export class NeedingEventComponent implements OnInit{
     this.needingEventService.createOrUpdateItem(this.newItemName).subscribe({
       next: (response: any) => {
         console.log('Item successfully created/updated:', response);
-        // Refresh the item list
         this.getNeedingEventByUserId();
         this.newItemName = '';
       },
@@ -170,11 +168,20 @@ export class NeedingEventComponent implements OnInit{
 
 
   getNeedingEventByUserId(): void {
-    this.needingEventService.getNeedingEventByUserId(this.userId)
-      .subscribe({next: (data) => {
-      this.needingEventOfUser = data;
-    },
-      error: (err) => console.error('Failed to fetch strings:', err)
+    this.needingEventService.getNeedingEventByUserId(this.userId).subscribe({
+      next: (data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          // Data is a non-empty array
+          this.needingEventOfUser = data;
+          console.log('Needing events fetched successfully:', data);
+        } else {
+          // Data is empty
+          this.showEmptyList = true;
+          console.info('this.showEmptyList: '+ this.showEmptyList);
+          console.warn('No needing events found for this user.');
+        }
+      },
+      error: (err) => console.error('Failed to fetch events:', err)
     });
   }
 
