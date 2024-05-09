@@ -210,6 +210,8 @@ body {
   font-family: 'Comic Sans MS', 'Arial', sans-serif;
   font-size: 1.5em; /* Adjusted to a smaller size */
   font-weight: bold;
+  align-content: center;
+  text-align: center;
 
   /* Moderate Text Colors */
   color: #088F8F; /* Bright orange color */
@@ -237,5 +239,6 @@ body {
     transform: translateY(-5px); /* Smaller bounce height */
   }
 }
+
 
 

@@ -126,6 +126,7 @@ export class NeedingEventComponent implements OnInit{
         console.log('Item successfully created/updated:', response);
         this.getNeedingEventByUserId();
         this.newItemName = '';
+        this.showEmptyList = false;
       },
       error: (error: any) => console.error('Error updating new need:', error)
     });
