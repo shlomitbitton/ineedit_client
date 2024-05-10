@@ -34,11 +34,21 @@
 }
 
 .login-link {
-  display: block; /* or inline-block */
-  margin-bottom: 10px; /* Add some space below the link */
+  color: #FFC933; /* Bright yellow color for visibility */
+  font-family: 'Arial', sans-serif;
+  font-size: 16px; /* Adjust as needed */
+  font-weight: bold;
+  text-decoration: none; /* Remove underline for consistency */
+  margin-left: 20px; /* Adds a gap between other elements */
   text-align: right;
-  /* other styles */
+  margin-bottom: 10px;
 }
+
+.login-link:hover {
+  color: #ffa500; /* Slightly darker yellow on hover */
+  text-decoration: underline; /* Add an underline on hover */
+}
+
 .container {
   /*display: flex;*/
   /*height: calc(100% - 50px); !* Remaining height after the header *!*/
