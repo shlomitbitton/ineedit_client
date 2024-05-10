@@ -11,6 +11,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 import {AuthInterceptor} from "./auth.interceptor";
 import {NgOptimizedImage} from "@angular/common";
+import {MatTooltip, MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -19,14 +20,15 @@ import {NgOptimizedImage} from "@angular/common";
     LayoutComponent,
     LoginComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgOptimizedImage,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgOptimizedImage,
+    MatTooltip
+  ],
   providers: [NeedingEventService,
     provideClientHydration(), { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],

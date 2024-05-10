@@ -22,7 +22,7 @@
             </label>
             <span class="label-right">Need</span>
           </div>
-          <div class="item-name">
+          <div class="item-name" matTooltip="{{ userNeed.needNotes }}" matTooltipPosition="below">
             {{ userNeed.itemNeededName }}
             <br/>
             <span *ngIf="userNeed.needingEventStatus === 'Need'" #needDiv class="lighter-color">

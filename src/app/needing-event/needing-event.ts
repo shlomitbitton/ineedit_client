@@ -4,7 +4,8 @@ export interface NeedingEvent{
     daysListed: string,
     needingEventStatus: string,
     needingEventId: number,
-    potentialVendor: string
+    potentialVendor: string,
+    needNotes: string
 
 
 }
