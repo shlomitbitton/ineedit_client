@@ -108,7 +108,7 @@ input:focus + .slider {
 
 .select {
   /*font-family: 'Caveat', cursive;*/
-  font-size: 14px;
+  font-size: 12px;
 }
 .vendor-input{
   border-radius: 2px;
