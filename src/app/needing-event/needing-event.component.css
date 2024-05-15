@@ -120,7 +120,7 @@ input:focus + .slider {
   width: 100%; /* Adjust the width percentage as needed to match the green outline */
   height: 80px; /* Adjust the height as needed */
   border: 1px solid #ccc; /* Optional: Adds a light grey border */
-  padding: 10px; /* Adds some padding inside the text box */
+  padding: 20px; /* Adds some padding inside the text box */
   box-sizing: border-box;
   font-family: 'Caveat', cursive;
   font-size: x-large;
@@ -196,7 +196,7 @@ body {
   display: inline-block; /* Ensures div takes the size of the image */
   border: 1px #ccc;
   border-radius: 0px;
-  padding: 1px;
+  padding: 20px;
   cursor: pointer; /* Change cursor to pointer by default */
 }
 
