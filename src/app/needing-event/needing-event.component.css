@@ -5,7 +5,7 @@
 .list-item {
   align-items: center;
   display: grid;
-  grid-template-columns: 230px 220px 130px 160px 160px 180px;
+  grid-template-columns: 230px 180px 130px 120px 110px 160px 150px 100px;
   /*margin-bottom: 8px; !* Space between list items *!*/
   background-color: #f9f9f9; /* Light background for each item */
   padding: 2px; /* Padding inside each list item */
@@ -113,6 +113,17 @@ input:focus + .slider {
 .vendor-input{
   border-radius: 2px;
   border: 1px solid #bbb
+}
+
+.need-notes{
+  border-radius: 2px;
+  width: 100%; /* Adjust the width percentage as needed to match the green outline */
+  height: 80px; /* Adjust the height as needed */
+  border: 1px solid #ccc; /* Optional: Adds a light grey border */
+  padding: 10px; /* Adds some padding inside the text box */
+  box-sizing: border-box;
+  font-family: 'Caveat', cursive;
+  font-size: x-large;
 }
 
 body {

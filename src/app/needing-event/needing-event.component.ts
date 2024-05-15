@@ -18,6 +18,7 @@ export class NeedingEventComponent implements OnInit{
   userId!: string;
   needingEventOfUser: NeedingEvent[] = [] ;
   vendor = new FormControl('');
+  neednotes = new FormControl('');
   shoppingCategory = new FormControl('');
   shoppingCategories!: any;
   subscriptions: Subscription = new Subscription();
@@ -79,10 +80,18 @@ export class NeedingEventComponent implements OnInit{
   ngOnInit(): void {
     this.subscriptions.add(
       this.route.queryParamMap.subscribe(params => {
-        const id = params.get('user-id');
-        if (id) {
-          this.userId = id;
+        const userId = params.get('user-id');
+        if (userId) {
+          this.userId = userId;
           this.getNeedingEventByUserId();
+          this.needingEventService.getUserFirstName(userId).subscribe({
+            next: (userDetails: UserDetails) => {
+              this.userFirstName = userDetails.userFirstName;
+            },
+            error: (error: any) => {
+              console.error('Failed to get user first name', error);
+            }
+          });
         } else {
           console.error('User id is missing or undefined');
         }
@@ -99,20 +108,6 @@ export class NeedingEventComponent implements OnInit{
         }
       })
     );
-    this.subscriptions.add(
-    this.route.queryParams.subscribe(params => {
-      const userId = params['user-id'];
-      if (userId) {
-        this.needingEventService.getUserFirstName(userId).subscribe({
-          next: (userDetails: UserDetails) => {
-            this.userFirstName = userDetails.userFirstName;
-          },
-          error: (error: any) => {
-            console.error('Failed to get user first name', error);
-          }
-        });
-      }
-    }));
   }
 
   addItem() {
