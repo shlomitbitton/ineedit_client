@@ -5,13 +5,14 @@ import {catchError, Observable, of, switchMap, tap} from "rxjs";
 import {TokenStorageService} from "./token-storage.service";
 import {Router} from "@angular/router";
 import {NeedingEventService} from "../needing-event.service";
+import {production} from "../../environments/environment.prod";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserRegistrationService {
 
-  private apiUrl = 'http://localhost:8080/api/';
+  private apiUrl = production.apiUrl;
 
   constructor(private http: HttpClient, private tokenStorage: TokenStorageService, private router: Router, private needingEventService: NeedingEventService){
 
@@ -19,17 +20,5 @@ export class UserRegistrationService {
 
   register(newUser: NewUser): Observable<any> {
     return this.http.post<any>(this.apiUrl + "user-registration", newUser);
-    //   tap(response => {
-    //     console.log('Registration successful', response);
-    //     // Navigate to the login page after a successful registration
-    //     this.router.navigate([`login`])
-    //       .then(() => console.log("Navigation to login page successful!"))
-    //       .catch(err => console.error("Navigation error: ", err)); // Handling navigation errors
-    //   }),
-    //   catchError(error => {
-    //     console.error('Error during registration', error);
-    //     return of({ error: 'Error during registration' });
-    //   })
-    // );
   }
 }

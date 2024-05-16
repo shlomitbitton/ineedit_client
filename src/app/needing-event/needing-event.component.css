@@ -117,8 +117,8 @@ input:focus + .slider {
 
 .need-notes{
   border-radius: 2px;
-  width: 100%; /* Adjust the width percentage as needed to match the green outline */
-  height: 80px; /* Adjust the height as needed */
+  width: 90%; /* Adjust the width percentage as needed to match the green outline */
+  height: 70px; /* Adjust the height as needed */
   border: 1px solid #ccc; /* Optional: Adds a light grey border */
   padding: 20px; /* Adds some padding inside the text box */
   box-sizing: border-box;

@@ -4,13 +4,15 @@ import {HttpClient} from "@angular/common/http";
 import {NeedingEventService} from "./needing-event.service";
 import { Router } from '@angular/router';
 import {TokenStorageService} from "./services/token-storage.service";
+import {production} from "../environments/environment.prod";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:8080/api/'; // URL to web api
+  private apiUrl = production.apiUrl;
+
 
   constructor(private http: HttpClient,private router: Router, private needingEventService: NeedingEventService,
               private tokenStorage: TokenStorageService) { }

@@ -4,6 +4,8 @@ import {BehaviorSubject, catchError, Observable, of} from "rxjs";
 import {NeedingEvent} from "./needing-event/needing-event";
 import {ActivatedRoute} from "@angular/router";
 import {UserDetails} from "./needing-event/user-details";
+import {production} from "../environments/environment.prod";
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +15,7 @@ export class NeedingEventService {
   userId!: string;
   userFirstName: string ='';
 
-
-  private apiUrl = 'http://localhost:8080/api/'; // URL to web api
+  private apiUrl = production.apiUrl;
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
 
