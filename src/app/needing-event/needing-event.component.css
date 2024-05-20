@@ -3,26 +3,46 @@
   font-size: 18px;
 }
 .list-item {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  display: grid;
-  grid-template-columns: 230px 180px 130px 120px 110px 160px 150px 100px;
-  /*margin-bottom: 8px; !* Space between list items *!*/
-  background-color: #f9f9f9; /* Light background for each item */
-  padding: 2px; /* Padding inside each list item */
-  border-radius: 5px; /* Optional: rounded corners */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: slight shadow for depth */
-  font-size: 25px;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  font-size: 20px;
   font-family: 'Caveat', cursive;
-  justify-content: left;
-  border-bottom: 1px solid #ccc; /* Optional: adds a line between items */
+  border-bottom: 1px solid #ccc;
   border-right: 1px solid #ccc;
-  padding-left: 1px;
-  padding-right: 1px;
-  /*gap: 5px;*/
-  /*min-height: 60px;*/
-  /*max-height: 140px;*/
-  /*width: 100%;*/
+  margin-bottom: 8px;
 }
+
+.list-item > div {
+  flex: 1;
+  min-width: 100px;
+  margin: 5px;
+}
+
+/* Media query for devices with a width of 600px or less */
+@media (max-width: 600px) {
+  .list-item {
+    flex-direction: column;
+    font-size: 18px;
+  }
+
+  .list-item > div {
+    min-width: 100%;
+    margin: 2px 0;
+  }
+}
+
+/* Media query for devices with a width between 600px and 900px */
+@media (min-width: 601px) and (max-width: 900px) {
+  .list-item {
+    font-size: 18px;
+  }
+}
+
 /* The switch - the box around the slider */
 .switch {
   position: relative;
