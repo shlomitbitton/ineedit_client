@@ -12,48 +12,73 @@
     <br/>
     <div *ngIf="!showEmptyList; else loading">
       <ul>
-        <li *ngFor="let userNeed of needingEventOfUser" class="list-item">
-          <div class="toggle-container">
-            <span class="label-left">Don't need </span>
-            <label class="switch">
-              <input type="checkbox" [checked]="userNeed.needingEventStatus === 'Need'"
-                     (change)="toggleStatus(userNeed.needingEventId)">
-              <span class="slider round"></span>
-            </label>
-            <span class="label-right">Need</span>
-          </div>
-          <div class="item-name" matTooltip="{{ userNeed.needNotes }}" matTooltipPosition="below">
-            {{ userNeed.itemNeededName }}
-            <br/>
-            <span *ngIf="userNeed.needingEventStatus === 'Need'" #needDiv class="lighter-color">
-            Need it {{ userNeed.daysListed }} days now...</span>
-          </div>
-          <div (click)="toggleDropdown()" class="lighter-color">
-            <span class="lighter-color">[ {{ userNeed.shoppingCategory }} ]</span>
-            <br/>
-          </div>
-          <div *ngIf="isDropdownVisible">
-              <select id="shoppingCategory" [formControl]="shoppingCategory" class="select">
-                <option *ngFor="let category of shoppingCategories" [value]="category">{{ category }}</option>
-              </select>
-              <button type="button" (click)="updateCategory(userNeed, shoppingCategory.value)">Select</button>
-          </div>
-          <div (click)="toggleInput()">
-            <img [src]="getImagePathForVendor(userNeed.potentialVendor )" alt="Vendor Image" width="80" height="40">
-          </div>
-          <div *ngIf="isInputVisible">
-            <input id="vendor" type="text" [formControl]="vendor" placeholder="Change shopping resource" class="vendor-input">
-            <button type="button" (click)="updateVendor(userNeed, vendor.value)" class="select">Update Vendor</button>
-          </div>
-          <div>
-            <input id="neednotes" type="text" [formControl]="neednotes" placeholder="Notes" class="need-notes">
-          </div>
-          <div>
-            <div class="button-like" (click)="deleteNeed(userNeed.needingEventId)">
-              <img [src]="'/assets/trash_icon.png'" alt="Delete this need" width="20" height="20">
+        <ng-container *ngFor="let userNeed of needingEventOfUser">
+          <li *ngIf="userNeed.needingEventStatus === 'Need'" class="list-item">
+            <div class="toggle-container">
+              <span class="label-left">Don't need </span>
+              <label class="switch">
+                <input type="checkbox" [checked]="userNeed.needingEventStatus === 'Need'"
+                       (change)="toggleStatus(userNeed.needingEventId)">
+                <span class="slider round"></span>
+              </label>
+              <span class="label-right">Need</span>
             </div>
-          </div>
-        </li>
+            <div class="item-name" matTooltip="{{ userNeed.needNotes }}" matTooltipPosition="below">
+              {{ userNeed.itemNeededName }}
+              <br/>
+              <span *ngIf="userNeed.needingEventStatus === 'Need'" #needDiv class="lighter-color">
+              Need it {{ userNeed.daysListed }} days now...</span>
+            </div>
+            <div (click)="toggleDropdown()" class="lighter-color">
+              <span class="lighter-color">[ {{ userNeed.shoppingCategory }} ]</span>
+              <br/>
+            </div>
+            <div *ngIf="isDropdownVisible">
+                <select id="shoppingCategory" [formControl]="shoppingCategory" class="select">
+                  <option *ngFor="let category of shoppingCategories" [value]="category">{{ category }}</option>
+                </select>
+                <button type="button" (click)="updateCategory(userNeed, shoppingCategory.value)">Select</button>
+            </div>
+            <div (click)="toggleInput()">
+              <img [src]="getImagePathForVendor(userNeed.potentialVendor )" alt="Vendor Image" width="80" height="40">
+            </div>
+            <div *ngIf="isInputVisible">
+              <input id="vendor" type="text" [formControl]="vendor" placeholder="Change shopping resource" class="vendor-input">
+              <button type="button" (click)="updateVendor(userNeed, vendor.value)" class="select">Update Vendor</button>
+            </div>
+  <!--          <div>-->
+  <!--            <input id="neednotes" type="text" [formControl]="neednotes" placeholder="Notes" class="need-notes">-->
+  <!--          </div>-->
+            <div>
+              <div class="button-like" (click)="deleteNeed(userNeed.needingEventId)">
+                <img [src]="'/assets/trash_icon.png'" alt="Delete this need" width="20" height="20">
+              </div>
+            </div>
+          </li>
+        </ng-container>
+      </ul>
+
+      <h3 class="fulfilled-needs-title">Fulfilled Needs</h3>
+      <ul>
+        <ng-container *ngFor="let userNeed of needingEventOfUser">
+          <li *ngIf="userNeed.needingEventStatus === 'Fulfilled'" class="list-item fulfilled-item">
+            <div class="fulfilled-toggle-container">
+              <span class="label-left">Don't need </span>
+              <label class="switch">
+                <input type="checkbox" [checked]="userNeed.needingEventStatus !== 'Fulfilled'"
+                       (change)="toggleStatus(userNeed.needingEventId)">
+                <span class="slider round"></span>
+              </label>
+              <span class="label-right">Need</span>
+            </div>
+            <div class="fulfilled-item-name" matTooltip="{{ userNeed.needNotes }}" matTooltipPosition="below">
+              {{ userNeed.itemNeededName }}
+            </div>
+            <div class="extra-column"></div>
+            <div class="extra-column"></div>
+            <div class="extra-column"></div>
+          </li>
+        </ng-container>
       </ul>
     </div>
   </div>

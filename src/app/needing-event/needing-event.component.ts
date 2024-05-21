@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {NeedingEventService} from "../needing-event.service";
 import {ActivatedRoute} from "@angular/router";
 import {NeedingEvent} from "./needing-event";
@@ -24,13 +24,14 @@ export class NeedingEventComponent implements OnInit{
   subscriptions: Subscription = new Subscription();
   isDropdownVisible: boolean = false;
   isInputVisible: boolean = false;
+  showNotes = false;
   // isButtonLike: boolean = false;
   newItemName: string ='';
   userFirstName!: string;
   showEmptyList = false;
 
   constructor(private needingEventService: NeedingEventService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute, private eRef: ElementRef) { }
 
 
   toggleDropdown() {
@@ -40,6 +41,7 @@ export class NeedingEventComponent implements OnInit{
   toggleInput() {
     this.isInputVisible = !this.isInputVisible;
   }
+
 
   getImagePathForVendor(vendor: string):string {
     return `/assets/vendorLogo/${vendor}.png`;
@@ -155,6 +157,7 @@ export class NeedingEventComponent implements OnInit{
     this.needingEventService.updateStatus(needingEventId).subscribe({
       next: (response) => {
         console.log('Status updated successfully');
+        this.getNeedingEventByUserId();
       },
       error: (error) => {
         console.error('Failed to update status', error);
