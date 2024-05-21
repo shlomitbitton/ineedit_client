@@ -63,6 +63,8 @@
 }
 .item-name{
   text-justify: auto;
+  font-weight: bold;
+  font-size: x-large;
 }
 
 /* The slider */
@@ -114,6 +116,7 @@ input:focus + .slider {
 
 .lighter-color {
   color: #666;
+  font-size: medium;
 }
 
 .item-wrapper {
