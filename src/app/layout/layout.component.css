@@ -33,16 +33,30 @@
   color: #0056b3; /* Highlight color on hover */
 }
 
+.login-container {
+  display: flex;
+  justify-content: space-between; /* Space out items to the sides */
+  align-items: flex-end; /* Align items at the bottom */
+  padding: 10px; /* Optional: Add some padding around the container */
+}
+
+.logo {
+  width: 100px; /* Set a specific width for the logo */
+  height: auto; /* Maintain the aspect ratio */
+  margin-left: 20px; /* Adds a gap between the logo and the left side */
+}
+
 .login-link {
   color: #FFC933; /* Bright yellow color for visibility */
   font-family: 'Arial', sans-serif;
   font-size: 16px; /* Adjust as needed */
   font-weight: bold;
   text-decoration: none; /* Remove underline for consistency */
-  margin-left: 20px; /* Adds a gap between other elements */
-  text-align: right;
-  margin-bottom: 10px;
+  margin-bottom: 10px; /* Align with the bottom of the container */
+  margin-right: 20px; /* Adds a gap between the login link and the right side */
 }
+
+
 
 .login-link:hover {
   color: #ffa500; /* Slightly darker yellow on hover */
