@@ -16,7 +16,7 @@
 
 /* Styling for both login and register forms */
 .login-form, .register-new-user {
-  padding: 50px;                   /* Adds padding inside forms */
+  padding: 35px;                   /* Adds padding inside forms */
   text-align: left;                /* Aligns text inside forms to the left */
   width: 320px;                    /* Increased width for forms */
   border: 1px solid #ccc;          /* Border for forms */
