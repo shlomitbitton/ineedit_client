@@ -7,7 +7,7 @@
   flex-wrap: wrap;
   align-items: center;
   background-color: #f9f9f9;
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   font-size: 20px;
@@ -15,6 +15,7 @@
   border-bottom: 1px solid #ccc;
   border-right: 1px solid #ccc;
   margin-bottom: 8px;
+  justify-content: space-evenly;
 }
 
 .list-item > div {
@@ -28,6 +29,7 @@
   .list-item {
     flex-direction: column;
     font-size: 18px;
+    padding: 5px;
   }
 
   .list-item > div {
@@ -213,9 +215,8 @@ body {
 .add-item button:hover {
   background-color: #C1E1C1; /* A slightly darker blue on hover */
 }
-
+/*trash icon*/
 .button-like {
-
   display: inline-block; /* Ensures div takes the size of the image */
   border: 1px #ccc;
   border-radius: 0px;
