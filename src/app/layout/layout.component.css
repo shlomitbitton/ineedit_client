@@ -41,7 +41,7 @@
 }
 
 .logo {
-  width: 100px; /* Set a specific width for the logo */
+  width: 150px; /* Set a specific width for the logo */
   height: auto; /* Maintain the aspect ratio */
   margin-left: 20px; /* Adds a gap between the logo and the left side */
 }

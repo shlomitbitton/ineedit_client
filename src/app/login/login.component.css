@@ -9,6 +9,9 @@
   gap: 20px;                /* Adds space between login and register forms */
   box-sizing: border-box;   /* Prevents overflow due to padding/margin */
   /*transform: translateY(-10%); !* Shifts forms upward by 10% of the viewport height *!*/
+  background-image: url('../../assets/login_page_background.png');
+  background-size: cover;
+  background-position: center;
 }
 
 /* Styling for both login and register forms */
@@ -69,3 +72,4 @@ label {
   background-color: #f2dede; /* Background color */
   border-color: #ebccd1; /* Border color */
 }
+
