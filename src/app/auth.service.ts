@@ -25,7 +25,7 @@ export class AuthService {
     return this.http.post<any>(url, body, { headers: { 'Content-Type': 'application/json' } })
       .pipe(
         switchMap(response => {
-          console.log('Login successful', response);
+          console.log('Login successful');
           // Save the token locally for further authenticated requests
           this.tokenStorage.saveToken(response.token);
           return this.needingEventService.getNeedingEventByUserId(response['user-id']).pipe(
