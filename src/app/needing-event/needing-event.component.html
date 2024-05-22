@@ -58,28 +58,32 @@
         </ng-container>
       </ul>
 
-      <h3 class="fulfilled-needs-title">Just in case I need it again...</h3>
-      <ul>
+      <ng-container *ngIf="fulfilledNeeds.length > 0">
+        <h3 class="fulfilled-needs-title">Just in case I need it again...</h3>
         <ng-container *ngFor="let userNeed of needingEventOfUser">
-          <li *ngIf="userNeed.needingEventStatus === 'Fulfilled'" class="list-item fulfilled-item">
-            <div class="fulfilled-toggle-container">
-              <span class="label-left">Don't need </span>
-              <label class="switch">
-                <input type="checkbox" [checked]="userNeed.needingEventStatus !== 'Fulfilled'"
-                       (change)="toggleStatus(userNeed.needingEventId)">
-                <span class="slider round"></span>
-              </label>
-              <span class="label-right">Need</span>
-            </div>
-            <div class="fulfilled-item-name" matTooltip="{{ userNeed.needNotes }}" matTooltipPosition="below">
-              {{ userNeed.itemNeededName }}
-            </div>
-            <div class="extra-column"></div>
-            <div class="extra-column"></div>
-            <div class="extra-column"></div>
-          </li>
-        </ng-container>
-      </ul>
+          <ng-container *ngIf="userNeed.needingEventStatus === 'Fulfilled'">
+            <ul>
+                <li class="list-item fulfilled-item">
+                  <div class="fulfilled-toggle-container">
+                    <span class="label-left">Don't need </span>
+                    <label class="switch">
+                      <input type="checkbox" [checked]="userNeed.needingEventStatus !== 'Fulfilled'"
+                             (change)="toggleStatus(userNeed.needingEventId)">
+                      <span class="slider round"></span>
+                    </label>
+                    <span class="label-right">Need</span>
+                  </div>
+                  <div class="fulfilled-item-name" matTooltip="{{ userNeed.needNotes }}" matTooltipPosition="below">
+                    {{ userNeed.itemNeededName }}
+                  </div>
+                  <div class="extra-column"></div>
+                  <div class="extra-column"></div>
+                  <div class="extra-column"></div>
+                </li>
+            </ul>
+          </ng-container>
+       </ng-container>
+      </ng-container>
     </div>
   </div>
   <ng-template #loading class="cartoon-container">

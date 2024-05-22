@@ -29,6 +29,7 @@ export class NeedingEventComponent implements OnInit{
   newItemName: string ='';
   userFirstName!: string;
   showEmptyList = false;
+  fulfilledNeeds: NeedingEvent[] = [] ;
 
   constructor(private needingEventService: NeedingEventService,
               private route: ActivatedRoute, private eRef: ElementRef) { }
@@ -42,7 +43,10 @@ export class NeedingEventComponent implements OnInit{
     this.isInputVisible = !this.isInputVisible;
   }
 
-
+  filterFulfilledNeeds() {
+    this.fulfilledNeeds = this.needingEventOfUser.filter(userNeed => userNeed.needingEventStatus === 'Fulfilled');
+    console.info("this.fulfilledNeeds :"+this.fulfilledNeeds);
+  }
   getImagePathForVendor(vendor: string):string {
     return `/assets/vendorLogo/${vendor}.png`;
   }
@@ -172,6 +176,7 @@ export class NeedingEventComponent implements OnInit{
         if (Array.isArray(data) && data.length > 0) {
           // Data is a non-empty array
           this.needingEventOfUser = data;
+          this.filterFulfilledNeeds();
           console.log('Needing events fetched successfully:', data);
         } else {
           // Data is empty
