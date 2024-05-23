@@ -71,7 +71,7 @@ export class NeedingEventComponent implements OnInit{
     this.needingEventService.createOrUpdateShoppingCategory(userNeed, updatedCategory).subscribe({
       next: (response) => {
         console.info(`updating category: `+ response.shoppingCategory);
-        this.shoppingCategory = response.shoppingCategory;
+        this.shoppingCategory.patchValue(response.shoppingCategory);
         this.getNeedingEventByUserId();
       },
       error: (error) => {
