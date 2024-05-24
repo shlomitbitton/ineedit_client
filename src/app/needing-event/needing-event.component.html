@@ -29,20 +29,20 @@
               <span *ngIf="userNeed.needingEventStatus === 'Need'" #needDiv class="lighter-color">
               Need it {{ userNeed.daysListed }} days now...</span>
             </div>
-            <div (click)="toggleDropdown()" class="lighter-color">
+            <div (click)="toggleDropdown()" class="mobileversion lighter-color">
               <span class="lighter-color">[ {{ userNeed.shoppingCategory }} ]</span>
               <br/>
             </div>
-            <div *ngIf="isDropdownVisible">
+            <div *ngIf="isDropdownVisible" class="mobileversion">
                 <select id="shoppingCategory" [formControl]="shoppingCategory" class="select">
                   <option *ngFor="let category of shoppingCategories" [value]="category">{{ category }}</option>
                 </select>
                 <button type="button" (click)="updateCategory(userNeed, shoppingCategory.value)">Select</button>
             </div>
-            <div (click)="toggleInput()">
+            <div class="mobileversion" (click)="toggleInput()">
               <img [src]="getImagePathForVendor(userNeed.potentialVendor )" alt="Vendor Image" width="80" height="40">
             </div>
-            <div *ngIf="isInputVisible">
+            <div class="mobileversion" *ngIf="isInputVisible">
               <input id="vendor" type="text" [formControl]="vendor" placeholder="Change shopping resource" class="vendor-input">
               <button type="button" (click)="updateVendor(userNeed, vendor.value)" class="select">Update Vendor</button>
             </div>

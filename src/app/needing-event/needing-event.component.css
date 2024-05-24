@@ -315,6 +315,12 @@ body {
   width: 10px; /* Adjust width as needed to control spacing */
 }
 
+@media (max-width: 600px) { 
+  .mobileversion {
+    display: none;
+  }
+}
+
 
 
 
