@@ -106,7 +106,7 @@ export class NeedingEventComponent implements OnInit{
     this.subscriptions.add(
       this.needingEventService.getAllShoppingCategories().subscribe({
         next: (response) => {
-          console.log('Getting shopping categories', response);
+          //console.log('Getting shopping categories', response);
           this.shoppingCategories = response;
         },
         error: (error) => {

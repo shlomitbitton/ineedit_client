@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams, withFetch} from "@angular/common/http";
-import {BehaviorSubject, catchError, Observable, of} from "rxjs";
+import {BehaviorSubject, catchError, map, Observable, of, switchMap, tap} from "rxjs";
 import {NeedingEvent} from "./needing-event/needing-event";
 import {ActivatedRoute} from "@angular/router";
 import {UserDetails} from "./needing-event/user-details";
 import {production} from "../environments/environment.prod";
+import {development} from "../environments/environment";
 
 
 @Injectable({
@@ -16,6 +17,7 @@ export class NeedingEventService {
   userFirstName: string ='';
 
   private apiUrl = production.apiUrl;
+  
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
 
@@ -32,15 +34,16 @@ export class NeedingEventService {
     let params = new HttpParams()
       .set('user-id', userId);
     this.userId = userId;
+    console.log(`getNeedingEventByUserId`);
     return this.http.get<NeedingEvent[]>(this.apiUrl+"all-needs-by-user", {params: params})
       .pipe(
-        catchError(this.handleError<any>('getNeedingEventByUserId'))
+        catchError(this.handleError<NeedingEvent[]>("Error fetching needing events", []))
       );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error); // log to console instead
+      console.error(`${operation} failed: ${error.message}`, error); // log to console instead
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
@@ -51,19 +54,58 @@ export class NeedingEventService {
     return this.http.post(url, {});
   }
 
-  createOrUpdateItem(newItemNae: string): Observable<any>  {
-    console.log(`Creating or updating item: ${newItemNae}`);
-    const body = {
-      itemNeeded: newItemNae,
-      shoppingCategory: 'GENERAL' ,
-      userId: this.fetchUserDetails(this.userId),
-      vendorName: 'On-line'
-    };
-    const url = `${this.apiUrl}add-update-needing-event`;
-    return this.http.post(url, body);
+  // This method is a machine learning method to fetch previously categorized item
+  getShoppingCategory(newItemName: string): Observable<string | null> {
+    console.log(`Getting shopping category for item: ${newItemName}`);
+    // Fetch the user's existing items from the needingEventService
+    return this.getNeedingEventByUserId(this.userId).pipe(
+      map(events => {
+        console.log("console.log(events): "+events);
+        const normalizedNewItemName = newItemName.toLowerCase();
+        const existingItem = events.find(event =>
+          event.itemNeededName.valueOf().toLowerCase() === normalizedNewItemName
+        );
+        if (existingItem) {
+          console.log(`Found existing item, shopping category: ${existingItem.shoppingCategory}`);
+          return existingItem.shoppingCategory;
+        } else {
+          console.log(`No existing item found. Using default category: GENERAL`);
+          return 'GENERAL';
+        }
+      }),
+      catchError(error => {
+        console.error('Error in getting shopping category', error);
+        return of(null); // Handle errors or rethrow as needed
+      })
+    );
   }
 
-  createOrUpdateVendor(item: NeedingEvent, newVendorName: string | null):Observable<any> {
+  createOrUpdateItem(newItemName: string): Observable<any> {
+    console.log(`Creating or updating item: ${newItemName}`);
+    return this.getShoppingCategory(newItemName).pipe(
+      switchMap(shoppingCategory => {
+        if (shoppingCategory === null) {
+          console.error('Failed to get shopping category');
+          return of(null); // Optionally handle this case differently
+        }
+        const body = {
+          itemNeeded: newItemName,
+          shoppingCategory: shoppingCategory,
+          userId: this.fetchUserDetails(this.userId),
+          vendorName: 'On-line'
+        };
+        const url = `${this.apiUrl}add-update-needing-event`;
+        return this.http.post(url, body);
+      }),
+      catchError(error => {
+        console.error('Error creating or updating item', error);
+        return of(null);
+      })
+    );
+  }
+
+
+createOrUpdateVendor(item: NeedingEvent, newVendorName: string | null):Observable<any> {
     console.log(`Creating or updating vendor: ${newVendorName}`);
     const body = {
       itemNeeded: item.itemNeededName,
@@ -124,4 +166,13 @@ export class NeedingEventService {
   }
 
 
+  // updateNeedNotes(eventId: number, note: string): Observable<any> {
+  //   console.log(`Update need note: ${note}`);
+  //   const body = {
+  //     needEventId: eventId,
+  //     needNotes: note
+  //   };
+  //   const url = `${this.apiUrl}update-need-notes`;
+  //   return this.http.post(url, body);
+  // }
 }
