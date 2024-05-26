@@ -220,7 +220,7 @@ body {
   display: inline-block; /* Ensures div takes the size of the image */
   border: 1px #ccc;
   border-radius: 0px;
-  padding: 20px;
+  padding: 2px;
   cursor: pointer; /* Change cursor to pointer by default */
 }
 
@@ -315,7 +315,7 @@ body {
   width: 10px; /* Adjust width as needed to control spacing */
 }
 
-@media (max-width: 600px) { 
+@media (max-width: 600px) {
   .mobileversion {
     display: none;
   }
