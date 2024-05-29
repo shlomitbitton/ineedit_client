@@ -215,6 +215,14 @@ body {
 .add-item button:hover {
   background-color: #C1E1C1; /* A slightly darker blue on hover */
 }
+
+.background-color-1 {
+  background-color: #F5F5DC;
+}
+.background-color-2 {
+  background-color: #FAEBD7;
+}
+
 /*trash icon*/
 .button-like {
   display: inline-block; /* Ensures div takes the size of the image */

@@ -30,11 +30,21 @@ export class NeedingEventComponent implements OnInit{
   userFirstName!: string;
   showEmptyList = false;
   fulfilledNeeds: NeedingEvent[] = [] ;
+  lastVendor: string = '';
+  currentColorClass: string = 'background-color-1';
+
 
   constructor(private needingEventService: NeedingEventService,
               private route: ActivatedRoute, private eRef: ElementRef) { }
 
 
+  getBackgroundColorClass(vendor: string): string {
+    if (vendor !== this.lastVendor) {
+      this.currentColorClass = this.currentColorClass === 'background-color-1' ? 'background-color-2' : 'background-color-1';
+      this.lastVendor = vendor;
+    }
+    return this.currentColorClass;
+  }
   toggleDropdown() {
     this.isDropdownVisible = !this.isDropdownVisible;
   }
