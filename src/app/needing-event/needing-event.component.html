@@ -28,7 +28,7 @@
               {{ userNeed.itemNeededName }}
               <br/>
               <span *ngIf="userNeed.needingEventStatus === 'Need'" #needDiv class="lighter-color">
-              Need it {{ userNeed.daysListed }} days now...</span>
+              I've needed it for {{ userNeed.daysListed }} days now</span>
             </div>
 <!--            <div (click)="toggleDropdown()" class="mobileversion lighter-color">-->
 <!--              <span class="lighter-color">[ {{ userNeed.shoppingCategory }} ]</span>-->
@@ -40,7 +40,7 @@
 <!--                </select>-->
 <!--                <button type="button" (click)="updateCategory(userNeed, shoppingCategory.value)">Select</button>-->
 <!--            </div>-->
-            <div class="mobileversion" (click)="toggleInput()"> 
+            <div class="mobileversion" (click)="toggleInput()">
               <span>{{ userNeed.potentialVendor }}</span>
             </div>
             <div class="mobileversion" *ngIf="isInputVisible">
