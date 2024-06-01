@@ -25,7 +25,6 @@ export class NeedingEventComponent implements OnInit{
   isDropdownVisible: boolean = false;
   isInputVisible: boolean = false;
   showNotes = false;
-  // isButtonLike: boolean = false;
   newItemName: string ='';
   userFirstName!: string;
   showEmptyList = false;
@@ -36,6 +35,28 @@ export class NeedingEventComponent implements OnInit{
 
   constructor(private needingEventService: NeedingEventService,
               private route: ActivatedRoute, private eRef: ElementRef) { }
+
+
+  exportNeeds(): void {
+    // Assuming your items are stored in an array called 'items' and each item has a 'need' property
+    const neededItems = this.needingEventOfUser.filter(item => item.needingEventStatus === 'Need');
+    const neededNames = neededItems.map(item => item.itemNeededName).join('\n');
+    // Create a blob with the needed items' names
+    const blob = new Blob([neededNames], { type: 'text/plain;charset=utf-8' });
+
+    // Automatically create a download link and click it
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = 'shopping-list.txt';  // Specify the file name here
+    document.body.appendChild(a);
+    a.click();
+    // Clean up by revoking the Blob URL and removing the link
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  }
+
 
 
   getBackgroundColorClass(vendor: string): string {

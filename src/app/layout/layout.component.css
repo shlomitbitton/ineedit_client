@@ -56,14 +56,12 @@
   margin-right: 20px; /* Adds a gap between the login link and the right side */
 }
 
-
-
 .login-link:hover {
   color: #ffa500; /* Slightly darker yellow on hover */
   text-decoration: underline; /* Add an underline on hover */
 }
 
 .container {
-  /*display: flex;*/
-  /*height: calc(100% - 50px); !* Remaining height after the header *!*/
+  padding-left: 20px;  /* Adjust according to your layout */
+  padding-right: 20px; /* Adjust according to your layout */
 }

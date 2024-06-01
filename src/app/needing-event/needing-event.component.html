@@ -11,6 +11,7 @@
     <br/>
     <br/>
     <div *ngIf="!showEmptyList; else loading">
+      <button (click)="exportNeeds()" class="share-button">Share needs</button>
       <ul>
 <!--        <ng-container *ngFor="let userNeed of needingEventOfUser">-->
         <ng-container *ngFor="let userNeed of needingEventOfUser; let i = index">
