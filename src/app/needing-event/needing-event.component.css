@@ -132,8 +132,8 @@ input:focus + .slider {
 }
 
 .select {
-  /*font-family: 'Caveat', cursive;*/
   font-size: 12px;
+  color: black;
 }
 .vendor-input{
   border-radius: 2px;
