@@ -25,9 +25,23 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Soft shadow for forms */
   background-color: #f9f9f9;       /* Light background color */
   margin-bottom: 40px;             /* Adds space between forms */
-  margin-right: 300px
+  margin-right: 300px;
 }
 
+@media (max-width: 600px) {
+  .center-wrapper {
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+  }
+  .login-form, .register-new-user {
+    align-self: flex-end;
+    margin-bottom: 10px;             /* Adds space between forms */
+    margin-left: 400px;
+    margin-right: 1px;
+    width: 50%;
+  }
+}
 /* Form fields: Inputs and labels */
 input[type="text"],
 input[type="email"],
