@@ -1,29 +1,31 @@
 /* Parent container to center the forms */
 .center-wrapper {
   display: flex;            /* Enables flexbox */
-  justify-content: center;  /* Centers content horizontally */
-  align-items: center;      /* Centers content vertically */
+  justify-content: flex-end;  /* Centers content horizontally */
+  align-items: flex-end;      /* Centers content vertically */
   flex-direction: column;   /* Aligns items vertically */
-  width: 100vw;             /* Full viewport width */
-  height: 100vh;            /* Full viewport height */
+  height: 80vh;            /* Full viewport height */
   gap: 20px;                /* Adds space between login and register forms */
   box-sizing: border-box;   /* Prevents overflow due to padding/margin */
   /*transform: translateY(-10%); !* Shifts forms upward by 10% of the viewport height *!*/
   background-image: url('../../assets/login_page_background.png');
   background-size: cover;
   background-position: center;
+  width: 100%;
 }
 
 /* Styling for both login and register forms */
 .login-form, .register-new-user {
-  padding: 35px;                   /* Adds padding inside forms */
+  padding: 30px;                   /* Adds padding inside forms */
+  padding-top: 5px;
   text-align: left;                /* Aligns text inside forms to the left */
-  width: 320px;                    /* Increased width for forms */
+  width: 280px;                    /* Increased width for forms */
   border: 1px solid #ccc;          /* Border for forms */
   border-radius: 10px;             /* Adds rounded corners */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Soft shadow for forms */
   background-color: #f9f9f9;       /* Light background color */
-  margin-bottom: 15px;             /* Adds space between forms */
+  margin-bottom: 40px;             /* Adds space between forms */
+  margin-right: 300px
 }
 
 /* Form fields: Inputs and labels */
