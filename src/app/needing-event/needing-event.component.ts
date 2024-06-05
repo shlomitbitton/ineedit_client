@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef,OnInit} from '@angular/core';
 import {NeedingEventService} from "../needing-event.service";
 import {ActivatedRoute} from "@angular/router";
 import {NeedingEvent} from "./needing-event";

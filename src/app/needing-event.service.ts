@@ -17,7 +17,7 @@ export class NeedingEventService {
   userFirstName: string ='';
 
   private apiUrl = production.apiUrl;
-  
+
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
 
@@ -80,6 +80,31 @@ export class NeedingEventService {
     );
   }
 
+  getVendor(newItemName: string): Observable<string | null> {
+    console.log(`Getting vendor for item: ${newItemName}`);
+    // Fetch the user's existing items from the needingEventService
+    return this.getNeedingEventByUserId(this.userId).pipe(
+      map(events => {
+        console.log("console.log(events): "+events);
+        const normalizedNewItemName = newItemName.toLowerCase();
+        const existingItem = events.find(event =>
+          event.itemNeededName.valueOf().toLowerCase() === normalizedNewItemName
+        );
+        if (existingItem) {
+          console.log(`Found existing item, vendor: ${existingItem.potentialVendor}`);
+          return existingItem.potentialVendor;
+        } else {
+          console.log(`No existing item found. Using default vendor: On-line`);
+          return 'On-Line';
+        }
+      }),
+      catchError(error => {
+        console.error('Error in getting vendor', error);
+        return of(null); // Handle errors or rethrow as needed
+      })
+    );
+  }
+
   createOrUpdateItem(newItemName: string): Observable<any> {
     console.log(`Creating or updating item: ${newItemName}`);
     return this.getShoppingCategory(newItemName).pipe(
@@ -88,14 +113,25 @@ export class NeedingEventService {
           console.error('Failed to get shopping category');
           return of(null); // Optionally handle this case differently
         }
-        const body = {
-          itemNeeded: newItemName,
-          shoppingCategory: shoppingCategory,
-          userId: this.fetchUserDetails(this.userId),
-          vendorName: 'On-line'
-        };
-        const url = `${this.apiUrl}add-update-needing-event`;
-        return this.http.post(url, body);
+        // Fetch the vendor using the getVendor method
+        return this.getVendor(newItemName).pipe(
+          switchMap(vendorName => {
+            // If no vendor was found, default to 'On-line'
+            vendorName = vendorName || 'On-line';
+            const body = {
+              itemNeeded: newItemName,
+              shoppingCategory: shoppingCategory,
+              userId: this.fetchUserDetails(this.userId),
+              vendorName: vendorName  // Use the fetched or default vendor name
+            };
+            const url = `${this.apiUrl}add-update-needing-event`;
+            return this.http.post(url, body);
+          }),
+          catchError(error => {
+            console.error('Error while fetching vendor', error);
+            return of(null);  // Optionally handle vendor fetch error differently
+          })
+        );
       }),
       catchError(error => {
         console.error('Error creating or updating item', error);
@@ -105,7 +141,7 @@ export class NeedingEventService {
   }
 
 
-createOrUpdateVendor(item: NeedingEvent, newVendorName: string | null):Observable<any> {
+  createOrUpdateVendor(item: NeedingEvent, newVendorName: string | null):Observable<any> {
     console.log(`Creating or updating vendor: ${newVendorName}`);
     const body = {
       itemNeeded: item.itemNeededName,
