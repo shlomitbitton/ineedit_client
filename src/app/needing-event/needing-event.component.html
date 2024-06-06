@@ -78,6 +78,9 @@
                   <div class="fulfilled-item-name" matTooltip="{{ userNeed.needNotes }}" matTooltipPosition="below">
                     {{ userNeed.itemNeededName }}
                   </div>
+                  <div class="button-like" (click)="deleteNeed(userNeed.needingEventId)">
+                    <img [src]="'/assets/trash_icon.png'" alt="Delete this need" width="20" height="20">
+                  </div>
                   <div class="extra-column"></div>
                   <div class="extra-column"></div>
                   <div class="extra-column"></div>
