@@ -15,7 +15,7 @@
       <ul>
 <!--        <ng-container *ngFor="let userNeed of needingEventOfUser">-->
         <ng-container *ngFor="let userNeed of needingEventOfUser; let i = index">
-          <li *ngIf="userNeed.needingEventStatus === 'Need'" [class]="getBackgroundColorClass(userNeed.potentialVendor)" class="list-item">
+          <li *ngIf="userNeed.needingEventStatus === 'Need'" class="list-item">
             <div class="toggle-container">
               <span class="label-left">Don't need </span>
               <label class="switch">
@@ -26,6 +26,8 @@
               <span class="label-right">Need</span>
             </div>
             <div class="item-name" matTooltip="{{ userNeed.needNotes }}" matTooltipPosition="below">
+              <label matTooltip="By making it public, others can see and possibly fulfill your need" class="public-tag">Make Public</label>
+              <input type="checkbox" [checked]="userNeed.isPublic === 1" (change)="updateIsPublic(userNeed.needingEventId)">
               {{ userNeed.itemNeededName }}
               <br/>
               <span *ngIf="userNeed.needingEventStatus === 'Need'" #needDiv class="lighter-color">

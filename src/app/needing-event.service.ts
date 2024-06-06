@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams, withFetch} from "@angular/common/http";
-import {BehaviorSubject, catchError, map, Observable, of, switchMap, tap} from "rxjs";
+import { catchError, map, Observable, of, switchMap} from "rxjs";
 import {NeedingEvent} from "./needing-event/needing-event";
 import {ActivatedRoute} from "@angular/router";
 import {UserDetails} from "./needing-event/user-details";
 import {production} from "../environments/environment.prod";
 import {development} from "../environments/environment";
+import {subscribe} from "node:diagnostics_channel";
 
 
 @Injectable({
@@ -51,6 +52,11 @@ export class NeedingEventService {
 
   updateStatus(needingEventId: number) {
     const url = `${this.apiUrl}update-needing-event-status?needing-event-id=${needingEventId}`;
+    return this.http.post(url, {});
+  }
+
+  updateIsPublic(needingEventId: number) {
+    const url = `${this.apiUrl}make-need-public?needing-event-id=${needingEventId}`;
     return this.http.post(url, {});
   }
 
@@ -211,4 +217,5 @@ export class NeedingEventService {
   //   const url = `${this.apiUrl}update-need-notes`;
   //   return this.http.post(url, body);
   // }
+
 }

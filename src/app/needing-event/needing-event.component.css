@@ -127,6 +127,34 @@ input:focus + .slider {
   justify-content: space-between; /* Distributes space between the items */
 }
 
+.public-tag{
+  font-size: small;
+  display: flex;
+  align-items: center; /* Center alignment of the items vertically */
+  flex-wrap: wrap;
+}
+
+.public-toggle label {
+  margin-left: 8px; /* Space between checkbox and label */
+}
+
+input[type="checkbox"] {
+  accent-color: black; /* Sets the checkbox color */
+}
+
+/* Optional: Customize further for a more distinct style */
+input[type="checkbox"] {
+  width: 15px; /* Width of the checkbox */
+  height: 15px; /* Height of the checkbox */
+  cursor: pointer; /* Cursor indicates interactive element */
+}
+
+/* Style for when the checkbox is checked */
+input[type="checkbox"]:checked {
+  background-color: black; /* Background color when checked */
+  border-color: black; /* Border color when checked */
+}
+
 .content, .vendor, .toggle {
   flex: 1; /* Each section takes equal width */
 }
@@ -320,6 +348,9 @@ body {
 @media (max-width: 600px) {
   .mobileversion {
     display: none;
+  }
+  .public-toggle {
+    justify-content: space-between; /* Spreads items to full width on smaller screens */
   }
 }
 

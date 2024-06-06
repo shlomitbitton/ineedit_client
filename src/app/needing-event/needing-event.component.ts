@@ -20,6 +20,7 @@ export class NeedingEventComponent implements OnInit{
   vendor = new FormControl('');
   neednotes = new FormControl('');
   shoppingCategory = new FormControl('');
+  isPublic: number = 1 ? 0 : 1;
   shoppingCategories!: any;
   subscriptions: Subscription = new Subscription();
   isDropdownVisible: boolean = false;
@@ -56,6 +57,22 @@ export class NeedingEventComponent implements OnInit{
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
   }
+
+
+  //
+  // getBackgroundColorClass(vendor: string): string {
+  //   if (vendor !== this.lastVendor) {
+  //     this.currentColorClass = this.currentColorClass === 'background-color-1' ? 'background-color-2' : 'background-color-1';
+  //     this.lastVendor = vendor;
+  //   }
+  //   return this.currentColorClass;
+  // }
+
+  // computeBackgroundClasses(): void {
+  //   this.needingEventOfUser.forEach(event => {
+  //     event.backgroundColorClass = this.getBackgroundColorClass(event.potentialVendor);
+  //   });
+  // }
 
 
 
@@ -97,6 +114,7 @@ export class NeedingEventComponent implements OnInit{
       }
     });
   }
+
 
   updateCategory(userNeed: NeedingEvent, updatedCategory: string | null) {
     this.needingEventService.createOrUpdateShoppingCategory(userNeed, updatedCategory).subscribe({
@@ -188,7 +206,6 @@ export class NeedingEventComponent implements OnInit{
 
 
   toggleStatus(needingEventId: number): void {
-    // const needingEventStatus = userNeed.needingEventStatus === 'Need' ? 'Fulfilled' : 'Need';
     this.needingEventService.updateStatus(needingEventId).subscribe({
       next: (response) => {
         console.log('Status updated successfully');
@@ -196,6 +213,19 @@ export class NeedingEventComponent implements OnInit{
       },
       error: (error) => {
         console.error('Failed to update status', error);
+      }
+    });
+  }
+
+  updateIsPublic(needingEventId: number): void {
+    this.needingEventService.updateIsPublic(needingEventId).subscribe({
+      next: (response) => {
+        this.isPublic = 1;
+        console.log('Status updated successfully');
+        this.getNeedingEventByUserId();
+      },
+      error: (error) => {
+        console.error('Failed to update public status', error);
       }
     });
   }
@@ -219,6 +249,8 @@ export class NeedingEventComponent implements OnInit{
       error: (err) => console.error('Failed to fetch events:', err)
     });
   }
+
+
 
 
 }
