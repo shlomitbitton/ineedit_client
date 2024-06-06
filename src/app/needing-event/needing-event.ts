@@ -5,7 +5,8 @@ export interface NeedingEvent{
     needingEventStatus: string,
     needingEventId: number,
     potentialVendor: string,
-    needNotes: string
+    needNotes: string,
+    isPublic: number
 
 
 }
