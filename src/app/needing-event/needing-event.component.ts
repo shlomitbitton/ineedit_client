@@ -93,7 +93,6 @@ export class NeedingEventComponent implements OnInit{
 
   filterFulfilledNeeds() {
     this.fulfilledNeeds = this.needingEventOfUser.filter(userNeed => userNeed.needingEventStatus === 'Fulfilled');
-    console.info("this.fulfilledNeeds :"+this.fulfilledNeeds);
   }
   getImagePathForVendor(vendor: string):string {
     return `/assets/vendorLogo/${vendor}.png`;
