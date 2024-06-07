@@ -1,4 +1,4 @@
-import {Component, ElementRef,OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NeedingEventService} from "../needing-event.service";
 import {ActivatedRoute} from "@angular/router";
 import {NeedingEvent} from "./needing-event";
@@ -10,6 +10,7 @@ import {UserDetails} from "./user-details";
   selector: 'app-needing-event',
   templateUrl: './needing-event.component.html',
   styleUrls: ['./needing-event.component.css']
+
 })
 export class NeedingEventComponent implements OnInit{
 
@@ -30,12 +31,10 @@ export class NeedingEventComponent implements OnInit{
   userFirstName!: string;
   showEmptyList = false;
   fulfilledNeeds: NeedingEvent[] = [] ;
-  lastVendor: string = '';
   currentColorClass: string = 'background-color-1';
 
-
   constructor(private needingEventService: NeedingEventService,
-              private route: ActivatedRoute, private eRef: ElementRef) { }
+              private route: ActivatedRoute) { }
 
 
   exportNeeds(): void {
@@ -58,7 +57,6 @@ export class NeedingEventComponent implements OnInit{
     document.body.removeChild(a);
   }
 
-
   //
   // getBackgroundColorClass(vendor: string): string {
   //   if (vendor !== this.lastVendor) {
@@ -76,16 +74,16 @@ export class NeedingEventComponent implements OnInit{
 
 
 
-  getBackgroundColorClass(vendor: string): string {
-    if (vendor !== this.lastVendor) {
-      this.currentColorClass = this.currentColorClass === 'background-color-1' ? 'background-color-2' : 'background-color-1';
-      this.lastVendor = vendor;
-    }
-    return this.currentColorClass;
-  }
-  toggleDropdown() {
-    this.isDropdownVisible = !this.isDropdownVisible;
-  }
+  // getBackgroundColorClass(vendor: string): string {
+  //   if (vendor !== this.lastVendor) {
+  //     this.currentColorClass = this.currentColorClass === 'background-color-1' ? 'background-color-2' : 'background-color-1';
+  //     this.lastVendor = vendor;
+  //   }
+  //   return this.currentColorClass;
+  // }
+  // toggleDropdown() {
+  //   this.isDropdownVisible = !this.isDropdownVisible;
+  // }
 
   toggleInput() {
     this.isInputVisible = !this.isInputVisible;
@@ -102,7 +100,7 @@ export class NeedingEventComponent implements OnInit{
     this.needingEventService.createOrUpdateVendor(userNeed, updatedVendor).subscribe({
       next: (response) => {
         console.info(`updating vendor: `+ response.shoppingCategory);
-        this.vendor.patchValue(response.vendor);
+        this.vendor.patchValue(response.vendor, {emitEvent: false});
         this.getNeedingEventByUserId();
       },
       error: (error) => {
@@ -114,22 +112,27 @@ export class NeedingEventComponent implements OnInit{
     });
   }
 
-
-  updateCategory(userNeed: NeedingEvent, updatedCategory: string | null) {
-    this.needingEventService.createOrUpdateShoppingCategory(userNeed, updatedCategory).subscribe({
-      next: (response) => {
-        console.info(`updating category: `+ response.shoppingCategory);
-        this.shoppingCategory.patchValue(response.shoppingCategory);
-        this.getNeedingEventByUserId();
-      },
-      error: (error) => {
-        console.error('Error updating shopping category:', error);
-      },
-      complete: () => {
-        this.isDropdownVisible = false;
-      }
-    });
+  updateVendorOnBlurOrEnter(userNeed: NeedingEvent): void {
+    if ( this.vendor.value) {
+      this.updateVendor(userNeed, this.vendor.value);
+    }
   }
+
+  // updateCategory(userNeed: NeedingEvent, updatedCategory: string | null) {
+  //   this.needingEventService.createOrUpdateShoppingCategory(userNeed, updatedCategory).subscribe({
+  //     next: (response) => {
+  //       console.info(`updating category: `+ response.shoppingCategory);
+  //       this.shoppingCategory.patchValue(response.shoppingCategory);
+  //       this.getNeedingEventByUserId();
+  //     },
+  //     error: (error) => {
+  //       console.error('Error updating shopping category:', error);
+  //     },
+  //     complete: () => {
+  //       this.isDropdownVisible = false;
+  //     }
+  //   });
+  // }
 
   ngOnInit(): void {
     this.subscriptions.add(

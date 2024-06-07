@@ -33,29 +33,19 @@
               <span *ngIf="userNeed.needingEventStatus === 'Need'" #needDiv class="lighter-color">
               I've needed it for {{ userNeed.daysListed }} days now</span>
             </div>
-<!--            <div (click)="toggleDropdown()" class="mobileversion lighter-color">-->
-<!--              <span class="lighter-color">[ {{ userNeed.shoppingCategory }} ]</span>-->
-<!--              <br/>-->
-<!--            </div>-->
-<!--            <div *ngIf="isDropdownVisible" class="mobileversion">-->
-<!--                <select id="shoppingCategory" [formControl]="shoppingCategory" class="select">-->
-<!--                  <option *ngFor="let category of shoppingCategories" [value]="category">{{ category }}</option>-->
-<!--                </select>-->
-<!--                <button type="button" (click)="updateCategory(userNeed, shoppingCategory.value)">Select</button>-->
-<!--            </div>-->
+
             <div class="mobileversion" (click)="toggleInput()">
-              <span>{{ userNeed.potentialVendor }}</span>
+              <span *ngIf="!isInputVisible">{{ userNeed.potentialVendor }}</span>
+              <input *ngIf="isInputVisible" id="vendor" type="text" [formControl]="vendor"
+                     placeholder="Change shopping resource" class="vendor-input"
+                     (click)="$event.stopPropagation()"
+              (blur)="updateVendorOnBlurOrEnter(userNeed)"
+              (keyup.enter)="updateVendorOnBlurOrEnter(userNeed)">
             </div>
-            <div class="mobileversion" *ngIf="isInputVisible">
-              <input id="vendor" type="text" [formControl]="vendor" placeholder="Change shopping resource" class="vendor-input">
-              <button type="button" (click)="updateVendor(userNeed, vendor.value)" class="select">Update Vendor</button>
+
+            <div class="button-like" (click)="deleteNeed(userNeed.needingEventId)">
+              <img [src]="'/assets/trash_icon.png'" alt="Delete this need" width="20" height="20">
             </div>
-  <!--          <div>-->
-  <!--            <input id="neednotes" type="text" [formControl]="neednotes" placeholder="Notes" class="need-notes">-->
-  <!--          </div>-->
-              <div class="button-like" (click)="deleteNeed(userNeed.needingEventId)">
-                <img [src]="'/assets/trash_icon.png'" alt="Delete this need" width="20" height="20">
-              </div>
           </li>
         </ng-container>
       </ul>
