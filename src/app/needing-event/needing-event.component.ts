@@ -113,10 +113,13 @@ export class NeedingEventComponent implements OnInit{
   }
 
   updateVendorOnBlurOrEnter(userNeed: NeedingEvent): void {
-    if ( this.vendor.value) {
-      this.updateVendor(userNeed, this.vendor.value);
+    if (this.vendor.value && this.vendor.value.trim() !== '' && this.vendor.value !== userNeed.potentialVendor) {
+      this.updateVendor(userNeed, this.vendor.value.trim());
+    } else {
+      this.isInputVisible = false; // Hide input if no changes are made
     }
   }
+
 
   // updateCategory(userNeed: NeedingEvent, updatedCategory: string | null) {
   //   this.needingEventService.createOrUpdateShoppingCategory(userNeed, updatedCategory).subscribe({
