@@ -3,7 +3,7 @@
   "short_name": "Ineedit",
   "icons": [
     {
-      "src": "../assets/icons/PNG Ineedit logo_no background.png",
+      "src": "assets/icons/PNG Ineedit logo_no background.png",
       "sizes": "192x192",
       "type": "image/png"
     }
