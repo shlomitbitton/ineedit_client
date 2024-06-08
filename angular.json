@@ -96,7 +96,9 @@
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.json",
+              "src/icons"
             ],
             "styles": [
               "src/styles.css"
