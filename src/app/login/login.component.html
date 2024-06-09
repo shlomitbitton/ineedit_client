@@ -8,7 +8,7 @@
           {{ loginErrorMessage }}
         </div>
         <button type="submit">Login</button>
-      <button type="button" (click)="toggleRegisterForm()">Register</button>
+      <button type="button" (click)="toggleRegisterForm()" *ngIf="!showRegistrationSuccessfulMessage">Register</button>
       <div *ngIf="showRegistrationSuccessfulMessage" class="alert">Registration Successful! Please login.</div>
     </form>
   </div>
@@ -19,6 +19,12 @@
       <input type="text" id="username" formControlName="username" required>
       <div *ngIf="registerForm.controls['username'].invalid && registerForm.controls['username'].touched">
         Username is required.
+      </div>
+      <div *ngIf="usernameExistsError" class="error-message">
+        Username already exists.
+      </div>
+      <div *ngIf="usernameIsInvalidError" class="error-message">
+        Username should contain no spaces and be between 5 and 20 characters long.
       </div>
       <br/>
       <label for="password">Password:</label>

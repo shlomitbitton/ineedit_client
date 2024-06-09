@@ -144,14 +144,14 @@ export class NeedingEventComponent implements OnInit{
         if (userId) {
           this.userId = userId;
           this.getNeedingEventByUserId();
-          this.needingEventService.getUserFirstName(userId).subscribe({
-            next: (userDetails: UserDetails) => {
-              this.userFirstName = userDetails.userFirstName;
-            },
-            error: (error: any) => {
-              console.error('Failed to get user first name', error);
-            }
-          });
+          // this.needingEventService.getUserFirstName(userId).subscribe({
+          //   next: (userDetails: UserDetails) => {
+          //     this.userFirstName = userDetails.userFirstName;
+          //   },
+          //   error: (error: any) => {
+          //     console.error('Failed to get user first name', error);
+          //   }
+          // });
         } else {
           console.error('User id is missing or undefined');
         }

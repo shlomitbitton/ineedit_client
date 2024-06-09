@@ -50,6 +50,16 @@ button {
   border: 1px solid #ccc;          /* Border color for input fields */
 }
 
+input.error {
+  border: 2px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 5px;
+}
+
 button[type="submit"] {
   background-color: #4CAF50;       /* Green button background */
   color: white;                    /* White text color */

@@ -1,10 +1,10 @@
 
 
   <div class="content">
-      <div *ngIf="userFirstName != null" class="header">
-        My Shopping list:
+      <div  class="header">
+        My Shopping list
       </div>
-      <div *ngIf="userFirstName != null" class="add-item">
+      <div class="add-item">
         <input type="text" [(ngModel)]="newItemName" placeholder="New item to my list" name="newItemName">
         <button (click)="addItem()">I need one more thing...</button>
       </div>

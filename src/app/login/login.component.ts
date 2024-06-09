@@ -21,6 +21,8 @@ export class LoginComponent {
   });
 
   registerForm: FormGroup;
+  usernameExistsError= false;
+  usernameIsInvalidError= false;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private authService: AuthService, private userRegistration: UserRegistrationService) {
     this.registerForm = this.fb.group({
@@ -81,16 +83,24 @@ export class LoginComponent {
       const newUser = this.registerForm.value;
       this.userRegistration.register(newUser).subscribe({
         next: (response) => {
-          if (response && !response.error) {
-            this.registerForm =  new FormGroup({});
+          console.info("response " + response);
+          if (response && response.status === 'success') {
+            // this.registerForm =  new FormGroup({});
             this.showRegisterForm = false;
+            this.usernameExistsError = false;
+            this.loginErrorMessage = '';
             this.showRegistrationSuccessfulMessage = true;
-            //TODO: message Registration was successful please login.
-               // .then(() => console.log("Navigation successful!"))
-              // .catch(err => console.error("Navigation error: ", err)) // Handling navigation errors
           } else {
-            console.error('Registration Error:', response.error || 'Unknown error occurred');
-            this.loginErrorMessage = response.error || 'An unknown error occurred during user registration.';
+            console.error('Registration Error:', response.message);
+            this.loginErrorMessage = response.message;
+            if (response.message === "Username already exists.") {
+              this.usernameIsInvalidError = false;
+              this.usernameExistsError = true;
+            }
+            if (response.message === "Username is invalid.") {//"Username should contain no spaces and be between 5 and 20 characters long..
+              this.usernameExistsError = false;
+              this.usernameIsInvalidError = true;
+            }
           }
         },
         error: (error) => {
