@@ -13,12 +13,12 @@ export class AuthGuard implements CanActivate {
     // Check if the user is logged in (i.e., a token is available)
     const token = this.tokenStorageService.getToken();
 
-    if (token) {
+    if (token && sessionStorage.getItem('userId') !== null)  {
       // Token exists, allow access to the route
       return true;
     } else {
-      // No token found, redirect to the login page
-      this.router.navigate([`/login`], { queryParams: {returnUrl: state.url  } })
+      // No token found, redirect to the public needs page
+      this.router.navigate([`/public-needs`], { queryParams: {returnUrl: state.url  } })
         .then(() => console.log("Navigation successful!"))
         .catch(err => console.error("Navigation error: ", err)), // Handling navigation errors
       catchError(error => {

@@ -3,6 +3,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from "../auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserRegistrationService} from "../services/user-registration.service";
+import {User} from "../layout/user";
+import {NeedingEventService} from "../needing-event.service";
 
 @Component({
   selector: 'app-login',
@@ -12,6 +14,7 @@ import {UserRegistrationService} from "../services/user-registration.service";
 export class LoginComponent {
 
   returnUrl: string = '';
+  userId!: string;
   loginErrorMessage: string | null = null;
   showRegisterForm = false;
   showRegistrationSuccessfulMessage = false;
@@ -24,7 +27,8 @@ export class LoginComponent {
   usernameExistsError= false;
   usernameIsInvalidError= false;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private authService: AuthService, private userRegistration: UserRegistrationService) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private authService: AuthService,
+              private userRegistration: UserRegistrationService, private needingEventService: NeedingEventService) {
     this.registerForm = this.fb.group({
       // userFirstName: ['', Validators.required],
       // userLastName: ['', Validators.required],
@@ -36,6 +40,7 @@ export class LoginComponent {
 
 
   onSubmit() {
+    this.loginErrorMessage = '';
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'];
 
     const username = this.loginForm.get('username')?.value || '';
@@ -43,7 +48,6 @@ export class LoginComponent {
 
     if (!username || !password) {
       this.loginErrorMessage = 'Please fill in both username and password fields.';
-      console.error('Missing username or password.');
       return;
     }
     this.login(username, password);
@@ -65,6 +69,8 @@ export class LoginComponent {
           this.router.navigate([this.returnUrl])
             .then(() => console.log("Navigation successful!"))
             .catch(err => console.error("Navigation error: ", err)) // Handling navigation errors
+          sessionStorage.setItem('userId', response.userId);
+          console.log('User logged in successfully and userId saved in session storage');
         } else {
           console.error('Login Error:', response.error || 'Unknown error occurred');
           this.loginErrorMessage = response.error || 'An unknown error occurred during login.';
@@ -77,6 +83,9 @@ export class LoginComponent {
       complete: () => console.log('Login request completed.')
     });
   }
+
+
+
 
   register() {
     if (this.registerForm.valid) {

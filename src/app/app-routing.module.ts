@@ -4,6 +4,7 @@ import {NeedingEventComponent} from "./needing-event/needing-event.component";
 import {LayoutComponent} from "./layout/layout.component";
 import {LoginComponent} from "./login/login.component";
 import {AuthGuard} from "./auth.guard";
+import {PublicNeedsComponent} from "./public-needs/public-needs.component";
 
 const routes: Routes = [ {
     path: '',
@@ -11,8 +12,9 @@ const routes: Routes = [ {
     children: [
       { path: 'all-needs-by-user', component: NeedingEventComponent, canActivate: [AuthGuard] },
       { path: 'login', component: LoginComponent },
-      { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirect default to login page
-      { path: '**', redirectTo: 'login' } // Wildcard route to handle invalid URLs
+      { path: 'public-needs', component: PublicNeedsComponent ,data: { showExploreLabel: false }},
+      { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirect default to public needs page
+      { path: '**', redirectTo: 'public-needs' } // Wildcard route to handle invalid URLs
     ]
 }];
 

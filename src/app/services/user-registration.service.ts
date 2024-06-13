@@ -1,11 +1,9 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {NewUser} from "../login/new-user";
-import {catchError, Observable, of, switchMap, tap} from "rxjs";
-import {TokenStorageService} from "./token-storage.service";
-import {Router} from "@angular/router";
-import {NeedingEventService} from "../needing-event.service";
+import { Observable} from "rxjs";
 import {production} from "../../environments/environment.prod";
+import {development} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +12,7 @@ export class UserRegistrationService {
 
   private apiUrl = production.apiUrl;
 
-  constructor(private http: HttpClient, private tokenStorage: TokenStorageService, private router: Router, private needingEventService: NeedingEventService){
+  constructor(private http: HttpClient){
 
   }
 

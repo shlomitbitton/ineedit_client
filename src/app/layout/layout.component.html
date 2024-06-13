@@ -1,19 +1,23 @@
 
-
 <div class="login-container">
-  <img src="assets/ineedit_logo_tilted.ico" alt="Logo" class="logo">
-  <a routerLink="/login" class="login-link">Login</a>
+  <div class="logo">
+    <img src="assets/ineedit_logo_tilted.ico" alt="Logo" class="logo">
+  </div>
+  <div class="links">
+    <!-- Links here -->
+    <a *ngIf="showExploreLabel" routerLink="/public-needs" class="public-needs-link">Explore others' needs</a>
+    &nbsp;&nbsp;&nbsp;<a *ngIf="showMyNeeds"  [routerLink]="['/all-needs-by-user']" [queryParams]="{ 'user-id': userId }" class="public-needs-link">My needs</a>
+    &nbsp;&nbsp;&nbsp;<a routerLink="/login" class="login-link">Login</a>
+  </div>
 </div>
+
+
 <div class="container">
     <router-outlet></router-outlet>
 </div>
 <div class="footer">
-  <div class="social-media-links">
-    <h4>Stay Connected on our Social Media</h4>
-    <ul>
-      <li><a href="https://www.facebook.com/profile.php?id=61559591244528" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i> Facebook</a></li>
-<!--      <li><a href="https://www.instagram.com/yourhandle" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a></li>-->
-    </ul>
-  </div>
+  Stay Connected on our Social Media
+  <br/>
+  <a href="https://www.facebook.com/profile.php?id=61559591244528" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i> Facebook</a>
 </div>
 

@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams, withFetch} from "@angular/common/http";
 import { catchError, map, Observable, of, switchMap} from "rxjs";
-import {NeedingEvent} from "./needing-event/needing-event";
+import {NeedingEvent} from "./models/needing-event";
 import {ActivatedRoute} from "@angular/router";
-import {UserDetails} from "./needing-event/user-details";
+import {UserDetails} from "./models/user-details";
 import {production} from "../environments/environment.prod";
 import {development} from "../environments/environment";
-import {subscribe} from "node:diagnostics_channel";
 
 
 @Injectable({

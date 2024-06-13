@@ -1,23 +1,21 @@
 
-
 .footer {
-  display: flex;              /* Enables flexbox layout */
-  justify-content: center;    /* Centers content horizontally */
-  align-items: center;        /* Centers content vertically */
-  flex: 1;
-  width: 100%;
-  background-color: #ddd;
-  padding: 20px;
-  border-radius: 10px;
+  display: flex;           /* Enables flexbox */
+  flex-direction: column;  /* Stacks children vertically */
+  align-items: center;     /* Centers items horizontally */
+  justify-content: center; /* Centers items vertically */
+  text-align: center;      /* Centers text */
+  padding: 20px;           /* Padding around the content */
+  background-color: #ddd;  /* Background color */
   font-size: 20px;
-  font-family: 'Caveat', cursive;
-  text-align: center;         /* Ensures text is centered if it wraps across multiple lines */
-  height: 100px;
+  font-family: 'Caveat', cursive/* Text size */
+  /*line-height: 50px;*/
 }
 
-.social-media-links ul {
+.social-media-links ul{
   list-style: none;
   padding: 0;
+  text-align: center;
 }
 
 .social-media-links li {
@@ -36,31 +34,45 @@
 
 .login-container {
   display: flex;
-  justify-content: space-between; /* Space out items to the sides */
-  align-items: flex-end; /* Align items at the bottom */
-  /*padding: 10px; !* Optional: Add some padding around the container *!*/
-  width: 100%;
-  height: 100px;
+  justify-content: space-between; /* This will push the logo to the left and links to the right */
+  align-items: flex-end; /* Vertically align items in the middle */
+  width: 100%; /* Take full width of the parent container */
+  height: 100px; /* Fixed height; adjust as needed */
+  padding-right: 20px; /* Add padding on both sides */
+  padding-bottom: 10px;
 }
 
 .logo {
   width: 150px; /* Set a specific width for the logo */
-  height: auto; /* Maintain the aspect ratio */
-  margin-left: 20px; /* Adds a gap between the logo and the left side */
+  height: 130px; /* Maintain the aspect ratio */
+  /*margin-top: 20px; !* Adds a gap between the logo and the left side *!*/
 }
 
 .login-link {
-  color: #FFC933; /* Bright yellow color for visibility */
-  font-family: 'Arial', sans-serif;
+  color: #333333;
+  font-family: Arial, fantasy;
   font-size: 16px; /* Adjust as needed */
   font-weight: bold;
   text-decoration: none; /* Remove underline for consistency */
   margin-bottom: 10px; /* Align with the bottom of the container */
-  margin-right: 20px; /* Adds a gap between the login link and the right side */
 }
 
 .login-link:hover {
   color: #ffa500; /* Slightly darker yellow on hover */
+  text-decoration: underline; /* Add an underline on hover */
+}
+
+.public-needs-link {
+  color: #888888; /* Pink color for visibility */
+  font-family: Arial, fantasy;
+  font-size: 16px; /* Adjust as needed */
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-right: 5px;
+}
+
+.public-needs-link:hover {
+  color: #FFC933; /* A darker shade of pink for hover */
   text-decoration: underline; /* Add an underline on hover */
 }
 

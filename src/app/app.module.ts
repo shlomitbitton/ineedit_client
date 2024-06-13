@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import {AuthInterceptor} from "./auth.interceptor";
 import {NgOptimizedImage} from "@angular/common";
 import {MatTooltip, MatTooltipModule} from '@angular/material/tooltip';
+import { PublicNeedsComponent } from './public-needs/public-needs.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {MatTooltip, MatTooltipModule} from '@angular/material/tooltip';
     NeedingEventComponent,
     LayoutComponent,
     LoginComponent,
+    PublicNeedsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,10 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NeedingEventService} from "../needing-event.service";
 import {ActivatedRoute} from "@angular/router";
-import {NeedingEvent} from "./needing-event";
+import {NeedingEvent} from "../models/needing-event";
 import {FormControl} from "@angular/forms";
 import {Subscription} from "rxjs";
-import {UserDetails} from "./user-details";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-needing-event',
@@ -16,7 +16,7 @@ export class NeedingEventComponent implements OnInit{
 
   needingEvent!: NeedingEvent;
   needingEventId!: string;
-  userId!: string;
+  userId!: string | null;
   needingEventOfUser: NeedingEvent[] = [] ;
   vendor = new FormControl('');
   neednotes = new FormControl('');
@@ -34,7 +34,7 @@ export class NeedingEventComponent implements OnInit{
   currentColorClass: string = 'background-color-1';
 
   constructor(private needingEventService: NeedingEventService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute, private authService: AuthService) { }
 
 
   exportNeeds(): void {
@@ -121,53 +121,9 @@ export class NeedingEventComponent implements OnInit{
   }
 
 
-  // updateCategory(userNeed: NeedingEvent, updatedCategory: string | null) {
-  //   this.needingEventService.createOrUpdateShoppingCategory(userNeed, updatedCategory).subscribe({
-  //     next: (response) => {
-  //       console.info(`updating category: `+ response.shoppingCategory);
-  //       this.shoppingCategory.patchValue(response.shoppingCategory);
-  //       this.getNeedingEventByUserId();
-  //     },
-  //     error: (error) => {
-  //       console.error('Error updating shopping category:', error);
-  //     },
-  //     complete: () => {
-  //       this.isDropdownVisible = false;
-  //     }
-  //   });
-  // }
-
   ngOnInit(): void {
-    this.subscriptions.add(
-      this.route.queryParamMap.subscribe(params => {
-        const userId = params.get('user-id');
-        if (userId) {
-          this.userId = userId;
-          this.getNeedingEventByUserId();
-          // this.needingEventService.getUserFirstName(userId).subscribe({
-          //   next: (userDetails: UserDetails) => {
-          //     this.userFirstName = userDetails.userFirstName;
-          //   },
-          //   error: (error: any) => {
-          //     console.error('Failed to get user first name', error);
-          //   }
-          // });
-        } else {
-          console.error('User id is missing or undefined');
-        }
-      })
-    );
-    this.subscriptions.add(
-      this.needingEventService.getAllShoppingCategories().subscribe({
-        next: (response) => {
-          //console.log('Getting shopping categories', response);
-          this.shoppingCategories = response;
-        },
-        error: (error) => {
-          console.error('Failed to get shopping categories', error);
-        }
-      })
-    );
+    this.userId = this.authService.getCurrentUserId();
+    this.getNeedingEventByUserId();
   }
 
   addItem() {
@@ -237,22 +193,24 @@ export class NeedingEventComponent implements OnInit{
 
 
   getNeedingEventByUserId(): void {
-    this.needingEventService.getNeedingEventByUserId(this.userId).subscribe({
-      next: (data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          // Data is a non-empty array
-          this.needingEventOfUser = data;
-          this.filterFulfilledNeeds();
-          console.log('Needing events fetched successfully:', data);
-        } else {
-          // Data is empty
-          this.showEmptyList = true;
-          console.info('this.showEmptyList: '+ this.showEmptyList);
-          console.warn('No needing events found for this user.');
-        }
-      },
-      error: (err) => console.error('Failed to fetch events:', err)
-    });
+    if (this.userId !== null) {
+      this.needingEventService.getNeedingEventByUserId(this.userId).subscribe({
+        next: (data) => {
+          if (Array.isArray(data) && data.length > 0) {
+            // Data is a non-empty array
+            this.needingEventOfUser = data;
+            this.filterFulfilledNeeds();
+            console.log('Needing events fetched successfully:', data);
+          } else {
+            // Data is empty
+            this.showEmptyList = true;
+            console.info('this.showEmptyList: ' + this.showEmptyList);
+            console.warn('No needing events found for this user.');
+          }
+        },
+        error: (err) => console.error('Failed to fetch events:', err)
+      });
+  }
   }
 
 
