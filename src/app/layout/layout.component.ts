@@ -22,6 +22,11 @@ export class LayoutComponent implements OnInit{
     this.userId = sessionStorage.getItem('userId');
   }
 
+  navigateAndRefresh(url: string): void {
+    this.router.navigateByUrl('/public-needs', {skipLocationChange: true}).then(() => {
+      this.router.navigate([url]);
+    });
+  }
   ngOnInit(): void {
     this.updateUserId();
     this.authService.userStatusChanges.subscribe(() => {

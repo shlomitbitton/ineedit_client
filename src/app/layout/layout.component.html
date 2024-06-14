@@ -7,7 +7,7 @@
     <!-- Links here -->
     <a *ngIf="showExploreLabel" routerLink="/public-needs" class="public-needs-link">Explore others' needs</a>
     &nbsp;&nbsp;&nbsp;<a *ngIf="showMyNeeds"  [routerLink]="['/all-needs-by-user']" [queryParams]="{ 'user-id': userId }" class="public-needs-link">My needs</a>
-    &nbsp;&nbsp;&nbsp;<a routerLink="/login" class="login-link">Login</a>
+    &nbsp;&nbsp;&nbsp;<a (click)="navigateAndRefresh('/login')" class="login-link">Login</a>
   </div>
 </div>
 
