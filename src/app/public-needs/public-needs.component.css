@@ -9,6 +9,14 @@
   font-family: 'Caveat', cursive;
   font-size: 30px;
 }
+
+@media (max-width: 600px) {
+  .public-need-header {
+    font-size: 20px; 
+    line-height: 40px;
+    padding: 0 10px;
+  }
+}
 .coming-soon{
   font-size: 30px;
   font-family: 'Caveat', cursive;
