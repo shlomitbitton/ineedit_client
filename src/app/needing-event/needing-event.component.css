@@ -44,9 +44,10 @@
   width: 0;
   height: 0;
 }
-.label-left, .label-right {
+.label-slide, .label-right {
   margin: 0 10px;
-  font-size: 15px;
+  font-size: 13px;
+  font-family: "Baloo Bhai 2", fantasy;
 }
 
 
@@ -113,10 +114,13 @@ input:focus + .slider {
   display: flex;
   align-items: center; /* Center alignment of the items vertically */
   flex-wrap: wrap;
+  font-family: "Baloo Bhai 2", fantasy;
+  font-weight: normal;
 }
 
 .public-toggle label {
   margin-left: 8px; /* Space between checkbox and label */
+  font-family: "Baloo Bhai 2", fantasy;
 }
 
 input[type="checkbox"] {
@@ -193,7 +197,7 @@ body {
 
 .add-item button {
   padding: 10px 20px;
-  background-color: #ECFFDC; /* A pleasant shade of blue */
+  background-color: #FFC933; /* A pleasant shade of blue */
   color: black; /* White text for contrast */
   border: none; /* No border for a modern look */
   border-radius: 5px; /* Rounded borders for the button */
@@ -203,7 +207,7 @@ body {
 }
 
 .add-item button:hover {
-  background-color: #C1E1C1; /* A slightly darker blue on hover */
+  background-color: #ffd35b; /* A slightly darker blue on hover */
 }
 
 .background-color-1 {
@@ -323,7 +327,7 @@ body {
 }
 
 .share-button {
-  background-color: #FFD700; /* Golden yellow background */
+  background-color: #ffe9ad;
   color: black; /* Text color */
   font-size: 16px; /* Suitable font size */
   padding: 10px 20px; /* Top/bottom padding and left/right padding */
@@ -334,7 +338,7 @@ body {
 }
 
 .share-button:hover {
-  background-color: #FFC107; /* Lighter yellow on hover */
+  background-color: #ffde84; /* Lighter yellow on hover */
   transform: scale(1.05); /* Slightly enlarge the button on hover */
 }
 

@@ -17,7 +17,7 @@
         <ng-container *ngFor="let userNeed of needingEventOfUser; let i = index">
           <li *ngIf="userNeed.needingEventStatus === 'Need'" class="list-item">
             <div class="toggle-container">
-              <span class="label-left">Don't need </span>
+              <span class="label-slide">Don't need </span>
               <label class="switch">
                 <input type="checkbox" [checked]="userNeed.needingEventStatus === 'Need'"
                        (change)="toggleStatus(userNeed.needingEventId)">
@@ -57,7 +57,7 @@
             <ul>
                 <li class="list-item fulfilled-item">
                   <div class="fulfilled-toggle-container">
-                    <span class="label-left">Don't need </span>
+                    <span class="label-slide">Don't need </span>
                     <label class="switch">
                       <input type="checkbox" [checked]="userNeed.needingEventStatus !== 'Fulfilled'"
                              (change)="toggleStatus(userNeed.needingEventId)">
