@@ -47,7 +47,7 @@
 .label-slide, .label-right {
   margin: 0 10px;
   font-size: 13px;
-  font-family: "Baloo Bhai 2", fantasy;
+  font-family: "Baloo Bhai 2", serif;
 }
 
 
@@ -114,13 +114,13 @@ input:focus + .slider {
   display: flex;
   align-items: center; /* Center alignment of the items vertically */
   flex-wrap: wrap;
-  font-family: "Baloo Bhai 2", fantasy;
+  font-family: "Baloo Bhai 2", serif;
   font-weight: normal;
 }
 
 .public-toggle label {
   margin-left: 8px; /* Space between checkbox and label */
-  font-family: "Baloo Bhai 2", fantasy;
+  font-family: "Baloo Bhai 2", serif;
 }
 
 input[type="checkbox"] {
