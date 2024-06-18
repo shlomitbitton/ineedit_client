@@ -13,6 +13,7 @@ import {AuthInterceptor} from "./auth.interceptor";
 import {NgOptimizedImage} from "@angular/common";
 import {MatTooltip, MatTooltipModule} from '@angular/material/tooltip';
 import { PublicNeedsComponent } from './public-needs/public-needs.component';
+import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { PublicNeedsComponent } from './public-needs/public-needs.component';
     LayoutComponent,
     LoginComponent,
     PublicNeedsComponent,
+    TermsAndConditionsComponent,
   ],
   imports: [
     BrowserModule,

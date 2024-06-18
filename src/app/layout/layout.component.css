@@ -81,3 +81,34 @@
   padding-left: 20px;  /* Adjust according to your layout */
   padding-right: 20px; /* Adjust according to your layout */
 }
+
+/* footer.component.css */
+.footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.left-content {
+  padding-right: 250px;
+  text-align: left;
+}
+
+.right-content {
+  padding-left: 250px;
+  text-align: right;
+}
+
+.footer a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+  font-size: 14px;
+}
+.terms-and-conditions-label{
+  font-family: "Baloo Bhai 2", serif;
+  color: #333333;
+}
+
+

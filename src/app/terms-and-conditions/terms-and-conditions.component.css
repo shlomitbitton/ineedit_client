@@ -1,0 +1,32 @@
+.terms-container {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.terms-container h1 {
+  color: #333;
+  text-align: center;
+}
+
+.terms-container h2 {
+  color: #0056b3;
+  margin-top: 20px;
+}
+
+.terms-container p {
+  color: #666;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+.terms-container a {
+  color: #007bff;
+  text-decoration: none;
+}
+.terms-container a:hover {
+  text-decoration: underline;
+}

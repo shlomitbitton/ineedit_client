@@ -3,6 +3,7 @@
 
 .content, .vendor, .toggle {
   flex: 1; /* Each section takes equal width */
+  padding-bottom: 250px;
 }
 
 .header {
