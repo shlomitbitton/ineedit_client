@@ -4,7 +4,7 @@
 }
 
 .list-item > div {
-  flex: 1;
+  /*flex: 1;*/
   min-width: 100px;
   margin: 5px;
 }
@@ -340,6 +340,11 @@ body {
 .share-button:hover {
   background-color: #ffde84; /* Lighter yellow on hover */
   transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+.vendor-label{
+  font-weight: normal;
+  padding-left: 40px;
 }
 
 

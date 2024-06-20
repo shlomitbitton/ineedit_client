@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {NeedingEventService} from "../needing-event.service";
 import {ActivatedRoute} from "@angular/router";
 import {NeedingEvent} from "../models/needing-event";
 import {FormControl} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {AuthService} from "../auth.service";
+import {NeedyEventsMap} from "../models/NeedyEventsMap";
+
 
 @Component({
   selector: 'app-needing-event',
@@ -18,7 +20,7 @@ export class NeedingEventComponent implements OnInit{
   needingEventId!: string;
   userId!: string | null;
   needingEventOfUser: NeedingEvent[] = [] ;
-  vendor = new FormControl('');
+  vendorControl = new FormControl('');
   neednotes = new FormControl('');
   shoppingCategory = new FormControl('');
   isPublic: number = 1 ? 0 : 1;
@@ -30,15 +32,16 @@ export class NeedingEventComponent implements OnInit{
   newItemName: string ='';
   userFirstName!: string;
   showEmptyList = false;
-  fulfilledNeeds: NeedingEvent[] = [] ;
   currentColorClass: string = 'background-color-1';
+  needyEventsMap: NeedyEventsMap = {};
+  fulfilledNeedsMap: { [vendor: string]: NeedingEvent[] } = {};
+  filteredEventsMap = new Map();
 
-  constructor(private needingEventService: NeedingEventService,
+  constructor(private cdr: ChangeDetectorRef, private needingEventService: NeedingEventService,
               private route: ActivatedRoute, private authService: AuthService) { }
 
 
   exportNeeds(): void {
-    // Assuming your items are stored in an array called 'items' and each item has a 'need' property
     const neededItems = this.needingEventOfUser.filter(item => item.needingEventStatus === 'Need');
     const neededNames = neededItems.map(item => item.itemNeededName).join('\n');
     // Create a blob with the needed items' names
@@ -89,9 +92,22 @@ export class NeedingEventComponent implements OnInit{
     this.isInputVisible = !this.isInputVisible;
   }
 
-  filterFulfilledNeeds() {
-    this.fulfilledNeeds = this.needingEventOfUser.filter(userNeed => userNeed.needingEventStatus === 'Fulfilled');
+  filterFulfilledNeeds(): void {
+    const filteredMap: NeedyEventsMap = {};
+    for (const [vendor, events] of Object.entries(this.needyEventsMap)) {
+      // Only keep the events that are fulfilled
+      const fulfilledEvents = events.filter(event => event.needingEventStatus === 'Fulfilled');
+      if (fulfilledEvents.length > 0) {
+        filteredMap[vendor] = fulfilledEvents;
+      }
+    }
+    this.fulfilledNeedsMap = filteredMap;
   }
+
+  isFulfilledMapEmpty(): boolean {
+    return Object.keys(this.fulfilledNeedsMap).length === 0;
+  }
+
   getImagePathForVendor(vendor: string):string {
     return `/assets/vendorLogo/${vendor}.png`;
   }
@@ -100,7 +116,7 @@ export class NeedingEventComponent implements OnInit{
     this.needingEventService.createOrUpdateVendor(userNeed, updatedVendor).subscribe({
       next: (response) => {
         console.info(`updating vendor: `+ response.shoppingCategory);
-        this.vendor.patchValue(response.vendor, {emitEvent: false});
+        this.vendorControl.patchValue(response.vendor, {emitEvent: false});
         this.getNeedingEventByUserId();
       },
       error: (error) => {
@@ -113,8 +129,8 @@ export class NeedingEventComponent implements OnInit{
   }
 
   updateVendorOnBlurOrEnter(userNeed: NeedingEvent): void {
-    if (this.vendor.value && this.vendor.value.trim() !== '' && this.vendor.value !== userNeed.potentialVendor) {
-      this.updateVendor(userNeed, this.vendor.value.trim());
+    if (this.vendorControl.value && this.vendorControl.value.trim() !== '' && this.vendorControl.value !== userNeed.potentialVendor) {
+      this.updateVendor(userNeed, this.vendorControl.value.trim());
     } else {
       this.isInputVisible = false; // Hide input if no changes are made
     }
@@ -124,6 +140,18 @@ export class NeedingEventComponent implements OnInit{
   ngOnInit(): void {
     this.userId = this.authService.getCurrentUserId();
     this.getNeedingEventByUserId();
+  }
+
+  private filterVendors() {
+    for (const [vendor, events] of Object.entries(this.needyEventsMap)) {
+      const neededEvents = events.filter(event => event.needingEventStatus === 'Need');
+      if (neededEvents.length > 0) {
+        this.filteredEventsMap.set(vendor, neededEvents);
+      } else {
+        this.filteredEventsMap.delete(vendor);
+      }
+    }
+    this.cdr.detectChanges();  // Manually trigger change detection
   }
 
   addItem() {
@@ -196,9 +224,10 @@ export class NeedingEventComponent implements OnInit{
     if (this.userId !== null) {
       this.needingEventService.getNeedingEventByUserId(this.userId).subscribe({
         next: (data) => {
-          if (Array.isArray(data) && data.length > 0) {
+          if (data && Object.keys(data).length > 0) {
             // Data is a non-empty array
-            this.needingEventOfUser = data;
+            this.needyEventsMap = data;
+            this.filterVendors();
             this.filterFulfilledNeeds();
             console.log('Needing events fetched successfully:', data);
           } else {
@@ -212,8 +241,5 @@ export class NeedingEventComponent implements OnInit{
       });
   }
   }
-
-
-
 
 }

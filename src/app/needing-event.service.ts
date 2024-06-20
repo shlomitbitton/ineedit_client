@@ -5,7 +5,7 @@ import {NeedingEvent} from "./models/needing-event";
 import {ActivatedRoute} from "@angular/router";
 import {UserDetails} from "./models/user-details";
 import {production} from "../environments/environment.prod";
-import {development} from "../environments/environment";
+import {NeedyEventsMap} from "./models/NeedyEventsMap";
 
 
 @Injectable({
@@ -30,14 +30,13 @@ export class NeedingEventService {
       );
   }
 
-  getNeedingEventByUserId(userId: string): Observable<NeedingEvent[]> {
-    let params = new HttpParams()
-      .set('user-id', userId);
+  getNeedingEventByUserId(userId: string): Observable<NeedyEventsMap> {
+    let params = new HttpParams().set('user-id', userId);
     this.userId = userId;
     console.log(`getNeedingEventByUserId`);
-    return this.http.get<NeedingEvent[]>(this.apiUrl+"all-needs-by-user", {params: params})
+    return this.http.get<NeedyEventsMap>(`${this.apiUrl}all-needs-by-user`, {params: params})
       .pipe(
-        catchError(this.handleError<NeedingEvent[]>("Error fetching needing events", []))
+        catchError(this.handleError<NeedyEventsMap>("Error fetching needing events", {}))
       );
   }
 
@@ -60,57 +59,102 @@ export class NeedingEventService {
   }
 
   // This method is a machine learning method to fetch previously categorized item
-  getShoppingCategory(newItemName: string): Observable<string | null> {
+  // getShoppingCategory(newItemName: string): Observable<string | null> {
+  //   console.log(`Getting shopping category for item: ${newItemName}`);
+  //   // Fetch the user's existing items from the needingEventService
+  //   return this.getNeedingEventByUserId(this.userId).pipe(
+  //     map(events => {
+  //       console.log("console.log(events): "+events);
+  //       const normalizedNewItemName = newItemName.toLowerCase();
+  //       const existingItem = events.find(event =>
+  //         event.itemNeededName.valueOf().toLowerCase() === normalizedNewItemName
+  //       );
+  //       if (existingItem) {
+  //         console.log(`Found existing item, shopping category: ${existingItem.shoppingCategory}`);
+  //         return existingItem.shoppingCategory;
+  //       } else {
+  //         console.log(`No existing item found. Using default category: GENERAL`);
+  //         return 'GENERAL';
+  //       }
+  //     }),
+  //     catchError(error => {
+  //       console.error('Error in getting shopping category', error);
+  //       return of(null); // Handle errors or rethrow as needed
+  //     })
+  //   );
+  // }
+
+  getShoppingCategory(newItemName: string): Observable<string> {
     console.log(`Getting shopping category for item: ${newItemName}`);
-    // Fetch the user's existing items from the needingEventService
     return this.getNeedingEventByUserId(this.userId).pipe(
-      map(events => {
-        console.log("console.log(events): "+events);
+      map(eventsMap => {
         const normalizedNewItemName = newItemName.toLowerCase();
-        const existingItem = events.find(event =>
-          event.itemNeededName.valueOf().toLowerCase() === normalizedNewItemName
-        );
-        if (existingItem) {
-          console.log(`Found existing item, shopping category: ${existingItem.shoppingCategory}`);
-          return existingItem.shoppingCategory;
+        let categoryFound: string | undefined = undefined;
+
+        // Iterate over each vendor's list of events
+        for (let vendor in eventsMap) {
+          if (eventsMap.hasOwnProperty(vendor)) {
+            const existingItem = eventsMap[vendor].find(event =>
+              event.itemNeededName.toLowerCase() === normalizedNewItemName
+            );
+            if (existingItem) {
+              console.log(`Found existing item, shopping category: ${existingItem.shoppingCategory}`);
+              categoryFound = existingItem.shoppingCategory;
+              break; // Stop searching once we find the item
+            }
+          }
+        }
+
+        if (categoryFound) {
+          return categoryFound; // Return the found shopping category
         } else {
           console.log(`No existing item found. Using default category: GENERAL`);
-          return 'GENERAL';
+          return 'GENERAL'; // Default category if not found
         }
       }),
       catchError(error => {
         console.error('Error in getting shopping category', error);
-        return of(null); // Handle errors or rethrow as needed
+        return of('GENERAL'); // Return default category on error
       })
     );
   }
 
-  getVendor(newItemName: string): Observable<string | null> {
-    console.log(`Getting vendor for item: ${newItemName}`);
-    // Fetch the user's existing items from the needingEventService
-    return this.getNeedingEventByUserId(this.userId).pipe(
-      map(events => {
-        console.log("console.log(events): "+events);
-        const normalizedNewItemName = newItemName.toLowerCase();
-        const existingItem = events.find(event =>
-          event.itemNeededName.valueOf().toLowerCase() === normalizedNewItemName
-        );
-        if (existingItem) {
-          console.log(`Found existing item, vendor: ${existingItem.potentialVendor}`);
-          return existingItem.potentialVendor;
-        } else {
-          console.log(`No existing item found. Using default vendor: On-line`);
-          return 'On-Line';
+getVendor(newItemName: string): Observable<string> {
+  console.log(`Getting vendor for item: ${newItemName}`);
+  return this.getNeedingEventByUserId(this.userId).pipe(
+    map(eventsMap => {
+      const normalizedNewItemName = newItemName.toLowerCase();
+      let vendorFound: string | undefined = undefined;
+      // Check all vendors
+      for (let vendor in eventsMap) {
+        if (eventsMap.hasOwnProperty(vendor)) {
+          let existingItem = eventsMap[vendor].find(event =>
+            event.itemNeededName.toLowerCase() === normalizedNewItemName
+          );
+          if (existingItem) {
+            console.log(`Found existing item, vendor: ${existingItem.potentialVendor}`);
+            vendorFound = existingItem.potentialVendor;
+            break; // Stop searching once we find the item
+          }
         }
-      }),
-      catchError(error => {
-        console.error('Error in getting vendor', error);
-        return of(null); // Handle errors or rethrow as needed
-      })
-    );
-  }
+      }
 
-  createOrUpdateItem(newItemName: string): Observable<any> {
+      if (vendorFound) {
+        return vendorFound; // Return the found vendor's name
+      } else {
+        console.log(`No existing item found. Using default vendor: On-Line`);
+        return 'On-Line'; // Default vendor if not found
+      }
+    }),
+    catchError(error => {
+      console.error('Error in getting vendor', error);
+      return of('On-Line'); // Return default vendor on error
+    })
+  );
+}
+
+
+createOrUpdateItem(newItemName: string): Observable<any> {
     console.log(`Creating or updating item: ${newItemName}`);
     return this.getShoppingCategory(newItemName).pipe(
       switchMap(shoppingCategory => {

@@ -13,74 +13,85 @@
     <div *ngIf="!showEmptyList; else loading">
       <button (click)="exportNeeds()" class="share-button">Share needs</button>
       <ul>
-<!--        <ng-container *ngFor="let userNeed of needingEventOfUser">-->
-        <ng-container *ngFor="let userNeed of needingEventOfUser; let i = index">
-          <li *ngIf="userNeed.needingEventStatus === 'Need'" class="list-item">
-            <div class="toggle-container">
-              <span class="label-slide">Don't need </span>
-              <label class="switch">
-                <input type="checkbox" [checked]="userNeed.needingEventStatus === 'Need'"
-                       (change)="toggleStatus(userNeed.needingEventId)">
-                <span class="slider round"></span>
-              </label>
-              <span class="label-right">Need</span>
-            </div>
-            <div class="item-name" matTooltip="{{ userNeed.needNotes }}" matTooltipPosition="below">
-              <label matTooltip="By making it public, others can see and possibly fulfill your need" class="public-tag">Make Public</label>
-              <input type="checkbox" [checked]="userNeed.isPublic === 1" (change)="updateIsPublic(userNeed.needingEventId)">
-              {{ userNeed.itemNeededName }}
-              <br/>
-              <span *ngIf="userNeed.needingEventStatus === 'Need'" #needDiv class="lighter-color">
-              I've needed it for {{ userNeed.daysListed }} days now</span>
-            </div>
+        <ng-container  *ngFor="let vendor of filteredEventsMap | keyvalue">
 
-            <div class="mobileversion" (click)="toggleInput()">
-              <span *ngIf="!isInputVisible">{{ userNeed.potentialVendor }}</span>
-              <input *ngIf="isInputVisible" id="vendor" type="text" [formControl]="vendor"
-                     placeholder="Change shopping resource" class="vendor-input"
-                     (click)="$event.stopPropagation()"
-              (blur)="updateVendorOnBlurOrEnter(userNeed)"
-              (keyup.enter)="updateVendorOnBlurOrEnter(userNeed)">
-            </div>
+              <h3 class="vendor-label">{{ vendor.key }}</h3>
+              <ng-container *ngFor="let userNeed of vendor.value; let i = index">
+                  <ul>
+                  <li class="list-item">
+                    <div class="toggle-container">
+                      <span class="label-slide">Don't need </span>
+                      <label class="switch">
+                        <input type="checkbox" [checked]="userNeed.needingEventStatus === 'Need'"
+                               (change)="toggleStatus(userNeed.needingEventId)">
+                        <span class="slider round"></span>
+                      </label>
+                      <span class="label-right">Need</span>
+                    </div>
+                    <div class="item-name" matTooltip="{{ userNeed.needNotes }}" matTooltipPosition="below">
+                      <label matTooltip="By making it public, others can see and possibly fulfill your need" class="public-tag">Make Public</label>
+                      <input type="checkbox" [checked]="userNeed.isPublic === 1" (change)="updateIsPublic(userNeed.needingEventId)">
+                      {{ userNeed.itemNeededName }}
+                      <br/>
+                      <span *ngIf="userNeed.needingEventStatus === 'Need'" #needDiv class="lighter-color">
+                      I've needed it for {{ userNeed.daysListed }} days now</span>
+                    </div>
 
-            <div class="button-like" (click)="deleteNeed(userNeed.needingEventId)">
-              <img [src]="'/assets/trash_icon.png'" alt="Delete this need" width="20" height="20">
-            </div>
-          </li>
+                    <div class="mobileversion" (click)="toggleInput()">
+                      <span *ngIf="!isInputVisible">{{ userNeed.potentialVendor }}</span>
+                      <input *ngIf="isInputVisible" id="vendor" type="text" [formControl]="vendorControl"
+                             placeholder="Change shopping resource" class="vendor-input"
+                             (click)="$event.stopPropagation()"
+                      (blur)="updateVendorOnBlurOrEnter(userNeed)"
+                      (keyup.enter)="updateVendorOnBlurOrEnter(userNeed)">
+                    </div>
+
+                    <div class="button-like" (click)="deleteNeed(userNeed.needingEventId)">
+                      <img [src]="'/assets/trash_icon.png'" alt="Delete this need" width="20" height="20">
+                    </div>
+                  </li>
+                  </ul>
+<!--                  </ng-container>-->
+              </ng-container>
         </ng-container>
       </ul>
-
-      <ng-container *ngIf="fulfilledNeeds.length > 0">
-        <h3 class="fulfilled-needs-title">Just in case I need it again...</h3>
-        <ng-container *ngFor="let userNeed of needingEventOfUser">
-          <ng-container *ngIf="userNeed.needingEventStatus === 'Fulfilled'">
-            <ul>
-                <li class="list-item fulfilled-item">
-                  <div class="fulfilled-toggle-container">
-                    <span class="label-slide">Don't need </span>
-                    <label class="switch">
-                      <input type="checkbox" [checked]="userNeed.needingEventStatus !== 'Fulfilled'"
-                             (change)="toggleStatus(userNeed.needingEventId)">
-                      <span class="slider round"></span>
-                    </label>
-                    <span class="label-right">Need</span>
-                  </div>
-                  <div class="fulfilled-item-name" matTooltip="{{ userNeed.needNotes }}" matTooltipPosition="below">
-                    {{ userNeed.itemNeededName }}
-                  </div>
-                  <div class="button-like" (click)="deleteNeed(userNeed.needingEventId)">
-                    <img [src]="'/assets/trash_icon.png'" alt="Delete this need" width="20" height="20">
-                  </div>
-                  <div class="extra-column"></div>
-                  <div class="extra-column"></div>
-                  <div class="extra-column"></div>
-                </li>
-            </ul>
-          </ng-container>
-       </ng-container>
-      </ng-container>
     </div>
-  </div>
+
+
+      <div *ngIf="!isFulfilledMapEmpty()">
+        <h3 class="fulfilled-needs-title">Just in case I need it again...</h3>
+        <ul *ngFor="let vendor of fulfilledNeedsMap | keyvalue">
+          <h3 class="vendor-label">{{ vendor.key }}</h3>
+          <ng-container *ngFor="let userNeed of vendor.value">
+            <ng-container *ngIf="userNeed.needingEventStatus === 'Fulfilled'">
+              <ul>
+                  <li class="list-item fulfilled-item">
+                    <div class="fulfilled-toggle-container">
+                      <span class="label-slide">Don't need </span>
+                      <label class="switch">
+                        <input type="checkbox" [checked]="userNeed.needingEventStatus !== 'Fulfilled'"
+                               (change)="toggleStatus(userNeed.needingEventId)">
+                        <span class="slider round"></span>
+                      </label>
+                      <span class="label-right">Need</span>
+                    </div>
+                    <div class="fulfilled-item-name" matTooltip="{{ userNeed.needNotes }}" matTooltipPosition="below">
+                      {{ userNeed.itemNeededName }}
+                    </div>
+                    <div class="button-like" (click)="deleteNeed(userNeed.needingEventId)">
+                      <img [src]="'/assets/trash_icon.png'" alt="Delete this need" width="20" height="20">
+                    </div>
+                    <div class="extra-column"></div>
+                    <div class="extra-column"></div>
+                    <div class="extra-column"></div>
+                  </li>
+              </ul>
+          </ng-container>
+        </ng-container>
+      </ul>
+      </div>
+
+
   <ng-template #loading class="cartoon-container">
       <div class="cartoon-message">Your shopping list is empty!</div>
   </ng-template>
