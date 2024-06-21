@@ -324,6 +324,9 @@ body {
   .public-toggle {
     justify-content: space-between; /* Spreads items to full width on smaller screens */
   }
+  .fulfilled-toggle-container{
+    flex: 0 0 50px;
+  }
 }
 
 .share-button {
