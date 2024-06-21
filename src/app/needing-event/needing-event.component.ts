@@ -60,33 +60,6 @@ export class NeedingEventComponent implements OnInit{
     document.body.removeChild(a);
   }
 
-  //
-  // getBackgroundColorClass(vendor: string): string {
-  //   if (vendor !== this.lastVendor) {
-  //     this.currentColorClass = this.currentColorClass === 'background-color-1' ? 'background-color-2' : 'background-color-1';
-  //     this.lastVendor = vendor;
-  //   }
-  //   return this.currentColorClass;
-  // }
-
-  // computeBackgroundClasses(): void {
-  //   this.needingEventOfUser.forEach(event => {
-  //     event.backgroundColorClass = this.getBackgroundColorClass(event.potentialVendor);
-  //   });
-  // }
-
-
-
-  // getBackgroundColorClass(vendor: string): string {
-  //   if (vendor !== this.lastVendor) {
-  //     this.currentColorClass = this.currentColorClass === 'background-color-1' ? 'background-color-2' : 'background-color-1';
-  //     this.lastVendor = vendor;
-  //   }
-  //   return this.currentColorClass;
-  // }
-  // toggleDropdown() {
-  //   this.isDropdownVisible = !this.isDropdownVisible;
-  // }
 
   toggleInput() {
     this.isInputVisible = !this.isInputVisible;
@@ -142,16 +115,41 @@ export class NeedingEventComponent implements OnInit{
     this.getNeedingEventByUserId();
   }
 
-  private filterVendors() {
+
+  filterVendors() {
+    // Helper map to manage case-insensitive checks
+    const caseInsensitiveMap = new Map();
+
+    // Clear existing filtered map to avoid stale entries
+    this.filteredEventsMap.clear();
+
     for (const [vendor, events] of Object.entries(this.needyEventsMap)) {
+      const normalizedVendor = vendor.toLowerCase();
       const neededEvents = events.filter(event => event.needingEventStatus === 'Need');
+
       if (neededEvents.length > 0) {
-        this.filteredEventsMap.set(vendor, neededEvents);
+        // Check if we already have this vendor under a different casing
+        if (caseInsensitiveMap.has(normalizedVendor)) {
+          // Retrieve the original case vendor name from the helper map
+          const originalVendor = caseInsensitiveMap.get(normalizedVendor);
+          // Merge new needed events with existing ones under the original casing
+          this.filteredEventsMap.set(originalVendor, [...this.filteredEventsMap.get(originalVendor), ...neededEvents]);
+        } else {
+          // Add to the filtered map and helper map
+          this.filteredEventsMap.set(vendor, neededEvents);
+          caseInsensitiveMap.set(normalizedVendor, vendor);
+        }
       } else {
-        this.filteredEventsMap.delete(vendor);
+        // If no needed events and vendor exists in case-insensitive map, consider removing
+        if (caseInsensitiveMap.has(normalizedVendor)) {
+          const originalVendor = caseInsensitiveMap.get(normalizedVendor);
+          this.filteredEventsMap.delete(originalVendor);
+        }
       }
     }
-    this.cdr.detectChanges();  // Manually trigger change detection
+
+    // Manually trigger change detection
+    this.cdr.detectChanges();
   }
 
   addItem() {
