@@ -19,7 +19,6 @@ export class NeedingEventComponent implements OnInit{
   needingEvent!: NeedingEvent;
   needingEventId!: string;
   userId!: string | null;
-  needingEventOfUser: NeedingEvent[] = [] ;
   vendorControl = new FormControl('');
   neednotes = new FormControl('');
   shoppingCategory = new FormControl('');
@@ -33,19 +32,24 @@ export class NeedingEventComponent implements OnInit{
   userFirstName!: string;
   showEmptyList = false;
   currentColorClass: string = 'background-color-1';
-  needyEventsMap: NeedyEventsMap = {};
+  needsEventsMap: NeedyEventsMap = {};
   fulfilledNeedsMap: { [vendor: string]: NeedingEvent[] } = {};
   filteredEventsMap = new Map();
 
   constructor(private cdr: ChangeDetectorRef, private needingEventService: NeedingEventService,
-              private route: ActivatedRoute, private authService: AuthService) { }
+              private authService: AuthService) { }
 
 
-  exportNeeds(): void {
-    const neededItems = this.needingEventOfUser.filter(item => item.needingEventStatus === 'Need');
-    const neededNames = neededItems.map(item => item.itemNeededName).join('\n');
-    // Create a blob with the needed items' names
-    const blob = new Blob([neededNames], { type: 'text/plain;charset=utf-8' });
+  exportNeeds(): void {//TODO: later on I will add checkboxes to choose which vendor to export
+    const neededNames: any[] = [];
+    for (const [vendor, events] of Object.entries(this.needsEventsMap)) {
+      // Filter the events to find only those that need processing and map to get the needed item names
+      const filteredEvents = events.filter(event => event.needingEventStatus === 'Need').map(event => event.itemNeededName);
+      console.log("Filtered Needed Items for vendor", vendor, filteredEvents);
+      neededNames.push(...filteredEvents); // Spread operator to push each name individually
+    }
+    const neededNamesText = neededNames.join('\n');
+    const blob = new Blob([neededNamesText], { type: 'text/plain;charset=utf-8' });
 
     // Automatically create a download link and click it
     const url = window.URL.createObjectURL(blob);
@@ -67,7 +71,7 @@ export class NeedingEventComponent implements OnInit{
 
   filterFulfilledNeeds(): void {
     const filteredMap: NeedyEventsMap = {};
-    for (const [vendor, events] of Object.entries(this.needyEventsMap)) {
+    for (const [vendor, events] of Object.entries(this.needsEventsMap)) {
       // Only keep the events that are fulfilled
       const fulfilledEvents = events.filter(event => event.needingEventStatus === 'Fulfilled');
       if (fulfilledEvents.length > 0) {
@@ -123,7 +127,7 @@ export class NeedingEventComponent implements OnInit{
     // Clear existing filtered map to avoid stale entries
     this.filteredEventsMap.clear();
 
-    for (const [vendor, events] of Object.entries(this.needyEventsMap)) {
+    for (const [vendor, events] of Object.entries(this.needsEventsMap)) {
       const normalizedVendor = vendor.toLowerCase();
       const neededEvents = events.filter(event => event.needingEventStatus === 'Need');
 
@@ -224,7 +228,7 @@ export class NeedingEventComponent implements OnInit{
         next: (data) => {
           if (data && Object.keys(data).length > 0) {
             // Data is a non-empty array
-            this.needyEventsMap = data;
+            this.needsEventsMap = data;
             this.filterVendors();
             this.filterFulfilledNeeds();
             console.log('Needing events fetched successfully:', data);
