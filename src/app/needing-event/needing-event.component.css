@@ -310,6 +310,7 @@ body {
   font-size: 22px; /* Adjust font size as needed */
   font-weight: normal;
   margin-left: 2px;
+  flex-grow: 1;
 }
 
 .extra-column {

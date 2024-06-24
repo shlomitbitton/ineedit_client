@@ -37,6 +37,7 @@
   text-justify: auto;
   font-weight: bold;
   font-size: x-large;
+  flex-grow: 1;
 }
 
 * {
