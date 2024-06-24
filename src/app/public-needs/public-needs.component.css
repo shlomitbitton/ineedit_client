@@ -24,18 +24,18 @@
   /*padding-bottom: 300px;*/
 }
 
-.list-item {
+.public-list-item {
   display: flex;
   flex-wrap: wrap;
-  align-items: self-start;
-  background-color: #f9f9f9;
+  align-items: flex-start; /* Changed to flex-start for better alignment */
+  background-color: transparent; /* No background */
   padding: 2px;
-  border-radius: 3px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 0; /* No rounded corners */
+  box-shadow: none; /* No box shadow */
   font-size: 20px;
   font-family: 'Caveat', cursive;
-  border-bottom: 1px solid #ccc;
-  border-right: 1px solid #ccc;
+  border: none; /* No borders */
   margin-bottom: 5px;
-  justify-content: space-evenly;
+  justify-content: flex-start; /* Ensure content starts from the left */
+  text-align: left; /* Align text to the left */
 }

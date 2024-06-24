@@ -14,7 +14,6 @@
       <button (click)="exportNeeds()" class="share-button">Share needs</button>
       <ul>
         <ng-container  *ngFor="let vendor of filteredEventsMap | keyvalue">
-
               <h3 class="vendor-label">{{ vendor.key }}</h3>
               <ng-container *ngFor="let userNeed of vendor.value; let i = index">
                   <ul>
@@ -46,12 +45,11 @@
                       (keyup.enter)="updateVendorOnBlurOrEnter(userNeed)">
                     </div>
 
-                    <div class="button-like" (click)="deleteNeed(userNeed.needingEventId)">
+                    <div class="trash-icon" (click)="deleteNeed(userNeed.needingEventId)">
                       <img [src]="'/assets/trash_icon.png'" alt="Delete this need" width="20" height="20">
                     </div>
                   </li>
                   </ul>
-<!--                  </ng-container>-->
               </ng-container>
         </ng-container>
       </ul>
@@ -78,7 +76,7 @@
                     <div class="fulfilled-item-name" matTooltip="{{ userNeed.needNotes }}" matTooltipPosition="below">
                       {{ userNeed.itemNeededName }}
                     </div>
-                    <div class="button-like" (click)="deleteNeed(userNeed.needingEventId)">
+                    <div class="trash-icon" (click)="deleteNeed(userNeed.needingEventId)">
                       <img [src]="'/assets/trash_icon.png'" alt="Delete this need" width="20" height="20">
                     </div>
                     <div class="extra-column"></div>

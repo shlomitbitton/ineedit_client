@@ -4,9 +4,8 @@
 }
 
 .list-item > div {
-  /*flex: 1;*/
   min-width: 100px;
-  margin: 5px;
+  margin: 2px;
 }
 
 /* Media query for devices with a width of 600px or less */
@@ -217,8 +216,8 @@ body {
   background-color: #FAEBD7;
 }
 
-/*trash icon*/
-.button-like {
+.trash-icon {
+  flex: none;
   display: inline-block; /* Ensures div takes the size of the image */
   border: 1px #ccc;
   border-radius: 0px;
@@ -226,7 +225,7 @@ body {
   cursor: pointer; /* Change cursor to pointer by default */
 }
 
-.button-like:hover {
+.trash-icon:hover {
   background-color: #f0f0f0; /* Change background color on hover */
 }
 
