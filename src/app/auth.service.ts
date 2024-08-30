@@ -12,6 +12,7 @@ import {production} from "../environments/environment.prod";
 })
 export class AuthService {
 
+
   private apiUrl = production.apiUrl;
   private userIdSource = new BehaviorSubject<string | null>(null);
 
@@ -66,5 +67,40 @@ export class AuthService {
           return of({ error: 'Login failed. Please check your credentials and try again.' });
         })
       );
+  }
+
+  getUserPassword(email: string):  Observable<{ message: string, isError: boolean }>{
+    const url = `${this.apiUrl}password-recovery`;
+    const payload = {
+      email: email
+    };
+    return this.http.post(url, payload).pipe(
+      map(response => ({
+        message: "Password recovery email sent successfully.",
+        isError: false
+      })),
+      catchError(error => of({
+        message: "An error occurred while trying to send the password recovery email. Please try again.",
+        isError: true
+      }))
+    );
+  }
+
+  changeUserPassword(newPassword: string, token: string):  Observable<{ message: string, isError: boolean }>{
+    const url = `${this.apiUrl}reset-password`;
+    const payload = {
+      token: token,
+      newPassword: newPassword
+    };
+    return this.http.post(url, payload).pipe(
+      map(response => ({
+        message: "Password changed successfully.",
+        isError: false
+      })),
+      catchError(error => of({
+        message: "An error occurred while trying to change the password.",
+        isError: true
+      }))
+    );
   }
 }

@@ -14,6 +14,8 @@ import {NgOptimizedImage} from "@angular/common";
 import {MatTooltip, MatTooltipModule} from '@angular/material/tooltip';
 import { PublicNeedsComponent } from './public-needs/public-needs.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-co
     LoginComponent,
     PublicNeedsComponent,
     TermsAndConditionsComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
