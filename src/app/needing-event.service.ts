@@ -6,6 +6,7 @@ import {ActivatedRoute} from "@angular/router";
 import {UserDetails} from "./models/user-details";
 import {production} from "../environments/environment.prod";
 import {NeedyEventsMap} from "./models/NeedyEventsMap";
+import {development} from "../environments/environment";
 
 
 @Injectable({
@@ -49,12 +50,12 @@ export class NeedingEventService {
   }
 
   updateStatus(needingEventId: number) {
-    const url = `${this.apiUrl}update-needing-event-status?needing-event-id=${needingEventId}`;
-    return this.http.post(url, {});
+    const url = `${this.apiUrl}update-needing-event-status?needing-event-id=${needingEventId.toString()}`;
+    return this.http.patch(url, {});
   }
 
   updateIsPublic(needingEventId: number) {
-    const url = `${this.apiUrl}make-need-public?needing-event-id=${needingEventId}`;
+    const url = `${this.apiUrl}make-need-public?needing-event-id=${needingEventId.toString()}`;
     return this.http.post(url, {});
   }
 
@@ -154,6 +155,23 @@ getVendor(newItemName: string): Observable<string> {
 }
 
 
+  shareNeeds(needs: any[], email: string, userId: string | null):Observable<any> {
+    const url = `${this.apiUrl}update-need-new-owner`;
+    const body = {
+      currentOwnerUserId: userId,
+      newOwnersEmailAddress: email,
+      listOfNeeds: needs
+    };
+    return this.http.patch(url, body).pipe( map(response => ({
+      message: "Needs shared successfully.",
+      isError: false
+    })),
+    catchError(error => of({
+      message: "An error occurred while trying to share needs.",
+      isError: true
+    })));
+  }
+
 createOrUpdateItem(newItemName: string): Observable<any> {
     console.log(`Creating or updating item: ${newItemName}`);
     return this.getShoppingCategory(newItemName).pipe(
@@ -174,7 +192,7 @@ createOrUpdateItem(newItemName: string): Observable<any> {
               vendorName: vendorName  // Use the fetched or default vendor name
             };
             const url = `${this.apiUrl}add-update-needing-event`;
-            return this.http.post(url, body);
+            return this.http.put(url, body);
           }),
           catchError(error => {
             console.error('Error while fetching vendor', error);
@@ -199,7 +217,7 @@ createOrUpdateItem(newItemName: string): Observable<any> {
       vendorName: newVendorName
     };
     const url = `${this.apiUrl}add-update-needing-event`;
-    return this.http.post(url, body);
+    return this.http.put(url, body);
   }
 
   createOrUpdateShoppingCategory(item: NeedingEvent, shoppingCategory: string | null): Observable<any> {
@@ -211,7 +229,7 @@ createOrUpdateItem(newItemName: string): Observable<any> {
       vendorName: item.potentialVendor
     };
     const url = `${this.apiUrl}add-update-needing-event`;
-    return this.http.post(url, body);
+    return this.http.put(url, body);
   }
 
   getUserDetailsById(userId: string): Observable<any> {
@@ -244,10 +262,14 @@ createOrUpdateItem(newItemName: string): Observable<any> {
     return this.http.get(url, {});
   }
 
-  deleteNeed(needingEventId: number){
-    const url = `${this.apiUrl}delete-need/${needingEventId}`;
+  deleteNeed(needingEventId: number, userId: string){
+    const url = `${this.apiUrl}delete-need`;
+    const payload = {
+      needingEventId: needingEventId,
+      userId: userId
+    };
     console.info("deleting needing event {}", needingEventId);
-    return this.http.delete(url, {});
+    return this.http.delete(url, { body: payload });
   }
 
 

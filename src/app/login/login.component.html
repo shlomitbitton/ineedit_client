@@ -9,11 +9,13 @@
         </div>
         <button type="submit">Login</button>
       <button type="button" (click)="toggleRegisterForm()" *ngIf="!showRegistrationSuccessfulMessage">Register</button>
+      <br/>
+      <a routerLink="/forgot-password">Forgot Password?</a>
       <div *ngIf="showRegistrationSuccessfulMessage" class="alert">Registration Successful! Please login.</div>
     </form>
   </div>
   <div *ngIf="showRegisterForm" class="register-new-user">
-    <h2>Register New User</h2>
+    <h2>Sign Up</h2>
     <form [formGroup]="registerForm" (ngSubmit)="register()">
       <label for="username">Username:</label>
       <input type="text" id="username" formControlName="username" required>

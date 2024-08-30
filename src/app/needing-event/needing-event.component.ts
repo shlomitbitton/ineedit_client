@@ -6,12 +6,21 @@ import {FormControl} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {AuthService} from "../auth.service";
 import {NeedyEventsMap} from "../models/NeedyEventsMap";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 
 @Component({
   selector: 'app-needing-event',
   templateUrl: './needing-event.component.html',
-  styleUrls: ['./needing-event.component.css']
+  styleUrls: ['./needing-event.component.css'],
+  animations: [
+    trigger('fade', [
+      state('void', style({ opacity: 0 })),
+      transition(':enter, :leave', [ // :enter is alias to 'void => *'
+        animate(500)
+      ])
+    ])
+  ]
 
 })
 export class NeedingEventComponent implements OnInit{
@@ -20,9 +29,8 @@ export class NeedingEventComponent implements OnInit{
   needingEventId!: string;
   userId!: string | null;
   vendorControl = new FormControl('');
-  neednotes = new FormControl('');
   shoppingCategory = new FormControl('');
-  isPublic: number = 1 ? 0 : 1;
+  isPublic: number = 0;
   shoppingCategories!: any;
   subscriptions: Subscription = new Subscription();
   isDropdownVisible: boolean = false;
@@ -31,37 +39,70 @@ export class NeedingEventComponent implements OnInit{
   newItemName: string ='';
   userFirstName!: string;
   showEmptyList = false;
-  currentColorClass: string = 'background-color-1';
   needsEventsMap: NeedyEventsMap = {};
   fulfilledNeedsMap: { [vendor: string]: NeedingEvent[] } = {};
   filteredEventsMap = new Map();
+  shareEmail: string = '';
+  selectedSharedNeedIds: number[] = [];
+  message: string = '';
+  isError: boolean = false;
 
   constructor(private cdr: ChangeDetectorRef, private needingEventService: NeedingEventService,
               private authService: AuthService) { }
 
 
-  exportNeeds(): void {//TODO: later on I will add checkboxes to choose which vendor to export
-    const neededNames: any[] = [];
-    for (const [vendor, events] of Object.entries(this.needsEventsMap)) {
-      // Filter the events to find only those that need processing and map to get the needed item names
-      const filteredEvents = events.filter(event => event.needingEventStatus === 'Need').map(event => event.itemNeededName);
-      console.log("Filtered Needed Items for vendor", vendor, filteredEvents);
-      neededNames.push(...filteredEvents); // Spread operator to push each name individually
-    }
-    const neededNamesText = neededNames.join('\n');
-    const blob = new Blob([neededNamesText], { type: 'text/plain;charset=utf-8' });
+  onCheckboxChange(id: number): void {
+    // Clear the array of selected shared need IDs before updating
+    this.selectedSharedNeedIds = [];
+    this.selectedSharedNeedIds.push(id);
 
-    // Automatically create a download link and click it
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.style.display = 'none';
-    a.href = url;
-    a.download = 'shopping-list.txt';  // Specify the file name here
-    document.body.appendChild(a);
-    a.click();
-    // Clean up by revoking the Blob URL and removing the link
-    window.URL.revokeObjectURL(url);
-    document.body.removeChild(a);
+    console.log("Selected shared need IDs", this.selectedSharedNeedIds);
+  }
+
+  /*
+
+
+   */
+  // const neededNamesText = this.selectedSharedNeedIds.join('\n');
+  // const blob = new Blob([neededNamesText], { type: 'text/plain;charset=utf-8' });
+  //
+  // // Automatically create a download link and click it
+  // const url = window.URL.createObjectURL(blob);
+  // const a = document.createElement('a');
+  // a.style.display = 'none';
+  // a.href = url;
+  // a.download = 'shopping-list.txt';  // Specify the file name here
+  // document.body.appendChild(a);
+  // a.click();
+  // // Clean up by revoking the Blob URL and removing the link
+  // window.URL.revokeObjectURL(url);
+  // document.body.removeChild(a);
+// }
+
+
+  shareSelectedNeeds(): void {
+    if (this.selectedSharedNeedIds.length === 0) {
+      alert('Please select needs to share.');
+      return;
+    }
+    if (!this.shareEmail || !this.validateEmail(this.shareEmail)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    this.needingEventService.shareNeeds(this.selectedSharedNeedIds, this.shareEmail, this.userId).subscribe( result =>{
+      this.message = result.message;
+      this.isError = result.isError;
+
+      setTimeout(() => {
+        this.message = '';
+      }, 3000);
+    });
+  }
+
+// Utility function to validate email addresses
+  validateEmail(email: string): boolean {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
   }
 
 
@@ -185,12 +226,15 @@ export class NeedingEventComponent implements OnInit{
   }
 
   deleteNeed(needingEventId: number) {
-    this.needingEventService.deleteNeed(needingEventId).subscribe({
-      next: (response) => {console.log("Need deleted successfully", response);
-      this.getNeedingEventByUserId();
-      },
-      error: (error) => console.error("Error deleting need", error)
-    });
+    if (this.userId !== null) {
+      this.needingEventService.deleteNeed(needingEventId, this.userId).subscribe({
+        next: (response) => {
+          console.log("Need deleted successfully", response);
+          this.getNeedingEventByUserId();
+        },
+        error: (error) => console.error("Error deleting need", error)
+      });
+    }
   }
 
 
@@ -212,8 +256,8 @@ export class NeedingEventComponent implements OnInit{
     this.needingEventService.updateIsPublic(needingEventId).subscribe({
       next: (response) => {
         this.isPublic = 1;
-        console.log('Status updated successfully');
-        this.getNeedingEventByUserId();
+        console.log('Need is public');
+       // this.getNeedingEventByUserId();
       },
       error: (error) => {
         console.error('Failed to update public status', error);

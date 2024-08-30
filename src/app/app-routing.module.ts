@@ -6,6 +6,8 @@ import {LoginComponent} from "./login/login.component";
 import {AuthGuard} from "./auth.guard";
 import {PublicNeedsComponent} from "./public-needs/public-needs.component";
 import {TermsAndConditionsComponent} from "./terms-and-conditions/terms-and-conditions.component";
+import {ForgotPasswordComponent} from "./forgot-password/forgot-password.component";
+import {ResetPasswordComponent} from "./reset-password/reset-password.component";
 
 const routes: Routes = [ {
     path: '',
@@ -15,6 +17,8 @@ const routes: Routes = [ {
       { path: 'login', component: LoginComponent },
       { path: 'public-needs', component: PublicNeedsComponent ,data: { showExploreLabel: false }},
       { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
+      { path: 'forgot-password', component: ForgotPasswordComponent },
+      { path: 'reset-password', component: ResetPasswordComponent },
       { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirect default to public needs page
       { path: '**', redirectTo: 'public-needs' } // Wildcard route to handle invalid URLs
     ]

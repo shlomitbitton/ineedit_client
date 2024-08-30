@@ -3,7 +3,6 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from "../auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserRegistrationService} from "../services/user-registration.service";
-import {User} from "../layout/user";
 import {NeedingEventService} from "../needing-event.service";
 
 @Component({

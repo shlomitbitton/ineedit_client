@@ -11,7 +11,11 @@
     <br/>
     <br/>
     <div *ngIf="!showEmptyList; else loading">
-      <button (click)="exportNeeds()" class="share-button">Share needs</button>
+      <input type="email" [(ngModel)]="shareEmail" class="share-needs-input" placeholder="Enter email address to share needs with someone" required />
+      <button (click)="shareSelectedNeeds()" class="share-button">Share Selected Needs</button>
+      <div *ngIf="message" [@fade] [ngClass]="{'success': !isError, 'error': isError}">
+        {{ message }}
+      </div>
       <ul>
         <ng-container  *ngFor="let vendor of filteredEventsMap | keyvalue">
               <h3 class="vendor-label">{{ vendor.key }}</h3>
@@ -34,6 +38,11 @@
                       <br/>
                       <span *ngIf="userNeed.needingEventStatus === 'Need'" #needDiv class="lighter-color">
                       I've needed it for {{ userNeed.daysListed }} days now</span>
+                    </div>
+                    <div>
+                      <label matTooltip="Share your needs with someone" class="public-tag">Share need</label>
+                      <input type="checkbox"  [checked]="userNeed.isSharedWithOthers === true"
+                      (change)="onCheckboxChange(userNeed.needingEventId)"/>
                     </div>
 
                     <div class="mobileversion" (click)="toggleInput()">
@@ -90,7 +99,8 @@
       </div>
 
 
-  <ng-template #loading class="cartoon-container">
-      <div class="cartoon-message">Your shopping list is empty!</div>
-  </ng-template>
+    <ng-template #loading class="cartoon-container">
+        <div class="cartoon-message">Your shopping list is empty!</div>
+    </ng-template>
 
+  </div>
