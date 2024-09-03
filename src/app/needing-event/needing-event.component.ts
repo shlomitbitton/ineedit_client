@@ -46,15 +46,29 @@ export class NeedingEventComponent implements OnInit{
   selectedSharedNeedIds: number[] = [];
   message: string = '';
   isError: boolean = false;
+  isSharedWithOthers: boolean = false;
 
   constructor(private cdr: ChangeDetectorRef, private needingEventService: NeedingEventService,
               private authService: AuthService) { }
 
 
-  onCheckboxChange(id: number): void {
-    // Clear the array of selected shared need IDs before updating
-    this.selectedSharedNeedIds = [];
-    this.selectedSharedNeedIds.push(id);
+  isNeedShared(id: number): boolean {
+    return this.selectedSharedNeedIds.includes(id);
+  }
+
+  onCheckboxChange(id: number, event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+
+    if (isChecked) {
+      // Add the ID to the array if it's checked
+      this.selectedSharedNeedIds.push(id);
+    } else {
+      // Remove the ID from the array if it's unchecked
+      const index = this.selectedSharedNeedIds.indexOf(id);
+      if (index > -1) {
+        this.selectedSharedNeedIds.splice(index, 1);
+      }
+    }
 
     console.log("Selected shared need IDs", this.selectedSharedNeedIds);
   }
@@ -89,6 +103,7 @@ export class NeedingEventComponent implements OnInit{
       alert('Please enter a valid email address.');
       return;
     }
+  
     this.needingEventService.shareNeeds(this.selectedSharedNeedIds, this.shareEmail, this.userId).subscribe( result =>{
       this.message = result.message;
       this.isError = result.isError;
