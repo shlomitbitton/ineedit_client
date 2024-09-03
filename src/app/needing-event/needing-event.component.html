@@ -41,9 +41,11 @@
                     </div>
                     <div>
                       <label matTooltip="Share your needs with someone" class="public-tag">Share need</label>
-                      <input type="checkbox"  [checked]="userNeed.isSharedWithOthers === true"
-                      (change)="onCheckboxChange(userNeed.needingEventId)"/>
+                      <input type="checkbox"
+                             [checked]="isNeedShared(userNeed.needingEventId)"
+                             (change)="onCheckboxChange(userNeed.needingEventId, $event)"/>
                     </div>
+
 
                     <div class="mobileversion" (click)="toggleInput()">
                       <span *ngIf="!isInputVisible">{{ userNeed.potentialVendor }}</span>
