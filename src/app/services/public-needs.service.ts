@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {development} from "../../environments/environment";
+import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {NeedingEvent} from "../models/needing-event";
 import {HttpClient} from "@angular/common/http";
@@ -9,7 +9,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class PublicNeedsService {
 
-  private apiUrl = development.apiUrl;
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 

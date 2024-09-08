@@ -1,6 +1,6 @@
 .public-need-header{
   width: 100%;
-  height: 50px; /* Adjust the height of the header bar */
+  height: 50px;
   background-color: #cedfeb;
   color: black;
   text-align: center;
@@ -17,11 +17,10 @@
     padding: 0 10px;
   }
 }
-.coming-soon{
+.public-need-main{
   font-size: 30px;
   font-family: 'Caveat', cursive;
   text-align: center;
-  /*padding-bottom: 300px;*/
 }
 
 .public-list-item {
@@ -39,3 +38,51 @@
   justify-content: flex-start; /* Ensure content starts from the left */
   text-align: left; /* Align text to the left */
 }
+
+.item-name {
+  font-family: 'Noteworthy', sans-serif;
+  font-size: medium;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.label {
+  font-weight: 300;
+  font-style: italic;
+  text-decoration: underline;
+  font-size: 1.2em;
+}
+
+.item-needed {
+  color: #28a745;
+  font-size: 1.3em;
+}
+
+.days-requested {
+  font-weight: 300;
+  font-style: italic;
+  margin-left: 5px;
+}
+
+.vendor-label {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.vendor-name {
+  color: #28a745;
+  font-size: 1.3em;
+}
+
+.email-link {
+  font-weight: 400;
+  text-decoration: underline;
+  color: purple;
+}
+
+.separator {
+  font-size: 1.2em;
+  color: #999;
+  margin-top: 15px;
+}
+

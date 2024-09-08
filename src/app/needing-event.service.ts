@@ -4,9 +4,8 @@ import { catchError, map, Observable, of, switchMap} from "rxjs";
 import {NeedingEvent} from "./models/needing-event";
 import {ActivatedRoute} from "@angular/router";
 import {UserDetails} from "./models/user-details";
-import {production} from "../environments/environment.prod";
 import {NeedyEventsMap} from "./models/NeedyEventsMap";
-import {development} from "../environments/environment";
+import {environment} from "../environments/environment";
 
 
 @Injectable({
@@ -17,7 +16,7 @@ export class NeedingEventService {
   userId!: string;
   userFirstName: string ='';
 
-  private apiUrl = production.apiUrl;
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 

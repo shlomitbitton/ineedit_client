@@ -2,15 +2,14 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {NewUser} from "../login/new-user";
 import { Observable} from "rxjs";
-import {production} from "../../environments/environment.prod";
-import {development} from "../../environments/environment";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserRegistrationService {
 
-  private apiUrl = production.apiUrl;
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient){
 
