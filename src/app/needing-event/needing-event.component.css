@@ -1,5 +1,5 @@
 .lighter-color {
-  color: #888; /* Light gray; adjust the color code as needed */
+  color: #888;
   font-size: 18px;
 }
 
@@ -151,8 +151,8 @@ input[type="checkbox"]:checked {
 
 .need-notes{
   border-radius: 2px;
-  width: 90%; /* Adjust the width percentage as needed to match the green outline */
-  height: 70px; /* Adjust the height as needed */
+  width: 90%;
+  height: 70px;
   border: 1px solid #ccc; /* Optional: Adds a light grey border */
   padding: 20px; /* Adds some padding inside the text box */
   box-sizing: border-box;
@@ -181,7 +181,7 @@ body {
 }
 
 .add-item input[type="text"] {
-  width: 60%; /* Adjust width as per your layout */
+  width: 60%;
   padding: 10px 15px;
   margin-right: 10px;
   border: 2px solid #0056b3; /* A nice blue border */
@@ -244,7 +244,7 @@ body {
 .cartoon-message {
   /* Simpler Cartoon-like Font */
   font-family: 'Comic Sans MS', 'Arial', fantasy;
-  font-size: 1.5em; /* Adjusted to a smaller size */
+  font-size: 1.5em;
   align-content: center;
   text-align: center;
 
@@ -276,7 +276,7 @@ body {
 }
 
 ::ng-deep .mat-tooltip {
-  margin-top: 1px; /* Adjust this value as necessary */
+  margin-top: 1px;
 }
 
 .fulfilled-needs-title {
@@ -294,27 +294,27 @@ body {
 .fulfilled-item {
   display: flex;
   align-items: center;
-  padding: 2px 0; /* Adjust padding as needed */
+  padding: 2px 0;
 
 }
 
 .fulfilled-toggle-container {
   display: flex;
   align-items: center;
-  padding: 0 2px; /* Adjust padding as needed */
+  padding: 0 2px;
   margin-right: 2px; /* Reduce margin to bring item name closer */
   flex: 0 0 200px; /* Set a fixed width for the toggle container */
 }
 
 .fulfilled-item-name {
-  font-size: 22px; /* Adjust font size as needed */
+  font-size: 22px;
   font-weight: normal;
   margin-left: 2px;
   flex-grow: 1;
 }
 
 .extra-column {
-  width: 10px; /* Adjust width as needed to control spacing */
+  width: 10px;
 }
 
 @media (max-width: 600px) {

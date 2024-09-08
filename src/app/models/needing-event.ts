@@ -7,7 +7,8 @@ export interface NeedingEvent{
     potentialVendor: string,
     needNotes: string,
     isPublic: number,
-    isSharedWithOthers: boolean
+    isSharedWithOthers: boolean,
+    ownerEmail: string
 
 
 }

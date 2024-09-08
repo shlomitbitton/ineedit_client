@@ -60,9 +60,9 @@
   display: flex;
   justify-content: space-between; /* This will push the logo to the left and links to the right */
   align-items: flex-end; /* Vertically align items in the middle */
-  width: 100%; /* Take full width of the parent container */
-  height: 100px; /* Fixed height; adjust as needed */
-  padding-right: 20px; /* Add padding on both sides */
+  width: 100%;
+  height: 100px;
+  padding-right: 20px;
   padding-bottom: 10px;
 }
 
@@ -75,7 +75,7 @@
 .login-link {
   color: #333333;
   font-family: Arial, fantasy;
-  font-size: 16px; /* Adjust as needed */
+  font-size: 16px;
   font-weight: bold;
   text-decoration: none; /* Remove underline for consistency */
   margin-bottom: 10px; /* Align with the bottom of the container */
@@ -89,7 +89,7 @@
 .public-needs-link {
   color: #888888; /* Pink color for visibility */
   font-family: Arial, fantasy;
-  font-size: 16px; /* Adjust as needed */
+  font-size: 16px;
   font-weight: bold;
   margin-bottom: 10px;
   margin-right: 5px;

@@ -10,6 +10,8 @@ import {PublicNeedsService} from "../services/public-needs.service";
 export class PublicNeedsComponent {
 
   publicNeeds: NeedingEvent[] = [];
+
+
   showExploreLabel = false;
   constructor(private needsService: PublicNeedsService) { }
 

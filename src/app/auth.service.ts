@@ -4,8 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {NeedingEventService} from "./needing-event.service";
 import { Router } from '@angular/router';
 import {TokenStorageService} from "./services/token-storage.service";
-import {development} from "../environments/environment";
-import {production} from "../environments/environment.prod";
+import {environment} from "../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,7 @@ import {production} from "../environments/environment.prod";
 export class AuthService {
 
 
-  private apiUrl = production.apiUrl;
+  private apiUrl = environment.apiUrl;
   private userIdSource = new BehaviorSubject<string | null>(null);
 
   // Observable to be consumed by other parts of the app
