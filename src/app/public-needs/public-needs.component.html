@@ -5,9 +5,10 @@
   <br/>
   <br/>
   <div class="public-need-main">
-      <span>
-        <img src='../../assets/public-needs-notice.png' alt="" height="150" width="900">
-      </span>
+     <span class="public-need-message">
+       You can make your needs public so other users can see them and potentially help you. By making a need public, you agree that other users may contact you via email to support your need. When you choose to make a need public, try to provide as much detail as possible so others can fully understand your request.
+<!--      <img src='../../assets/public-needs-notice.png' alt="Public Needs Announcement">-->
+    </span>
     <ul *ngIf="publicNeeds.length > 0; else noPublicNeeds">
       <ng-container *ngFor="let need of publicNeeds; let i = index">
         <li class="public-list-item">
