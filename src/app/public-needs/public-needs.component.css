@@ -86,3 +86,14 @@
   margin-top: 15px;
 }
 
+span img {
+  width: 100%;
+  height: auto;
+  max-width: 900px; /* maximum width of the image */
+}
+
+.public-need-message {
+  color: red;
+  font-size: x-large;
+}
+
