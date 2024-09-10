@@ -247,11 +247,9 @@ body {
   font-size: 1.5em;
   align-content: center;
   text-align: center;
-
   /* Moderate Text Colors */
-  color: #333333; /* Bright orange color */
+  color: #0056b3; /* Bright orange color */
   text-shadow: 1px 1px 0 #000; /* Single shadow for depth */
-
   /* Background and Padding */
   background-color: #fff3e0; /* Softer background */
   padding: 10px; /* Smaller padding */
