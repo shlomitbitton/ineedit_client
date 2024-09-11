@@ -5,9 +5,10 @@
   </div>
   <div class="links">
     <!-- Links here -->
-    <a *ngIf="showExploreLabel" routerLink="/public-needs" class="public-needs-link">Explore others' needs</a>
-    &nbsp;&nbsp;&nbsp;<a *ngIf="showMyNeeds"  [routerLink]="['/all-needs-by-user']" [queryParams]="{ 'user-id': userId }" class="public-needs-link">My needs</a>
-    &nbsp;&nbsp;&nbsp;<a (click)="navigateAndRefresh('/login')" class="login-link">Login</a>
+    <button class="other-needs-button" *ngIf="showExploreLabel" routerLink="/public-needs" >Explore others' needs</button>
+    &nbsp;&nbsp;&nbsp;<button class="my-needs-button" *ngIf="showMyNeeds"  [routerLink]="['/all-needs-by-user']" [queryParams]="{ 'user-id': userId }" >My needs</button>&nbsp;&nbsp;&nbsp;
+<!--    &nbsp;&nbsp;&nbsp;<a (click)="navigateAndRefresh('/login')" class="login-link">Login</a>-->
+      <button (click)="navigateAndRefresh('/login')" class="login-button">Login</button>
   </div>
 </div>
 

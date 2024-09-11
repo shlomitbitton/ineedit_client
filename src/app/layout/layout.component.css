@@ -129,4 +129,69 @@
 }
 
 
+.login-button {
+  background-color: #f9a825; /* Gold color from your logo */
+  color: white; /* White text */
+  border: none; /* No border for a sleek look */
+  padding: 10px 20px; /* Increased padding for more width relative to height */
+  font-size: 16px; /* Suitable font size */
+  font-weight: bold; /* Bold font for clarity */
+  border-radius: 50px; /* Large radius to ensure elliptical shape */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition effects */
+  cursor: pointer; /* Cursor pointer to indicate it's clickable */
+  outline: none; /* No outline to keep style clean */
+}
+
+.login-button:hover {
+  background-color: #c17900; /* Darker gold on hover for visual feedback */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* More pronounced shadow on hover */
+}
+
+.login-button:active {
+  background-color: #af6c00; /* Even darker gold when pressed */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow to mimic a press effect */
+}
+
+.other-needs-button {
+  background-color: #b8d2e1; /* Gold color from your logo */
+  color: black; /* White text */
+  border: none; /* No border for a sleek look */
+  padding: 10px 20px; /* Increased padding for more width relative to height */
+  font-size: 16px; /* Suitable font size */
+  font-weight: bold; /* Bold font for clarity */
+  border-radius: 50px; /* Large radius to ensure elliptical shape */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition effects */
+  cursor: pointer; /* Cursor pointer to indicate it's clickable */
+  outline: none; /* No outline to keep style clean */
+}
+
+.my-needs-button {
+  background-color: #b8d2e1; /* Gold color from your logo */
+  color: white; /* White text */
+  border: none; /* No border for a sleek look */
+  padding: 10px 20px; /* Increased padding for more width relative to height */
+  font-size: 16px; /* Suitable font size */
+  font-weight: bold; /* Bold font for clarity */
+  border-radius: 50px; /* Large radius to ensure elliptical shape */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition effects */
+  cursor: pointer; /* Cursor pointer to indicate it's clickable */
+  outline: none; /* No outline to keep style clean */
+}
+
+.other-needs:hover {
+  background-color: #cedfeb; /* Darker gold on hover for visual feedback */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* More pronounced shadow on hover */
+}
+
+.other-needsn:active {
+  background-color: #a1c5d7; /* Even darker gold when pressed */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow to mimic a press effect */
+}
+
+
+
+
 
