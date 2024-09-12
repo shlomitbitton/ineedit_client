@@ -4,11 +4,9 @@
     <img src="assets/ineedit_logo_tilted.ico" alt="Logo" class="logo">
   </div>
   <div class="links">
-    <!-- Links here -->
-    <button class="other-needs-button" *ngIf="showExploreLabel" routerLink="/public-needs" >Explore others' needs</button>
-    &nbsp;&nbsp;&nbsp;<button class="my-needs-button" *ngIf="showMyNeeds"  [routerLink]="['/all-needs-by-user']" [queryParams]="{ 'user-id': userId }" >My needs</button>&nbsp;&nbsp;&nbsp;
-<!--    &nbsp;&nbsp;&nbsp;<a (click)="navigateAndRefresh('/login')" class="login-link">Login</a>-->
+   <button class="my-needs-button" *ngIf="showMyNeeds"  [routerLink]="['/all-needs-by-user']" [queryParams]="{ 'user-id': userId }" >My needs</button>&nbsp;&nbsp;&nbsp;
       <button (click)="navigateAndRefresh('/login')" class="login-button">Login</button>
+    &nbsp;&nbsp;&nbsp;<button class="other-needs-button" *ngIf="showExploreLabel" routerLink="/public-needs" >Explore others' needs</button>
   </div>
 </div>
 
