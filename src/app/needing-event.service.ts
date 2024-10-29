@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams, withFetch} from "@angular/common/http";
 import { catchError, map, Observable, of, switchMap} from "rxjs";
-import {NeedingEvent} from "./models/needing-event";
+import {NeedingEvent} from "./models/Needing-event";
 import {ActivatedRoute} from "@angular/router";
 import {UserDetails} from "./models/user-details";
 import {NeedyEventsMap} from "./models/NeedyEventsMap";

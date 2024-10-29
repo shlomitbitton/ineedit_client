@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
-import {NeedingEvent} from "../models/needing-event";
+import {NeedingEvent} from "../models/Needing-event";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({

@@ -154,8 +154,22 @@
 }
 
 .other-needs-button {
+  font-weight: bold;
   background-color: #b8d2e1; /* Gold color from your logo */
   color: black; /* White text */
+  border: none; /* No border for a sleek look */
+  padding: 10px 20px; /* Increased padding for more width relative to height */
+  font-size: 16px; /* Suitable font size */
+  border-radius: 50px; /* Large radius to ensure elliptical shape */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition effects */
+  cursor: pointer; /* Cursor pointer to indicate it's clickable */
+  outline: none; /* No outline to keep style clean */
+}
+
+.my-needs-button {
+  background-color: #b8d2e1; /* Gold color from the logo */
+  color: white; /* White text */
   border: none; /* No border for a sleek look */
   padding: 10px 20px; /* Increased padding for more width relative to height */
   font-size: 16px; /* Suitable font size */
@@ -167,13 +181,29 @@
   outline: none; /* No outline to keep style clean */
 }
 
-.my-needs-button {
-  background-color: #b8d2e1; /* Gold color from your logo */
-  color: white; /* White text */
+.notify-dropoff-button {
+  font-weight: bold;
+  background-color: #ebccd1;
+  color: #333333;
   border: none; /* No border for a sleek look */
   padding: 10px 20px; /* Increased padding for more width relative to height */
   font-size: 16px; /* Suitable font size */
-  font-weight: bold; /* Bold font for clarity */
+  /*font-weight: bold; !* Bold font for clarity *!*/
+  border-radius: 50px; /* Large radius to ensure elliptical shape */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition effects */
+  cursor: pointer; /* Cursor pointer to indicate it's clickable */
+  outline: none; /* No outline to keep style clean */
+}
+
+.items-outside-button {
+  font-weight: bold;
+  background-color: #D6CDE3;
+  color: #333333;
+  border: none; /* No border for a sleek look */
+  padding: 10px 20px; /* Increased padding for more width relative to height */
+  font-size: 16px; /* Suitable font size */
+  /*font-weight: bold; !* Bold font for clarity *!*/
   border-radius: 50px; /* Large radius to ensure elliptical shape */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
   transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition effects */

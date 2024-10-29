@@ -6,8 +6,7 @@
   <br/>
   <div class="public-need-main">
      <span class="public-need-message">
-       You can make your needs public so other users can see them and potentially help you. By making a need public, you agree that other users may contact you via email to support your need. When you choose to make a need public, try to provide as much detail as possible so others can fully understand your request.
-<!--      <img src='../../assets/public-needs-notice.png' alt="Public Needs Announcement">-->
+       You can make your needs public so other users can see them and help fulfill them. By making a need public, you agree that other users may contact you via email to support your need. When you choose to make a need public, try to provide as much detail as possible so others can fully understand your request.
     </span>
     <ul *ngIf="publicNeeds.length > 0; else noPublicNeeds">
       <ng-container *ngFor="let need of publicNeeds; let i = index">
@@ -22,7 +21,9 @@
             <span class="vendor-label">This item can be found at&nbsp;&nbsp;</span>
             <span class="vendor-name">{{need.potentialVendor}}.</span>
             <br/>
-            If you can help, please communicate through <a href="mailto:{{need.ownerEmail}}" class="email-link">email</a>.
+            I can help <button (click)="openChat(need.ownerEmail)" class="chat-button">Chat</button>
+<!--            <a href="mailto:{{need.ownerEmail}}" class="email-link">email</a>.-->
+
             <br/><br/>
             <div class="separator">*******************************************************</div>
           </div>
