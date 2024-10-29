@@ -1,0 +1,45 @@
+<div class="content">
+  <h1  class="items-outside-header">
+    Items available
+  </h1>
+  <input type="text" placeholder="Filter by Zip Code" [(ngModel)]="zipCodeFilter" class="filter-input" />
+
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+<table class="table" *ngIf="availableItems.length > 0; else noData">
+  <thead>
+  <tr>
+    <th>Item left</th>
+    <th>Image</th>
+    <th>Street</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zip Code</th>
+  </tr>
+  </thead>
+  <tbody>
+<!--  <ng-container *ngIf="username | async as resolvedUsername">-->
+  <tr *ngFor="let item of filteredItems()">
+<!--      [ngStyle]="{'background-color': ('' === item.userEmail) ? '#f0f8ff' : 'transparent'}">-->
+    <td>{{ item.itemName }}</td>
+    <td>
+      <img [src]="loadImage(item.fileLocation)" alt="{{ item.itemName }}" width="100" height="100">
+    </td>
+    <td>{{ item.street }}</td>
+    <td>{{ item.city }}</td>
+    <td>{{ item.state }}</td>
+    <td>{{ item.zipcode }}</td>
+    <td *ngIf=showDeleteButton(item.userEmail) class="trash-column">
+      <button  (click)="deleteItem(item.itemId)" class="trash-button">
+        🗑️
+      </button>
+    </td>
+  </tr>
+<!--  </ng-container>-->
+  </tbody>
+</table>
+</div>
+<ng-template #noData>
+  <p>No available items found.</p>
+</ng-template>
+

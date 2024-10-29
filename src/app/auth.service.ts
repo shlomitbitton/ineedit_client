@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, catchError, map, Observable, of, switchMap, tap} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {NeedingEventService} from "./needing-event.service";
 import { Router } from '@angular/router';
 import {TokenStorageService} from "./services/token-storage.service";
 import {environment} from "../environments/environment";
+import {UserResponseDto} from "./models/UserResponseDto";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,6 @@ export class AuthService {
   private apiUrl = environment.apiUrl;
   private userIdSource = new BehaviorSubject<string | null>(null);
 
-  // Observable to be consumed by other parts of the app
   userStatusChanges = this.userIdSource.asObservable();
 
   constructor(private http: HttpClient,private router: Router, private needingEventService: NeedingEventService,
@@ -23,12 +23,35 @@ export class AuthService {
 
   logout(): void {
     sessionStorage.removeItem('userId');
-    this.userIdSource.next(null); // Emit null to indicate no user
+    this.userIdSource.next(null);
   }
 
   getCurrentUserId(): string | null {
     return sessionStorage.getItem('userId');
   }
+
+
+  getCurrentUserEmail(): Observable<string>{
+    const userId = this.getCurrentUserId();
+        if (userId) {
+          const params = new HttpParams().set('user-id', userId);
+        const userDetails = this.http.get<UserResponseDto>(`${this.apiUrl}user-details`, {params});
+        return userDetails.pipe(
+          map(response => response.userEmail),
+          catchError(error => {
+            console.error('Error fetching user email:', error);
+            return of('');
+          })
+        );
+    } else {
+        // Return an observable with an empty string if userId is not found
+          return new Observable<string>(observer => {
+            observer.next('');
+            observer.complete();
+          });
+        }
+  }
+
 
   login(userId: string): void {
     sessionStorage.setItem('userId', userId);

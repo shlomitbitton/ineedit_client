@@ -1,0 +1,16 @@
+
+
+<h1 mat-dialog-title>Chat with {{ data.ownerEmail }}</h1>
+<div mat-dialog-content *ngFor="let message of messages">
+  <p>{{ message }}</p>
+</div>
+<input [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" type="text" placeholder="Type a message...">
+<button (click)="sendMessage()">Send</button>
+<ul>
+  <li *ngFor="let message of messages">{{ message }}</li>
+</ul>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Close</button>
+</div>
+
+

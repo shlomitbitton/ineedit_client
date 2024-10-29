@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {NeedingEventService} from "../needing-event.service";
 import {ActivatedRoute} from "@angular/router";
-import {NeedingEvent} from "../models/needing-event";
+import {NeedingEvent} from "../models/Needing-event";
 import {FormControl} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {AuthService} from "../auth.service";
@@ -103,7 +103,7 @@ export class NeedingEventComponent implements OnInit{
       alert('Please enter a valid email address.');
       return;
     }
-  
+
     this.needingEventService.shareNeeds(this.selectedSharedNeedIds, this.shareEmail, this.userId).subscribe( result =>{
       this.message = result.message;
       this.isError = result.isError;

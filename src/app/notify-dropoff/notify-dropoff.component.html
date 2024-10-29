@@ -1,0 +1,59 @@
+<div class="content">
+  <h1  class="notify-dropoff-header">
+    Notify a Pickup Location
+  </h1>
+  <p  class="notify-dropoff-title">
+    List items you’ve left outside for neighbors to take.
+  </p>
+  <br/>
+  <div class="notify-dropoff-main">
+
+      <form [formGroup]="dropoffForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input  type="text" id="email" formControlName="email" class="item-left" required />
+        </div>
+
+        <!-- Item left input -->
+        <div class="form-group">
+          <label for="item">Item Left:</label>
+          <input  type="text" id="item" formControlName="itemLeft" class="item-left" required />
+        </div>
+
+        <!-- Photo input -->
+        <div class="form-group" >
+          <label for="file" class="custom-file-label">Upload Photo</label>
+          <input type="file" id="file" (change)="onFileChange($event)" class="custom-file-input" />
+           <span class="file-name">{{ originalFilename || 'No file selected' }}</span>
+        </div>
+
+        <div class="address-group">
+          <div class="form-group">
+            <label for="street">Street:</label>
+            <input type="text" id="street" formControlName="street" required />
+          </div>
+          <div class="form-group">
+            <label for="city">City:</label>
+            <input type="text" id="city" formControlName="city" required />
+          </div>
+          <div class="form-group">
+            <label for="state">State:</label>
+            <input type="text" id="state" formControlName="state" required />
+          </div>
+          <div class="form-group zip-code-group">
+            <label for="zipcode">Zip Code:</label>
+            <input type="text" id="zipcode" formControlName="zipcode" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input type="checkbox" id="consentCheckbox" formControlName="consentCheckbox">
+          <label for="consentCheckbox">I confirm that I am authorized to provide this address and consent to its use for listing items on this platform.</label>
+        </div>
+
+        <button type="submit" class="submit-button" [disabled]="!dropoffForm.valid">Submit</button>
+      </form>
+    </div>
+
+</div>
