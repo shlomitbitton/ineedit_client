@@ -16,7 +16,8 @@ export class WebsocketService {
     });
 
     // Subscribe to a topic after connecting
-    this.stompClient.onConnect = (frame) => {
+
+    this.stompClient.onConnect = (frame: any) => {
       console.log('Connected: ' + frame);
 
       this.stompClient.subscribe('/topic/messages', (message: IMessage) => {

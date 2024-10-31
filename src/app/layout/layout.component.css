@@ -236,6 +236,15 @@
     padding: 8px 16px;
     font-size: 14px;
   }
+  .items-outside-button{
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+  .notify-dropoff-button{
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
 }
 
 

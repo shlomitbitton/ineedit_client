@@ -87,9 +87,6 @@ input:focus + .slider {
   box-shadow: 0 0 1px #088F8F;
 }
 
-.content {
-  /*flex-grow: 1; !* Allows the content to take up the rest of the space *!*/
-}
 
 .toggle-container {
   display: flex;

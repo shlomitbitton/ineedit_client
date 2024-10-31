@@ -2,9 +2,10 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 .content, .vendor, .toggle {
-  flex: 1; /* Each section takes equal width */
+  flex: 1;
   padding-bottom: 250px;
 }
+
 
 .header {
   width: 100%;
