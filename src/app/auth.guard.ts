@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
       return true;
     } else {
       // No token found, redirect to the public needs page
-      this.router.navigate([`/public-needs`], { queryParams: {returnUrl: state.url  } })
+      this.router.navigate([`/items-outside`], { queryParams: {returnUrl: state.url  } })
         .then(() => console.log("Navigation successful!"))
         .catch(err => console.error("Navigation error: ", err)), // Handling navigation errors
       catchError(error => {

@@ -20,19 +20,22 @@
       <label for="username">Email Address:</label>
       <input type="text" id="username" formControlName="username" required>
       <div *ngIf="registerForm.controls['username'].invalid && registerForm.controls['username'].touched">
-        Email Address is required.
+        <span *ngIf="registerForm.controls['username'].errors?.['customEmail']">Please enter a valid email address.</span>
       </div>
-      <div *ngIf="usernameExistsError" class="error-message">
-        Email Address already exists.
-      </div>
-      <div *ngIf="usernameIsInvalidError" class="error-message">
-        Invalid Email Address.
-      </div>
+<!--      <div *ngIf="usernameExistsError" class="alert-danger">-->
+<!--        Email Address already exists.-->
+<!--      </div>-->
+<!--      <div *ngIf="usernameIsInvalidError" class="alert-danger">-->
+<!--        Please enter a valid email address-->
+<!--      </div>-->
       <br/>
       <label for="password">Password:</label>
       <input type="password" id="password" formControlName="password" required>
       <div *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].touched">
         Password is required.
+      </div>
+      <div *ngIf="registrationErrorMessage" class="alert alert-danger">
+        {{ registrationErrorMessage }}
       </div>
       <br/>
       <button type="submit" [disabled]="registerForm.invalid">Register</button>
