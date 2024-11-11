@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {NotifyDropoffService} from "../services/notify-dropoff.service";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-notify-dropoff',
@@ -15,8 +16,11 @@ export class NotifyDropoffComponent {
   email: string | null | undefined
   file: File | undefined;
   originalFilename: string = 'No file selected';
+  username: string = '';
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private notifyDropoffService: NotifyDropoffService,  private route: Router) {
+
+  constructor(private fb: FormBuilder, private notifyDropoffService: NotifyDropoffService,  private route: Router,
+              private authService: AuthService) {
     this.dropoffForm = this.fb.group({
       itemLeft: ['', Validators.required],
       street: ['', Validators.required],
@@ -29,6 +33,14 @@ export class NotifyDropoffComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.authService.getCurrentUserEmail().subscribe(userEmail => {
+      this.dropoffForm.get('email')?.setValue(userEmail);
+      if(userEmail != ''){
+        this.dropoffForm.get('email')?.disable();
+      }
+    });
+  }
 
   onFileChange(event: any): void {
     const element = event.currentTarget as HTMLInputElement;

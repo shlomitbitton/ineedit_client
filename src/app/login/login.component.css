@@ -61,37 +61,37 @@ input.error {
 }
 
 button[type="submit"] {
-  background-color: #4CAF50;       /* Green button background */
-  color: white;                    /* White text color */
-  border: none;                    /* No border on the button */
-  cursor: pointer;                 /* Cursor style to indicate a clickable element */
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
 button[type="submit"]:hover {
-  background-color: #45a049;       /* Darker green on hover */
+  background-color: #45a049;
 }
 
 /* Labels for form fields */
 label {
-  font-weight: bold;               /* Bold font weight */
-  margin-bottom: 5px;              /* Adds space between labels and fields */
-  display: block;                  /* Ensures labels occupy a new line */
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
 }
 
-/* General alert styles */
+
 .alert {
   padding: 8px;
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px;
-  color: black; /* Text color */
-  background-color: #66BB6A; /* Background color */
+  color: black;
+  background-color: #66BB6A;
 }
 
-/* Alert-danger styles for error messages */
+
 .alert-danger {
-  color: #a94442; /* Text color */
-  background-color: #f2dede; /* Background color */
-  border-color: #ebccd1; /* Border color */
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
 }
 

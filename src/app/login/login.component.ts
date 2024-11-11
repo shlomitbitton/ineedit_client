@@ -1,5 +1,13 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators
+} from '@angular/forms';
 import {AuthService} from "../auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserRegistrationService} from "../services/user-registration.service";
@@ -15,6 +23,7 @@ export class LoginComponent {
   returnUrl: string = '';
   userId!: string;
   loginErrorMessage: string | null = null;
+  registrationErrorMessage: string | null = null;
   showRegisterForm = false;
   showRegistrationSuccessfulMessage = false;
   loginForm = new FormGroup({
@@ -24,22 +33,21 @@ export class LoginComponent {
 
   registerForm: FormGroup;
   usernameExistsError= false;
-  usernameIsInvalidError= false;
+  // usernameIsInvalidError= false;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private authService: AuthService,
-              private userRegistration: UserRegistrationService, private needingEventService: NeedingEventService) {
+              private userRegistration: UserRegistrationService) {
     this.registerForm = this.fb.group({
-      // userFirstName: ['', Validators.required],
-      // userLastName: ['', Validators.required],
-      // userEmail: ['', [Validators.required, Validators.email]],
-      username: ['', Validators.required],
+      username: ['', [Validators.required, Validators.email, this.customEmailValidator()]],
       password: ['', Validators.required]
     });
   }
 
 
+
   onSubmit() {
     this.loginErrorMessage = '';
+    this.registrationErrorMessage = '';
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'];
 
     const username = this.loginForm.get('username')?.value || '';
@@ -96,28 +104,49 @@ export class LoginComponent {
             // this.registerForm =  new FormGroup({});
             this.showRegisterForm = false;
             this.usernameExistsError = false;
-            this.loginErrorMessage = '';
+            this.registrationErrorMessage = '';
             this.showRegistrationSuccessfulMessage = true;
           } else {
             console.error('Registration Error:', response.message);
-            this.loginErrorMessage = response.message;
+            this.registrationErrorMessage = response.message;
             if (response.message === "Username already exists.") {
-              this.usernameIsInvalidError = false;
+              // this.usernameIsInvalidError = false;
               this.usernameExistsError = true;
+              this.registrationErrorMessage = "Email address already exists.";
             }
-            if (response.message === "Username is invalid.") {//"Username should contain no spaces and be between 5 and 20 characters long..
-              this.usernameExistsError = false;
-              this.usernameIsInvalidError = true;
-            }
+            // if (response.message === "Username is invalid.") {//"Username should contain no spaces and be between 5 and 20 characters long..
+            //   this.usernameExistsError = false;
+            //   this.usernameIsInvalidError = true;
+            // }
           }
         },
         error: (error) => {
           console.error('Registration error:', error);
-          this.loginErrorMessage = 'Registration failed.';
+          this.registrationErrorMessage = 'Registration failed.';
         },
         complete: () => console.log('Registration completed.')
       });
+    }else{
+      console.log("Form is invalid. Checking control errors: ");
+      Object.keys(this.registerForm.controls).forEach((controlName) => {
+          const control = this.registerForm.get(controlName);
+          console.log(`Control ${controlName}:`, control?.errors);
+          if (controlName === 'username' && control?.errors) {
+            if (control.errors['email']) {
+              this.registrationErrorMessage = 'Email address is invalid';
+            }
+          }
+      }
+      );
     }
+  }
+
+  customEmailValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      const valid = emailRegex.test(control.value);
+      return valid ? null : { customEmail: true };
+    };
   }
 
 }
