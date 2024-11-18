@@ -30,11 +30,11 @@ export class NeedingEventService {
       );
   }
 
-  getNeedingEventByUserId(userId: string): Observable<NeedyEventsMap> {
-    let params = new HttpParams().set('user-id', userId);
-    this.userId = userId;
+  getNeedingEventByUserId(): Observable<NeedyEventsMap> {
+    // let params = new HttpParams().set('user-id', userId);
+    // this.userId = userId;
     console.log(`getNeedingEventByUserId`);
-    return this.http.get<NeedyEventsMap>(`${this.apiUrl}all-needs-by-user`, {params: params})
+    return this.http.get<NeedyEventsMap>(`${this.apiUrl}all-needs-by-user`)
       .pipe(
         catchError(this.handleError<NeedyEventsMap>("Error fetching needing events", {}))
       );
@@ -86,7 +86,7 @@ export class NeedingEventService {
 
   getShoppingCategory(newItemName: string): Observable<string> {
     console.log(`Getting shopping category for item: ${newItemName}`);
-    return this.getNeedingEventByUserId(this.userId).pipe(
+    return this.getNeedingEventByUserId().pipe(
       map(eventsMap => {
         const normalizedNewItemName = newItemName.toLowerCase();
         let categoryFound: string | undefined = undefined;
@@ -121,7 +121,7 @@ export class NeedingEventService {
 
 getVendor(newItemName: string): Observable<string> {
   console.log(`Getting vendor for item: ${newItemName}`);
-  return this.getNeedingEventByUserId(this.userId).pipe(
+  return this.getNeedingEventByUserId().pipe(
     map(eventsMap => {
       const normalizedNewItemName = newItemName.toLowerCase();
       let vendorFound: string | undefined = undefined;
@@ -187,7 +187,7 @@ createOrUpdateItem(newItemName: string): Observable<any> {
             const body = {
               itemNeeded: newItemName,
               shoppingCategory: shoppingCategory,
-              userId: this.fetchUserDetails(this.userId),
+              userId: this.fetchUserDetails(),
               vendorName: vendorName  // Use the fetched or default vendor name
             };
             const url = `${this.apiUrl}add-update-needing-event`;
@@ -231,20 +231,20 @@ createOrUpdateItem(newItemName: string): Observable<any> {
     return this.http.put(url, body);
   }
 
-  getUserDetailsById(userId: string): Observable<any> {
-    const url = `${this.apiUrl}user-details?user-id=${userId}`;
+  getUserDetailsById(): Observable<any> {
+    const url = `${this.apiUrl}user-details`;
     return this.http.get(url);
   }
 
-  getUserFirstName(userId: string): Observable<UserDetails> {
-    const url = `${this.apiUrl}user-details?user-id=${userId}`;
-    console.info("getUserFirstName");
-    return this.http.get<UserDetails>(url);
-  }
+  // getUserFirstName(): Observable<UserDetails> {
+  //   const url = `${this.apiUrl}user-details`;
+  //   console.info("getUserFirstName");
+  //   return this.http.get<UserDetails>(url);
+  // }
 
-  fetchUserDetails(userId: string): string {
+  fetchUserDetails(): string {
     console.info("fetching user details");
-    this.getUserDetailsById(userId).subscribe({
+    this.getUserDetailsById().subscribe({
       next: (data) => {
         this.userFirstName =  data.userFirstName;
       },
@@ -252,7 +252,7 @@ createOrUpdateItem(newItemName: string): Observable<any> {
         console.error('Failed to fetch user details:', err);
       }
     });
-    return userId;
+    return this.userId;
   }
 
 

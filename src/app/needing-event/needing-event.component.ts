@@ -70,7 +70,7 @@ export class NeedingEventComponent implements OnInit{
       }
     }
 
-    console.log("Selected shared need IDs", this.selectedSharedNeedIds);
+    // console.log("Selected shared need IDs", this.selectedSharedNeedIds);
   }
 
   /*
@@ -283,7 +283,7 @@ export class NeedingEventComponent implements OnInit{
 
   getNeedingEventByUserId(): void {
     if (this.userId !== null) {
-      this.needingEventService.getNeedingEventByUserId(this.userId).subscribe({
+      this.needingEventService.getNeedingEventByUserId().subscribe({
         next: (data) => {
           if (data && Object.keys(data).length > 0) {
             // Data is a non-empty array
