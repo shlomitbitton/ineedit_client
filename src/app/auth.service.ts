@@ -34,8 +34,8 @@ export class AuthService {
   getCurrentUserEmail(): Observable<string>{
     const userId = this.getCurrentUserId();
         if (userId) {
-          const params = new HttpParams().set('user-id', userId);
-        const userDetails = this.http.get<UserResponseDto>(`${this.apiUrl}user-details`, {params});
+          // const params = new HttpParams().set('user-id', userId);
+        const userDetails = this.http.get<UserResponseDto>(`${this.apiUrl}user-details`);
         return userDetails.pipe(
           map(response => response.userEmail),
           catchError(error => {
@@ -71,10 +71,10 @@ export class AuthService {
           this.tokenStorage.saveToken(response.token);
           // Also save the userId to session storage
           sessionStorage.setItem('userId', response['user-id']);
-          return this.needingEventService.getNeedingEventByUserId(response['user-id']).pipe(
+          return this.needingEventService.getNeedingEventByUserId().pipe(
             tap(events => {
               // Navigate to the user-specific page after fetching events
-              this.router.navigate([`all-needs-by-user`], { queryParams: { 'user-id': response['user-id']}})
+              this.router.navigate([`all-needs-by-user`])
                 .then(() => console.log("Navigation successful!"))
                 .catch(err => console.error("Navigation error: ", err)); // Handling navigation errors
             }),

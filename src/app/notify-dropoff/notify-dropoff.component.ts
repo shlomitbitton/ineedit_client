@@ -12,7 +12,6 @@ import {AuthService} from "../auth.service";
 })
 export class NotifyDropoffComponent {
   dropoffForm: FormGroup;
-  userId!: string | null;
   email: string | null | undefined
   file: File | undefined;
   originalFilename: string = 'No file selected';
